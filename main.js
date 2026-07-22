@@ -1,31 +1,32 @@
-// Регистрируем плагин
 gsap.registerPlugin(ScrollTrigger);
 gsap.set(".service-node", { opacity: 0, y: 50 });
 
-// --- 1. КАТАЛОГ ДАННЫХ ---
+// --- 1. КАТАЛОГ ДАННЫХ (Заменены битые ссылки на надежный dummyimage) ---
+const imgPlaceholder = "https://dummyimage.com/300x150/f9fafb/6b7280.png&text=PHOTO";
+
 const catalogData = [
-    { id: 1, title: "AERONIK On/Off ASI-09 HS5", brand: "aeronik", brandLabel: "AERONIK", type: "onoff", price: "29 600 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Завод изготовитель": "GREE inc.", "Рекомендуемая площадь": "До 25 кв.м.", "Мощность": "2550 Вт", "Класс энергии": "A" } },
-    { id: 2, title: "AERONIK Inverter ASI-12 INV", brand: "aeronik", brandLabel: "AERONIK", type: "inverter", price: "38 900 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Компрессор": "Инверторный", "Класс энергии": "A++" } },
-    { id: 3, title: "GREEN Eco Inverter 09", brand: "gree", brandLabel: "GREEN", type: "inverter", price: "34 000 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Компрессор": "Инверторный", "Уровень шума": "22 дБ" } },
-    { id: 4, title: "CHERBROOKE Japan Inverter 12", brand: "gree", brandLabel: "CHERBROOKE", type: "inverter", price: "44 900 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Класс": "A+++", "Обогрев": "до −15°C" } },
-    { id: 5, title: "Kentatsu YUKI Inverter 09", brand: "kentatsu", brandLabel: "KENTATSU", type: "inverter", price: "41 200 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Серия": "YUKI Premium", "Рекомендуемая площадь": "До 25 кв.м.", "Wi-Fi": "Опционально" } },
-    { id: 6, title: "Kentatsu Tagawa 2.0 Inverter 18", brand: "kentatsu", brandLabel: "KENTATSU", type: "inverter", price: "67 500 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 50 кв.м.", "Класс энергии": "A+++", "Фильтр": "Cold Plasma" } },
-    { id: 7, title: "Daikin Sensira FTXF-D 09", brand: "daikin", brandLabel: "DAIKIN", type: "inverter", price: "52 800 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Класс энергии": "A++", "Уровень шума": "19 дБ" } },
-    { id: 8, title: "Daikin Sensira FTXF-D 12", brand: "daikin", brandLabel: "DAIKIN", type: "inverter", price: "58 400 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Класс энергии": "A++", "Обогрев": "до −20°C" } },
-    { id: 9, title: "Daikin On/Off FTXB-C 09", brand: "daikin", brandLabel: "DAIKIN", type: "onoff", price: "46 200 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Тип компрессора": "On/Off", "Класс энергии": "A" } },
-    { id: 10, title: "Mitsubishi Electric MSZ-HR 09", brand: "mitsubishi", brandLabel: "MITSUBISHI", type: "inverter", price: "61 900 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Серия": "HR Inverter", "Рекомендуемая площадь": "До 25 кв.м.", "Класс энергии": "A++" } },
-    { id: 11, title: "Mitsubishi Electric MSZ-HR 12", brand: "mitsubishi", brandLabel: "MITSUBISHI", type: "inverter", price: "68 500 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Обогрев": "до −15°C", "Уровень шума": "21 дБ" } },
-    { id: 12, title: "Haier Flexis Plus 09", brand: "haier", brandLabel: "HAIER", type: "inverter", price: "39 800 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Wi-Fi": "Встроенный", "Класс энергии": "A++" } },
-    { id: 13, title: "Haier Jade Super Match 12", brand: "haier", brandLabel: "HAIER", type: "inverter", price: "47 600 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Самоочистка": "Есть", "Класс энергии": "A+++" } },
-    { id: 14, title: "Gree Pular Inverter 09", brand: "gree", brandLabel: "GREE", type: "inverter", price: "36 500 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Компрессор": "GREE G10", "Класс энергии": "A++" } },
-    { id: 15, title: "Gree Lyra On/Off 12", brand: "gree", brandLabel: "GREE", type: "onoff", price: "31 200 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Тип компрессора": "On/Off", "Класс энергии": "A" } },
-    { id: 16, title: "Midea Breezeless E 09", brand: "midea", brandLabel: "MIDEA", type: "inverter", price: "42 300 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Wi-Fi": "Встроенный", "Класс энергии": "A+++" } },
-    { id: 17, title: "Midea Paramount 12 Inverter", brand: "midea", brandLabel: "MIDEA", type: "inverter", price: "49 900 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Обогрев": "до −25°C", "Уровень шума": "20 дБ" } },
-    { id: 18, title: "Hisense Crystal Super DC 09", brand: "hisense", brandLabel: "HISENSE", type: "inverter", price: "37 400 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Wi-Fi": "Опционально", "Класс энергии": "A++" } },
-    { id: 19, title: "Hisense Easy Smart 12", brand: "hisense", brandLabel: "HISENSE", type: "inverter", price: "43 800 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Самоочистка": "Есть", "Класс энергии": "A++" } },
-    { id: 20, title: "Ballu Lagoon DC Inverter 09", brand: "ballu", brandLabel: "BALLU", type: "inverter", price: "33 600 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Класс энергии": "A++", "Уровень шума": "23 дБ" } },
-    { id: 21, title: "Ballu iGreen Pro On/Off 07", brand: "ballu", brandLabel: "BALLU", type: "onoff", price: "27 900 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 20 кв.м.", "Тип компрессора": "On/Off", "Класс энергии": "A" } },
-    { id: 22, title: "Kentatsu Bronte On/Off 09", brand: "kentatsu", brandLabel: "KENTATSU", type: "onoff", price: "32 400 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Тип компрессора": "On/Off", "Класс энергии": "A+" } }
+    { id: 1, title: "AERONIK On/Off ASI-09 HS5", brand: "aeronik", brandLabel: "AERONIK", type: "onoff", price: "29 600 ₽", image: imgPlaceholder, specs: { "Завод изготовитель": "GREE inc.", "Рекомендуемая площадь": "До 25 кв.м.", "Мощность": "2550 Вт", "Класс энергии": "A" } },
+    { id: 2, title: "AERONIK Inverter ASI-12 INV", brand: "aeronik", brandLabel: "AERONIK", type: "inverter", price: "38 900 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Компрессор": "Инверторный", "Класс энергии": "A++" } },
+    { id: 3, title: "GREEN Eco Inverter 09", brand: "gree", brandLabel: "GREEN", type: "inverter", price: "34 000 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Компрессор": "Инверторный", "Уровень шума": "22 дБ" } },
+    { id: 4, title: "CHERBROOKE Japan Inverter 12", brand: "gree", brandLabel: "CHERBROOKE", type: "inverter", price: "44 900 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Класс": "A+++", "Обогрев": "до −15°C" } },
+    { id: 5, title: "Kentatsu YUKI Inverter 09", brand: "kentatsu", brandLabel: "KENTATSU", type: "inverter", price: "41 200 ₽", image: imgPlaceholder, specs: { "Серия": "YUKI Premium", "Рекомендуемая площадь": "До 25 кв.м.", "Wi-Fi": "Опционально" } },
+    { id: 6, title: "Kentatsu Tagawa 2.0 Inverter 18", brand: "kentatsu", brandLabel: "KENTATSU", type: "inverter", price: "67 500 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 50 кв.м.", "Класс энергии": "A+++", "Фильтр": "Cold Plasma" } },
+    { id: 7, title: "Daikin Sensira FTXF-D 09", brand: "daikin", brandLabel: "DAIKIN", type: "inverter", price: "52 800 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Класс энергии": "A++", "Уровень шума": "19 дБ" } },
+    { id: 8, title: "Daikin Sensira FTXF-D 12", brand: "daikin", brandLabel: "DAIKIN", type: "inverter", price: "58 400 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Класс энергии": "A++", "Обогрев": "до −20°C" } },
+    { id: 9, title: "Daikin On/Off FTXB-C 09", brand: "daikin", brandLabel: "DAIKIN", type: "onoff", price: "46 200 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Тип компрессора": "On/Off", "Класс энергии": "A" } },
+    { id: 10, title: "Mitsubishi Electric MSZ-HR 09", brand: "mitsubishi", brandLabel: "MITSUBISHI", type: "inverter", price: "61 900 ₽", image: imgPlaceholder, specs: { "Серия": "HR Inverter", "Рекомендуемая площадь": "До 25 кв.м.", "Класс энергии": "A++" } },
+    { id: 11, title: "Mitsubishi Electric MSZ-HR 12", brand: "mitsubishi", brandLabel: "MITSUBISHI", type: "inverter", price: "68 500 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Обогрев": "до −15°C", "Уровень шума": "21 дБ" } },
+    { id: 12, title: "Haier Flexis Plus 09", brand: "haier", brandLabel: "HAIER", type: "inverter", price: "39 800 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Wi-Fi": "Встроенный", "Класс энергии": "A++" } },
+    { id: 13, title: "Haier Jade Super Match 12", brand: "haier", brandLabel: "HAIER", type: "inverter", price: "47 600 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Самоочистка": "Есть", "Класс энергии": "A+++" } },
+    { id: 14, title: "Gree Pular Inverter 09", brand: "gree", brandLabel: "GREE", type: "inverter", price: "36 500 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Компрессор": "GREE G10", "Класс энергии": "A++" } },
+    { id: 15, title: "Gree Lyra On/Off 12", brand: "gree", brandLabel: "GREE", type: "onoff", price: "31 200 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Тип компрессора": "On/Off", "Класс энергии": "A" } },
+    { id: 16, title: "Midea Breezeless E 09", brand: "midea", brandLabel: "MIDEA", type: "inverter", price: "42 300 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Wi-Fi": "Встроенный", "Класс энергии": "A+++" } },
+    { id: 17, title: "Midea Paramount 12 Inverter", brand: "midea", brandLabel: "MIDEA", type: "inverter", price: "49 900 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Обогрев": "до −25°C", "Уровень шума": "20 дБ" } },
+    { id: 18, title: "Hisense Crystal Super DC 09", brand: "hisense", brandLabel: "HISENSE", type: "inverter", price: "37 400 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Wi-Fi": "Опционально", "Класс энергии": "A++" } },
+    { id: 19, title: "Hisense Easy Smart 12", brand: "hisense", brandLabel: "HISENSE", type: "inverter", price: "43 800 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Самоочистка": "Есть", "Класс энергии": "A++" } },
+    { id: 20, title: "Ballu Lagoon DC Inverter 09", brand: "ballu", brandLabel: "BALLU", type: "inverter", price: "33 600 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Класс энергии": "A++", "Уровень шума": "23 дБ" } },
+    { id: 21, title: "Ballu iGreen Pro On/Off 07", brand: "ballu", brandLabel: "BALLU", type: "onoff", price: "27 900 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 20 кв.м.", "Тип компрессора": "On/Off", "Класс энергии": "A" } },
+    { id: 22, title: "Kentatsu Bronte On/Off 09", brand: "kentatsu", brandLabel: "KENTATSU", type: "onoff", price: "32 400 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Тип компрессора": "On/Off", "Класс энергии": "A+" } }
 ];
 
 let activeTypeFilter = 'all';
@@ -42,9 +43,9 @@ function getFilteredCatalog() {
 function setActiveFilterButton(buttons, activeBtn) {
     buttons.forEach(btn => {
         btn.classList.remove('text-[#146C8C]', 'font-bold', 'border-b-2', 'border-[#146C8C]');
-        btn.classList.add('text-gray-400', 'font-medium');
+        btn.classList.add('text-gray-600', 'font-medium');
     });
-    activeBtn.classList.remove('text-gray-400', 'font-medium');
+    activeBtn.classList.remove('text-gray-600', 'font-medium');
     activeBtn.classList.add('text-[#146C8C]', 'font-bold', 'border-b-2', 'border-[#146C8C]');
 }
 
@@ -54,7 +55,7 @@ function renderCatalog(items) {
     catalogGrid.innerHTML = '';
 
     if (!items.length) {
-        catalogGrid.innerHTML = '<div class="col-span-full py-16 text-center text-gray-500 font-light">По выбранным фильтрам моделей не найдено. Попробуйте изменить бренд или тип системы.</div>';
+        catalogGrid.innerHTML = '<div class="col-span-full py-16 text-center text-gray-600 font-light">По выбранным фильтрам моделей не найдено. Попробуйте изменить бренд или тип системы.</div>';
         return;
     }
 
@@ -64,8 +65,8 @@ function renderCatalog(items) {
         
         card.innerHTML = `
             <div class="mb-4">
-                <span class="text-[10px] tracking-widest text-gray-400 font-bold uppercase block mb-1">${item.brandLabel}</span>
-                <h4 class="text-lg font-bold text-gray-900 leading-tight">${item.title}</h4>
+                <span class="text-[10px] tracking-widest text-gray-500 font-bold uppercase block mb-1">${item.brandLabel}</span>
+                <h3 class="text-lg font-bold text-gray-900 leading-tight">${item.title}</h3>
                 <span class="inline-block mt-2 px-2.5 py-1 bg-[#146C8C]/10 text-[#146C8C] rounded-full text-[9px] font-bold uppercase tracking-wider">${item.type === 'inverter' ? 'Inverter' : 'On / Off'}</span>
             </div>
             
@@ -118,7 +119,7 @@ function initSpecsTriggers() {
                 const specsContent = document.getElementById('drawer-specs-content');
                 specsContent.innerHTML = '';
                 for (const [k, v] of Object.entries(item.specs)) {
-                    specsContent.innerHTML += `<div class="flex justify-between border-b border-gray-100 pb-2"><span class="text-gray-500 text-xs">${k}</span><span class="text-gray-900 font-bold text-xs text-right">${v}</span></div>`;
+                    specsContent.innerHTML += `<div class="flex justify-between border-b border-gray-100 pb-2"><span class="text-gray-600 text-xs">${k}</span><span class="text-gray-900 font-bold text-xs text-right">${v}</span></div>`;
                 }
                 specsDrawer.classList.remove('translate-x-full');
             }
@@ -143,10 +144,10 @@ function renderReviews(data) {
         card.className = 'p-8 rounded-3xl bg-gray-50 border border-gray-100 shadow-sm flex flex-col';
         card.innerHTML = `
             ${r.photo ? `<img src="${r.photo}" alt="Фото отзыва от ${r.name}" class="w-full h-40 object-cover rounded-2xl mb-5">` : ''}
-            <p class="text-sm text-gray-600 font-light leading-relaxed flex-grow">${r.text}</p>
+            <p class="text-sm text-gray-700 font-light leading-relaxed flex-grow">${r.text}</p>
             <div class="flex justify-between items-center mt-6 pt-4 border-t border-gray-100">
                 <span class="text-sm font-bold text-gray-900">${r.name}</span>
-                <span class="text-[10px] text-gray-400 uppercase tracking-wider">${r.date}</span>
+                <span class="text-[10px] text-gray-500 uppercase tracking-wider">${r.date}</span>
             </div>
         `;
         grid.appendChild(card);
@@ -158,7 +159,6 @@ const form = document.getElementById('premium-lead-form');
 const checkbox = document.getElementById('privacy-check');
 const submitBtn = document.getElementById('submit-btn');
 const statusDiv = document.getElementById('form-status');
-
 const phoneInput = document.getElementById('lead-phone');
 
 function formatRuPhone(value) {
@@ -201,7 +201,6 @@ checkbox.addEventListener('change', (e) => {
 
 form.addEventListener('submit', function(e) {
     e.preventDefault();
-    
     const name = document.getElementById('lead-name').value;
     const phone = document.getElementById('lead-phone').value;
 
@@ -244,16 +243,20 @@ form.addEventListener('submit', function(e) {
 });
 
 // --- 4. АНИМАЦИИ GSAP И МОБИЛЬНОЕ МЕНЮ ---
-document.addEventListener('DOMContentLoaded', () => {
-    // Появление навбара
+window.addEventListener('load', () => {
+    
+    if (document.fonts) {
+        document.fonts.ready.then(() => {
+            ScrollTrigger.refresh();
+        });
+    }
+
     gsap.set(".nav-reveal", { visibility: "visible" });
     gsap.from(".nav-reveal", { y: -16, opacity: 0, duration: 0.7, stagger: 0.08, ease: "power2.out" });
 
-    // Появление главного экрана
     gsap.set(".hero-reveal", { visibility: "visible" });
     gsap.from(".hero-reveal", { y: 40, opacity: 0, duration: 1, stagger: 0.1, ease: "power3.out", delay: 0.2 });
 
-    // Wave Color Shift для заголовка
     if (typeof SplitText !== "undefined") {
         const split = new SplitText("#hero-heading", { type: "chars" });
         gsap.from(split.chars, {
@@ -272,11 +275,9 @@ document.addEventListener('DOMContentLoaded', () => {
     gsap.set(".hero-visual", { opacity: 0, x: 40 });
     gsap.to(".hero-visual", { opacity: 1, x: 0, duration: 1.2, ease: "power3.out", delay: 0.5 });
 
-    // Плавающие декоративные пятна
     gsap.to(".hero-orb-1", { y: "+=25", x: "+=15", duration: 7, repeat: -1, yoyo: true, ease: "sine.inOut" });
     gsap.to(".hero-orb-2", { y: "-=30", x: "-=10", duration: 9, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.5 });
 
-    // Оживляем иллюстрацию кондиционера
     gsap.to("#ac-power-light", { scale: 1.15, opacity: 0.7, transformOrigin: "50% 50%", duration: 1.3, repeat: -1, yoyo: true, ease: "sine.inOut" });
     gsap.to("#ac-power-glow", { scale: 1.5, opacity: 0.25, transformOrigin: "50% 50%", duration: 1.3, repeat: -1, yoyo: true, ease: "sine.inOut" });
     gsap.to("#ac-airflow", { strokeDashoffset: -16, duration: 1.4, repeat: -1, ease: "none" });
@@ -288,32 +289,12 @@ document.addEventListener('DOMContentLoaded', () => {
         stagger: { each: 0.09, repeat: -1, yoyo: true }
     });
     
- // rotationZ: 0.01 форсирует аппаратное субпиксельное сглаживание
-gsap.to(".hero-badge-float", { 
-    y: -12, 
-    rotationZ: 0.01, 
-    duration: 3.2, 
-    repeat: -1, 
-    yoyo: true, 
-    ease: "sine.inOut", 
-    force3D: true 
-});
-
-gsap.to(".hero-badge-float-2", { 
-    y: 12, 
-    rotationZ: 0.01, 
-    duration: 3.6, 
-    repeat: -1, 
-    yoyo: true, 
-    ease: "sine.inOut", 
-    delay: 0.5, 
-    force3D: true 
-});
+    gsap.to(".hero-badge-float", { y: -12, rotationZ: 0.01, duration: 3.2, repeat: -1, yoyo: true, ease: "sine.inOut", force3D: true });
+    gsap.to(".hero-badge-float-2", { y: 12, rotationZ: 0.01, duration: 3.6, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.5, force3D: true });
 
     gsap.set(".scroll-anim", { visibility: "visible" });
     gsap.from(".scroll-anim", { scrollTrigger: { trigger: "#about", start: "top 85%" }, y: 40, opacity: 0, duration: 0.8, stagger: 0.1 });
     
-    // Fade Up Cards при скролле для услуг
     gsap.utils.toArray(".service-node").forEach((card) => {
         gsap.fromTo(card, 
             { opacity: 0, y: 50 }, 
@@ -331,7 +312,6 @@ gsap.to(".hero-badge-float-2", {
         );
     });
 
-    // Появление заголовков
     gsap.set(".reveal-up", { visibility: "visible" });
     document.querySelectorAll('section, footer').forEach(sectionEl => {
         const items = sectionEl.querySelectorAll('.reveal-up');
@@ -347,7 +327,6 @@ gsap.to(".hero-badge-float-2", {
         }
     });
 
-    // Появление карточек каталога
     gsap.set("#catalog-grid > div", { opacity: 0, y: 30 });
     ScrollTrigger.create({
         trigger: "#catalog",
@@ -356,7 +335,6 @@ gsap.to(".hero-badge-float-2", {
         onEnter: () => gsap.to("#catalog-grid > div", { opacity: 1, y: 0, duration: 0.7, stagger: 0.06, ease: "power2.out" })
     });
 
-    // Появление карточек отзывов
     gsap.set("#reviews-grid > div", { opacity: 0, y: 30 });
     ScrollTrigger.create({
         trigger: "#reviews",
@@ -365,7 +343,6 @@ gsap.to(".hero-badge-float-2", {
         onEnter: () => gsap.to("#reviews-grid > div", { opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: "power2.out" })
     });
 
-    // Карточка формы
     gsap.set("#lead-form-card", { opacity: 0, y: 40, scale: 0.97 });
     gsap.to("#lead-form-card", {
         scrollTrigger: { trigger: "#form-section", start: "top 75%", once: true },
@@ -376,7 +353,6 @@ gsap.to(".hero-badge-float-2", {
         ease: "power2.out"
     });
 
-    // Magnetic/morphing button on hover с эффектом свечения
     document.querySelectorAll('.cta-pill').forEach(btn => {
         btn.addEventListener('mouseenter', () => {
             gsap.to(btn, {
@@ -396,13 +372,11 @@ gsap.to(".hero-badge-float-2", {
         });
     });
 
-    // Тень навбара при прокрутке
     const navbarEl = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
         navbarEl.classList.toggle('shadow-md', window.scrollY > 40);
     });
 
-    // Мобильное меню
     const mobileBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     let isMenuOpen = false;
@@ -414,7 +388,6 @@ gsap.to(".hero-badge-float-2", {
     mobileBtn.addEventListener('click', toggleMenu);
     document.querySelectorAll('.mobile-link').forEach(link => link.addEventListener('click', toggleMenu));
 
-    // Модалка политики
     const privacyModal = document.getElementById('privacy-modal');
     const togglePrivacy = (show) => {
         privacyModal.classList.toggle('pointer-events-none', !show);
