@@ -33,8 +33,11 @@ body {
     border: solid #FFF; border-width: 0 2px 2px 0; transform: rotate(45deg);
 }
 
-/* Скрываем элементы до инициализации GSAP */
-.hero-reveal, .scroll-anim, .reveal-up, .nav-reveal { visibility: hidden; }
+/* ИСПРАВЛЕНО: Вместо visibility используем opacity для устранения ошибки некомбинированных анимаций */
+.hero-reveal, .scroll-anim, .reveal-up, .nav-reveal, .service-node { 
+    opacity: 0; 
+    will-change: opacity, transform;
+}
 
 /* Декоративные элементы hero */
 .hero-orb {

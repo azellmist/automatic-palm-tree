@@ -1,7 +1,10 @@
-gsap.registerPlugin(ScrollTrigger);
-gsap.set(".service-node", { opacity: 0, y: 50 });
+// ДОБАВЛЕНО: Динамический импорт Vercel Analytics (позволяет убрать скрипты из HTML и усилить CSP)
+import('https://esm.sh/@vercel/analytics').then(({ inject }) => inject()).catch(e => console.warn('Analytics blocked:', e));
+import('https://esm.sh/@vercel/speed-insights').then(({ injectSpeedInsights }) => injectSpeedInsights()).catch(e => console.warn('Insights blocked:', e));
 
-// --- 1. КАТАЛОГ ДАННЫХ (Заменены битые ссылки на надежный dummyimage) ---
+gsap.registerPlugin(ScrollTrigger);
+
+// --- 1. КАТАЛОГ ДАННЫХ ---
 const imgPlaceholder = "https://dummyimage.com/300x150/f9fafb/6b7280.png&text=PHOTO";
 
 const catalogData = [
@@ -49,7 +52,6 @@ function setActiveFilterButton(buttons, activeBtn) {
     activeBtn.classList.add('text-[#146C8C]', 'font-bold', 'border-b-2', 'border-[#146C8C]');
 }
 
-// --- 2. РЕНДЕРИНГ КАТАЛОГА С ФОТОГРАФИЯМИ ---
 const catalogGrid = document.getElementById('catalog-grid');
 function renderCatalog(items) {
     catalogGrid.innerHTML = '';
@@ -87,7 +89,6 @@ function renderCatalog(items) {
 }
 renderCatalog(catalogData);
 
-// Фильтрация по типу и бренду
 document.querySelectorAll('.catalog-type-filter').forEach(btn => {
     btn.addEventListener('click', (e) => {
         activeTypeFilter = e.currentTarget.getAttribute('data-filter');
@@ -104,7 +105,6 @@ document.querySelectorAll('.catalog-brand-filter').forEach(btn => {
     });
 });
 
-// Боковая панель деталей
 const specsDrawer = document.getElementById('specs-drawer');
 function initSpecsTriggers() {
     document.querySelectorAll('.open-specs-btn').forEach(btn => {
@@ -129,7 +129,6 @@ function initSpecsTriggers() {
 document.getElementById('close-drawer').addEventListener('click', () => specsDrawer.classList.add('translate-x-full'));
 document.getElementById('drawer-cta').addEventListener('click', () => specsDrawer.classList.add('translate-x-full'));
 
-// --- 3. ЛОГИКА ОТПРАВКИ ФОРМЫ (TELEGRAM API) ---
 const reviewsData = [
     { name: "Игорь В.", text: "Ставили Daikin в двухкомнатную квартиру — приехали точно ко времени, отработали аккуратно, после себя не оставили ни пылинки. Заказали ещё и на дачу.", photo: null, date: "Май 2026" },
     { name: "Марина С.", text: "Обратились по чистке и дозаправке фреоном. Мастер объяснил, что происходит с системой, показал фото до/после фильтров. Работает как новый.", photo: null, date: "Июнь 2026" },
@@ -245,130 +244,94 @@ form.addEventListener('submit', function(e) {
 // --- 4. АНИМАЦИИ GSAP И МОБИЛЬНОЕ МЕНЮ ---
 window.addEventListener('load', () => {
     
-    if (document.fonts) {
-        document.fonts.ready.then(() => {
-            ScrollTrigger.refresh();
-        });
-    }
-
-    gsap.set(".nav-reveal", { visibility: "visible" });
-    gsap.from(".nav-reveal", { y: -16, opacity: 0, duration: 0.7, stagger: 0.08, ease: "power2.out" });
-
-    gsap.set(".hero-reveal", { visibility: "visible" });
-    gsap.from(".hero-reveal", { y: 40, opacity: 0, duration: 1, stagger: 0.1, ease: "power3.out", delay: 0.2 });
-
-    if (typeof SplitText !== "undefined") {
-        const split = new SplitText("#hero-heading", { type: "chars" });
-        gsap.from(split.chars, {
-            y: 40, 
-            color: "#146C8C",
-            opacity: 0,
-            stagger: { each: 0.04, from: "start" },
-            duration: 0.6, 
-            ease: "sine.out",
-            delay: 0.2
-        });
-    } else {
-        gsap.from("#hero-heading", { y: 40, opacity: 0, duration: 1, ease: "power3.out", delay: 0.2 });
-    }
-
-    gsap.set(".hero-visual", { opacity: 0, x: 40 });
-    gsap.to(".hero-visual", { opacity: 1, x: 0, duration: 1.2, ease: "power3.out", delay: 0.5 });
-
-    gsap.to(".hero-orb-1", { y: "+=25", x: "+=15", duration: 7, repeat: -1, yoyo: true, ease: "sine.inOut" });
-    gsap.to(".hero-orb-2", { y: "-=30", x: "-=10", duration: 9, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.5 });
-
-    gsap.to("#ac-power-light", { scale: 1.15, opacity: 0.7, transformOrigin: "50% 50%", duration: 1.3, repeat: -1, yoyo: true, ease: "sine.inOut" });
-    gsap.to("#ac-power-glow", { scale: 1.5, opacity: 0.25, transformOrigin: "50% 50%", duration: 1.3, repeat: -1, yoyo: true, ease: "sine.inOut" });
-    gsap.to("#ac-airflow", { strokeDashoffset: -16, duration: 1.4, repeat: -1, ease: "none" });
-    gsap.to(".ac-fan-bar", {
-        scaleY: 0.55,
-        transformOrigin: "50% 100%",
-        duration: 0.7,
-        ease: "sine.inOut",
-        stagger: { each: 0.09, repeat: -1, yoyo: true }
-    });
-    
-    gsap.to(".hero-badge-float", { y: -12, rotationZ: 0.01, duration: 3.2, repeat: -1, yoyo: true, ease: "sine.inOut", force3D: true });
-    gsap.to(".hero-badge-float-2", { y: 12, rotationZ: 0.01, duration: 3.6, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.5, force3D: true });
-
-    gsap.set(".scroll-anim", { visibility: "visible" });
-    gsap.from(".scroll-anim", { scrollTrigger: { trigger: "#about", start: "top 85%" }, y: 40, opacity: 0, duration: 0.8, stagger: 0.1 });
-    
-    gsap.utils.toArray(".service-node").forEach((card) => {
-        gsap.fromTo(card, 
-            { opacity: 0, y: 50 }, 
-            {
-                scrollTrigger: { 
-                    trigger: card, 
-                    start: "top 85%", 
-                    once: true 
-                },
-                duration: 0.6,
-                opacity: 1,
-                y: 0,
-                ease: "power2.out"
-            }
-        );
-    });
-
-    gsap.set(".reveal-up", { visibility: "visible" });
-    document.querySelectorAll('section, footer').forEach(sectionEl => {
-        const items = sectionEl.querySelectorAll('.reveal-up');
-        if (items.length) {
-            gsap.from(items, {
-                scrollTrigger: { trigger: sectionEl, start: "top 82%" },
-                y: 30,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.12,
-                ease: "power2.out"
-            });
+    // ИСПРАВЛЕНО: requestAnimationFrame убирает Layout Thrashing при инициализации ScrollTrigger
+    requestAnimationFrame(() => {
+        if (document.fonts) {
+            document.fonts.ready.then(() => ScrollTrigger.refresh());
         }
-    });
 
-    gsap.set("#catalog-grid > div", { opacity: 0, y: 30 });
-    ScrollTrigger.create({
-        trigger: "#catalog",
-        start: "top 75%",
-        once: true,
-        onEnter: () => gsap.to("#catalog-grid > div", { opacity: 1, y: 0, duration: 0.7, stagger: 0.06, ease: "power2.out" })
-    });
+        // ИСПРАВЛЕНО: Заменили gsap.from на gsap.fromTo для корректной работы с opacity: 0 из CSS
+        gsap.fromTo(".nav-reveal", 
+            { y: -16, opacity: 0 }, 
+            { y: 0, opacity: 1, duration: 0.7, stagger: 0.08, ease: "power2.out" }
+        );
 
-    gsap.set("#reviews-grid > div", { opacity: 0, y: 30 });
-    ScrollTrigger.create({
-        trigger: "#reviews",
-        start: "top 75%",
-        once: true,
-        onEnter: () => gsap.to("#reviews-grid > div", { opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: "power2.out" })
-    });
+        gsap.fromTo(".hero-reveal", 
+            { y: 40, opacity: 0 }, 
+            { y: 0, opacity: 1, duration: 1, stagger: 0.1, ease: "power3.out", delay: 0.2 }
+        );
 
-    gsap.set("#lead-form-card", { opacity: 0, y: 40, scale: 0.97 });
-    gsap.to("#lead-form-card", {
-        scrollTrigger: { trigger: "#form-section", start: "top 75%", once: true },
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.9,
-        ease: "power2.out"
+        if (typeof SplitText !== "undefined") {
+            const split = new SplitText("#hero-heading", { type: "chars" });
+            gsap.fromTo(split.chars, 
+                { y: 40, opacity: 0, color: "#146C8C" }, 
+                { y: 0, opacity: 1, color: "#111827", stagger: { each: 0.04, from: "start" }, duration: 0.6, ease: "sine.out", delay: 0.2 }
+            );
+        } else {
+            gsap.fromTo("#hero-heading", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 0.2 });
+        }
+
+        gsap.fromTo(".hero-visual", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 1.2, ease: "power3.out", delay: 0.5 });
+
+        gsap.to(".hero-orb-1", { y: "+=25", x: "+=15", duration: 7, repeat: -1, yoyo: true, ease: "sine.inOut" });
+        gsap.to(".hero-orb-2", { y: "-=30", x: "-=10", duration: 9, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.5 });
+
+        gsap.to("#ac-power-light", { scale: 1.15, opacity: 0.7, transformOrigin: "50% 50%", duration: 1.3, repeat: -1, yoyo: true, ease: "sine.inOut" });
+        gsap.to("#ac-power-glow", { scale: 1.5, opacity: 0.25, transformOrigin: "50% 50%", duration: 1.3, repeat: -1, yoyo: true, ease: "sine.inOut" });
+        gsap.to("#ac-airflow", { strokeDashoffset: -16, duration: 1.4, repeat: -1, ease: "none" });
+        gsap.to(".ac-fan-bar", { scaleY: 0.55, transformOrigin: "50% 100%", duration: 0.7, ease: "sine.inOut", stagger: { each: 0.09, repeat: -1, yoyo: true }});
+        
+        gsap.to(".hero-badge-float", { y: -12, rotationZ: 0.01, duration: 3.2, repeat: -1, yoyo: true, ease: "sine.inOut", force3D: true });
+        gsap.to(".hero-badge-float-2", { y: 12, rotationZ: 0.01, duration: 3.6, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.5, force3D: true });
+
+        gsap.fromTo(".scroll-anim", 
+            { y: 40, opacity: 0 }, 
+            { scrollTrigger: { trigger: "#about", start: "top 85%" }, y: 0, opacity: 1, duration: 0.8, stagger: 0.1 }
+        );
+        
+        gsap.utils.toArray(".service-node").forEach((card) => {
+            gsap.fromTo(card, 
+                { opacity: 0, y: 50 }, 
+                { scrollTrigger: { trigger: card, start: "top 85%", once: true }, duration: 0.6, opacity: 1, y: 0, ease: "power2.out" }
+            );
+        });
+
+        document.querySelectorAll('section, footer').forEach(sectionEl => {
+            const items = sectionEl.querySelectorAll('.reveal-up');
+            if (items.length) {
+                gsap.fromTo(items, 
+                    { y: 30, opacity: 0 }, 
+                    { scrollTrigger: { trigger: sectionEl, start: "top 82%" }, y: 0, opacity: 1, duration: 0.8, stagger: 0.12, ease: "power2.out" }
+                );
+            }
+        });
+
+        ScrollTrigger.create({
+            trigger: "#catalog",
+            start: "top 75%",
+            once: true,
+            onEnter: () => gsap.to("#catalog-grid > div", { opacity: 1, y: 0, duration: 0.7, stagger: 0.06, ease: "power2.out" })
+        });
+
+        ScrollTrigger.create({
+            trigger: "#reviews",
+            start: "top 75%",
+            once: true,
+            onEnter: () => gsap.to("#reviews-grid > div", { opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: "power2.out" })
+        });
+
+        gsap.fromTo("#lead-form-card", 
+            { opacity: 0, y: 40, scale: 0.97 }, 
+            { scrollTrigger: { trigger: "#form-section", start: "top 75%", once: true }, opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power2.out" }
+        );
     });
 
     document.querySelectorAll('.cta-pill').forEach(btn => {
         btn.addEventListener('mouseenter', () => {
-            gsap.to(btn, {
-                duration: 0.3, 
-                scale: 1.05, 
-                boxShadow: "0 0 20px rgba(20, 108, 140, 0.5)",
-                ease: "power2.out"
-            });
+            gsap.to(btn, { duration: 0.3, scale: 1.05, boxShadow: "0 0 20px rgba(20, 108, 140, 0.5)", ease: "power2.out" });
         });
         btn.addEventListener('mouseleave', () => {
-            gsap.to(btn, {
-                duration: 0.3, 
-                scale: 1, 
-                boxShadow: "none",
-                ease: "power2.out"
-            });
+            gsap.to(btn, { duration: 0.3, scale: 1, boxShadow: "none", ease: "power2.out" });
         });
     });
 

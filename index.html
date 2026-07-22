@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- ДОБАВЛЕНО: Метаописание для SEO -->
     <meta name="description" content="Создаем комфортный климат в доме. Профессиональный подбор, монтаж за 1 день и обслуживание сплит-систем с гарантией до 3 лет.">
     <title>CLIMAFLOW — Премиальные климатические системы</title>
     
-    <!-- ДОБАВЛЕНО: Предварительное подключение для ускорения загрузки -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
@@ -18,7 +16,7 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- ДОБАВЛЕНО: defer для скриптов -->
+    <!-- GSAP -->
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
@@ -29,7 +27,6 @@
     <nav class="fixed w-full z-50 transition-all duration-500 py-4 glassmorphism border-b border-gray-200" id="navbar">
         <div class="max-w-7xl mx-auto px-6 md:px-8 flex justify-between items-center">
             <div class="flex items-center gap-3 cursor-pointer group nav-reveal">
-                <!-- ДОБАВЛЕНО: Класс nav-logo-svg для аппаратного ускорения -->
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="1.5" class="nav-logo-svg transition-all duration-700 group-hover:rotate-180 group-hover:[stroke:#146C8C]">
                     <path d="M4 12C4 12 7.5 4 12 4C16.5 4 20 12 20 12C20 12 16.5 20 12 20C7.5 20 4 12 4 12Z"/>
                     <path d="M12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15"/>
@@ -37,7 +34,6 @@
                 <span class="text-xl tracking-[0.25em] font-light uppercase text-gray-900">Clima<strong class="font-bold">Flow</strong></span>
             </div>
 
-            <!-- ИСПРАВЛЕНЫ: Цвета (text-gray-600) -->
             <div class="hidden md:flex gap-12 text-xs font-semibold tracking-[0.2em] uppercase text-gray-600 nav-reveal">
                 <a href="#about" class="hover:text-[#146C8C] transition-colors">О нас</a>
                 <a href="#services" class="hover:text-[#146C8C] transition-colors">Услуги</a>
@@ -49,7 +45,6 @@
                 <a href="tel:+79595094645" class="text-sm font-bold tracking-wider text-gray-900">+7 (959) 509-46-45</a>
 
                 <div class="flex items-center gap-2 pl-5 border-l border-gray-200">
-                    <!-- ДОБАВЛЕНО: span.sr-only для 100% читаемости ридерами -->
                     <a href="https://t.me/+79104096344" target="_blank" rel="noopener noreferrer" aria-label="Telegram" class="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-[#146C8C] hover:text-white hover:border-[#146C8C] transition-colors duration-300">
                         <span class="sr-only">Telegram</span>
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M21.5 2.5L2.3 10.1c-.9.35-.9 1.65.05 1.95l4.7 1.5 1.8 5.75c.3.9 1.45 1.05 1.95.25l2.55-4.05 4.75 3.5c.8.6 1.95.15 2.1-.85l3-14.5c.15-.9-.75-1.55-1.65-1.15zM8.4 13.35l9.15-6.9c.35-.25.7.15.4.45l-7.6 7.3-.3 3.6-1.65-4.45z"/></svg>
@@ -67,7 +62,6 @@
                 </a>
             </div>
 
-            <!-- ДОБАВЛЕНО: sr-only для мобильного меню -->
             <button id="mobile-menu-btn" aria-label="Открыть мобильное меню" class="md:hidden text-gray-900 focus:outline-none nav-reveal">
                 <span class="sr-only">Меню</span>
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/></svg>
@@ -98,7 +92,6 @@
         <a href="#form-section" class="mobile-link cta-pill bg-gray-900 text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest text-sm mt-4">Оставить заявку</a>
     </div>
 
-    <!-- ДОБАВЛЕНО: Главный тег MAIN -->
     <main>
 
         <header class="min-h-screen flex items-center px-6 md:px-12 lg:px-24 relative overflow-x-hidden bg-white pt-24 pb-16">
@@ -116,7 +109,6 @@
                         </h1>
                     </div>
                     <div class="overflow-hidden mb-10">
-                        <!-- ИСПРАВЛЕНЫ: Цвета текста -->
                         <p class="hero-reveal text-base md:text-lg text-gray-700 font-light max-w-xl leading-relaxed">
                             Подберем идеальное климатическое решение, выполним безупречный аккуратный монтаж и возьмем на себя регулярное сервисное обслуживание.
                         </p>
@@ -139,7 +131,6 @@
                 <div class="md:col-span-6 lg:col-span-7 xl:col-span-7 relative hero-visual min-w-0">
                     <div class="relative mx-auto max-w-lg lg:max-w-none md:pl-2 lg:pl-4 pt-16 pb-16 md:pt-20 md:pb-20">
                         <div class="hidden md:block absolute top-0 left-0 lg:-left-2 hero-unit-card hero-badge-float rounded-2xl border border-gray-200 px-5 py-4 shadow-lg z-10">
-                            <!-- ИСПРАВЛЕНО: text-gray-600 для контраста -->
                             <div class="text-[10px] text-gray-600 uppercase tracking-wider font-semibold">Монтаж</div>
                             <div class="text-sm font-bold text-gray-900 mt-0.5">за 1 рабочий день</div>
                         </div>
@@ -469,13 +460,7 @@
         </div>
     </div>
 
-    <!-- Vercel Analytics & Speed Insights -->
-    <script type="module">
-        import { inject } from 'https://esm.sh/@vercel/analytics';
-        import { injectSpeedInsights } from 'https://esm.sh/@vercel/speed-insights';
-        inject();
-        injectSpeedInsights();
-    </script>
+    <!-- ДОБАВЛЕНО: defer -->
     <script src="main.js" defer></script>
 </body>
 </html>
