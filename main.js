@@ -1,203 +1,407 @@
+// Регистрируем плагин
 gsap.registerPlugin(ScrollTrigger);
+gsap.set(".service-node", { opacity: 0, y: 50 });
 
-// Данные
+// --- 1. КАТАЛОГ ДАННЫХ ---
 const catalogData = [
-    { id: 1, title: "Daikin Sensira FTXF-D 09", brandLabel: "DAIKIN", type: "inverter", price: "52 800 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Площадь": "До 25 кв.м.", "Шум": "19 дБ" } },
-    { id: 2, title: "Haier Flexis Plus 09", brandLabel: "HAIER", type: "inverter", price: "39 800 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Площадь": "До 25 кв.м.", "Wi-Fi": "Встроенный" } },
-    { id: 3, title: "Mitsubishi MSZ-HR 09", brandLabel: "MITSUBISHI", type: "inverter", price: "61 900 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Серия": "HR Inverter", "Класс": "A++" } }
+    { id: 1, title: "AERONIK On/Off ASI-09 HS5", brand: "aeronik", brandLabel: "AERONIK", type: "onoff", price: "29 600 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Завод изготовитель": "GREE inc.", "Рекомендуемая площадь": "До 25 кв.м.", "Мощность": "2550 Вт", "Класс энергии": "A" } },
+    { id: 2, title: "AERONIK Inverter ASI-12 INV", brand: "aeronik", brandLabel: "AERONIK", type: "inverter", price: "38 900 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Компрессор": "Инверторный", "Класс энергии": "A++" } },
+    { id: 3, title: "GREEN Eco Inverter 09", brand: "gree", brandLabel: "GREEN", type: "inverter", price: "34 000 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Компрессор": "Инверторный", "Уровень шума": "22 дБ" } },
+    { id: 4, title: "CHERBROOKE Japan Inverter 12", brand: "gree", brandLabel: "CHERBROOKE", type: "inverter", price: "44 900 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Класс": "A+++", "Обогрев": "до −15°C" } },
+    { id: 5, title: "Kentatsu YUKI Inverter 09", brand: "kentatsu", brandLabel: "KENTATSU", type: "inverter", price: "41 200 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Серия": "YUKI Premium", "Рекомендуемая площадь": "До 25 кв.м.", "Wi-Fi": "Опционально" } },
+    { id: 6, title: "Kentatsu Tagawa 2.0 Inverter 18", brand: "kentatsu", brandLabel: "KENTATSU", type: "inverter", price: "67 500 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 50 кв.м.", "Класс энергии": "A+++", "Фильтр": "Cold Plasma" } },
+    { id: 7, title: "Daikin Sensira FTXF-D 09", brand: "daikin", brandLabel: "DAIKIN", type: "inverter", price: "52 800 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Класс энергии": "A++", "Уровень шума": "19 дБ" } },
+    { id: 8, title: "Daikin Sensira FTXF-D 12", brand: "daikin", brandLabel: "DAIKIN", type: "inverter", price: "58 400 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Класс энергии": "A++", "Обогрев": "до −20°C" } },
+    { id: 9, title: "Daikin On/Off FTXB-C 09", brand: "daikin", brandLabel: "DAIKIN", type: "onoff", price: "46 200 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Тип компрессора": "On/Off", "Класс энергии": "A" } },
+    { id: 10, title: "Mitsubishi Electric MSZ-HR 09", brand: "mitsubishi", brandLabel: "MITSUBISHI", type: "inverter", price: "61 900 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Серия": "HR Inverter", "Рекомендуемая площадь": "До 25 кв.м.", "Класс энергии": "A++" } },
+    { id: 11, title: "Mitsubishi Electric MSZ-HR 12", brand: "mitsubishi", brandLabel: "MITSUBISHI", type: "inverter", price: "68 500 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Обогрев": "до −15°C", "Уровень шума": "21 дБ" } },
+    { id: 12, title: "Haier Flexis Plus 09", brand: "haier", brandLabel: "HAIER", type: "inverter", price: "39 800 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Wi-Fi": "Встроенный", "Класс энергии": "A++" } },
+    { id: 13, title: "Haier Jade Super Match 12", brand: "haier", brandLabel: "HAIER", type: "inverter", price: "47 600 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Самоочистка": "Есть", "Класс энергии": "A+++" } },
+    { id: 14, title: "Gree Pular Inverter 09", brand: "gree", brandLabel: "GREE", type: "inverter", price: "36 500 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Компрессор": "GREE G10", "Класс энергии": "A++" } },
+    { id: 15, title: "Gree Lyra On/Off 12", brand: "gree", brandLabel: "GREE", type: "onoff", price: "31 200 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Тип компрессора": "On/Off", "Класс энергии": "A" } },
+    { id: 16, title: "Midea Breezeless E 09", brand: "midea", brandLabel: "MIDEA", type: "inverter", price: "42 300 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Wi-Fi": "Встроенный", "Класс энергии": "A+++" } },
+    { id: 17, title: "Midea Paramount 12 Inverter", brand: "midea", brandLabel: "MIDEA", type: "inverter", price: "49 900 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Обогрев": "до −25°C", "Уровень шума": "20 дБ" } },
+    { id: 18, title: "Hisense Crystal Super DC 09", brand: "hisense", brandLabel: "HISENSE", type: "inverter", price: "37 400 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Wi-Fi": "Опционально", "Класс энергии": "A++" } },
+    { id: 19, title: "Hisense Easy Smart 12", brand: "hisense", brandLabel: "HISENSE", type: "inverter", price: "43 800 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Самоочистка": "Есть", "Класс энергии": "A++" } },
+    { id: 20, title: "Ballu Lagoon DC Inverter 09", brand: "ballu", brandLabel: "BALLU", type: "inverter", price: "33 600 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Класс энергии": "A++", "Уровень шума": "23 дБ" } },
+    { id: 21, title: "Ballu iGreen Pro On/Off 07", brand: "ballu", brandLabel: "BALLU", type: "onoff", price: "27 900 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 20 кв.м.", "Тип компрессора": "On/Off", "Класс энергии": "A" } },
+    { id: 22, title: "Kentatsu Bronte On/Off 09", brand: "kentatsu", brandLabel: "KENTATSU", type: "onoff", price: "32 400 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Тип компрессора": "On/Off", "Класс энергии": "A+" } }
 ];
 
-// Рендер каталога
+let activeTypeFilter = 'all';
+let activeBrandFilter = 'all';
+
+function getFilteredCatalog() {
+    return catalogData.filter(item => {
+        const typeMatch = activeTypeFilter === 'all' || item.type === activeTypeFilter;
+        const brandMatch = activeBrandFilter === 'all' || item.brand === activeBrandFilter;
+        return typeMatch && brandMatch;
+    });
+}
+
+function setActiveFilterButton(buttons, activeBtn) {
+    buttons.forEach(btn => {
+        btn.classList.remove('text-[#146C8C]', 'font-bold', 'border-b-2', 'border-[#146C8C]');
+        btn.classList.add('text-gray-400', 'font-medium');
+    });
+    activeBtn.classList.remove('text-gray-400', 'font-medium');
+    activeBtn.classList.add('text-[#146C8C]', 'font-bold', 'border-b-2', 'border-[#146C8C]');
+}
+
+// --- 2. РЕНДЕРИНГ КАТАЛОГА С ФОТОГРАФИЯМИ ---
 const catalogGrid = document.getElementById('catalog-grid');
-catalogData.forEach(item => {
-    catalogGrid.innerHTML += `
-        <div class="p-6 rounded-3xl bg-gray-50 border border-gray-100 flex flex-col h-[400px]">
+function renderCatalog(items) {
+    catalogGrid.innerHTML = '';
+
+    if (!items.length) {
+        catalogGrid.innerHTML = '<div class="col-span-full py-16 text-center text-gray-500 font-light">По выбранным фильтрам моделей не найдено. Попробуйте изменить бренд или тип системы.</div>';
+        return;
+    }
+
+    items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = `catalog-card p-6 rounded-3xl bg-white border border-gray-200 hover:shadow-xl hover:border-gray-300 transition-all duration-300 flex flex-col h-[400px] group`;
+        
+        card.innerHTML = `
             <div class="mb-4">
-                <span class="text-[10px] tracking-widest text-gray-400 font-bold uppercase">${item.brandLabel}</span>
+                <span class="text-[10px] tracking-widest text-gray-400 font-bold uppercase block mb-1">${item.brandLabel}</span>
                 <h4 class="text-lg font-bold text-gray-900 leading-tight">${item.title}</h4>
+                <span class="inline-block mt-2 px-2.5 py-1 bg-[#146C8C]/10 text-[#146C8C] rounded-full text-[9px] font-bold uppercase tracking-wider">${item.type === 'inverter' ? 'Inverter' : 'On / Off'}</span>
             </div>
-            <div class="flex-grow flex items-center justify-center bg-white rounded-2xl mb-4">
-                <img src="${item.image}" alt="${item.title}" class="h-32 object-contain">
+            
+            <div class="flex-grow flex items-center justify-center relative overflow-hidden mb-4 bg-gray-50 rounded-2xl">
+                <img src="${item.image}" alt="${item.title}" class="object-contain w-full h-32 transform group-hover:scale-105 transition-transform duration-500">
             </div>
+            
             <div class="mt-auto">
-                <div class="text-xl font-extrabold text-gray-900 mb-4 tracking-tight">${item.price}</div>
-                <button class="w-full text-center border border-gray-300 text-gray-900 text-xs font-bold py-3 rounded-xl open-specs-btn cta-pill bg-white" data-id="${item.id}">Подробнее</button>
+                <div class="text-xl font-extrabold text-gray-900 tracking-tight mb-4">${item.price}</div>
+                <button class="w-full text-center border border-gray-300 text-gray-900 text-xs font-bold py-3 rounded-xl hover:bg-gray-900 hover:text-white transition-all duration-300 open-specs-btn" data-id="${item.id}">
+                    Подробнее
+                </button>
             </div>
-        </div>
-    `;
+        `;
+        catalogGrid.appendChild(card);
+    });
+    initSpecsTriggers();
+}
+renderCatalog(catalogData);
+
+// Фильтрация по типу и бренду
+document.querySelectorAll('.catalog-type-filter').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        activeTypeFilter = e.currentTarget.getAttribute('data-filter');
+        setActiveFilterButton(document.querySelectorAll('.catalog-type-filter'), e.currentTarget);
+        renderCatalog(getFilteredCatalog());
+    });
 });
 
-// Отзывы
+document.querySelectorAll('.catalog-brand-filter').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        activeBrandFilter = e.currentTarget.getAttribute('data-brand');
+        setActiveFilterButton(document.querySelectorAll('.catalog-brand-filter'), e.currentTarget);
+        renderCatalog(getFilteredCatalog());
+    });
+});
+
+// Боковая панель деталей
+const specsDrawer = document.getElementById('specs-drawer');
+function initSpecsTriggers() {
+    document.querySelectorAll('.open-specs-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const item = catalogData.find(i => i.id == e.target.getAttribute('data-id'));
+            if(item) {
+                document.getElementById('drawer-brand').innerText = item.brandLabel;
+                document.getElementById('drawer-title').innerText = item.title;
+                document.getElementById('drawer-type').innerText = item.type === 'inverter' ? 'Inverter' : 'On / Off';
+                document.getElementById('drawer-price').innerText = item.price;
+                
+                const specsContent = document.getElementById('drawer-specs-content');
+                specsContent.innerHTML = '';
+                for (const [k, v] of Object.entries(item.specs)) {
+                    specsContent.innerHTML += `<div class="flex justify-between border-b border-gray-100 pb-2"><span class="text-gray-500 text-xs">${k}</span><span class="text-gray-900 font-bold text-xs text-right">${v}</span></div>`;
+                }
+                specsDrawer.classList.remove('translate-x-full');
+            }
+        });
+    });
+}
+document.getElementById('close-drawer').addEventListener('click', () => specsDrawer.classList.add('translate-x-full'));
+document.getElementById('drawer-cta').addEventListener('click', () => specsDrawer.classList.add('translate-x-full'));
+
+// --- 3. ЛОГИКА ОТПРАВКИ ФОРМЫ (TELEGRAM API) ---
 const reviewsData = [
-    { name: "Игорь В.", text: "Приехали ко времени, отработали аккуратно, ни пылинки.", date: "Май 2026" },
-    { name: "Марина С.", text: "Работает как новый. Мастер все подробно объяснил.", date: "Июнь 2026" }
+    { name: "Игорь В.", text: "Ставили Daikin в двухкомнатную квартиру — приехали точно ко времени, отработали аккуратно, после себя не оставили ни пылинки. Заказали ещё и на дачу.", photo: null, date: "Май 2026" },
+    { name: "Марина С.", text: "Обратились по чистке и дозаправке фреоном. Мастер объяснил, что происходит с системой, показал фото до/после фильтров. Работает как новый.", photo: null, date: "Июнь 2026" },
+    { name: "Дмитрий К.", text: "Комплекс «под ключ»: подбор, доставка, монтаж — всё за один день и без доплат сверх сметы. Рекомендую всем, кто не хочет разбираться в этом сам.", photo: null, date: "Июль 2026" }
 ];
-const reviewsGrid = document.getElementById('reviews-grid');
-reviewsData.forEach(r => {
-    reviewsGrid.innerHTML += `
-        <div class="p-8 rounded-3xl bg-white border border-gray-200 shadow-sm flex flex-col">
-            <p class="text-sm text-gray-600 font-light flex-grow leading-relaxed">${r.text}</p>
-            <div class="flex justify-between mt-6 pt-4 border-t border-gray-100">
+
+function renderReviews(data) {
+    const grid = document.getElementById('reviews-grid');
+    grid.innerHTML = '';
+    data.forEach(r => {
+        const card = document.createElement('div');
+        card.className = 'p-8 rounded-3xl bg-gray-50 border border-gray-100 shadow-sm flex flex-col';
+        card.innerHTML = `
+            ${r.photo ? `<img src="${r.photo}" alt="Фото отзыва от ${r.name}" class="w-full h-40 object-cover rounded-2xl mb-5">` : ''}
+            <p class="text-sm text-gray-600 font-light leading-relaxed flex-grow">${r.text}</p>
+            <div class="flex justify-between items-center mt-6 pt-4 border-t border-gray-100">
                 <span class="text-sm font-bold text-gray-900">${r.name}</span>
                 <span class="text-[10px] text-gray-400 uppercase tracking-wider">${r.date}</span>
             </div>
-        </div>
-    `;
+        `;
+        grid.appendChild(card);
+    });
+}
+renderReviews(reviewsData);
+
+const form = document.getElementById('premium-lead-form');
+const checkbox = document.getElementById('privacy-check');
+const submitBtn = document.getElementById('submit-btn');
+const statusDiv = document.getElementById('form-status');
+
+const phoneInput = document.getElementById('lead-phone');
+
+function formatRuPhone(value) {
+    let digits = value.replace(/\D/g, '');
+    if (digits.startsWith('7') || digits.startsWith('8')) digits = digits.slice(1);
+    digits = digits.slice(0, 10); 
+    let formatted = '+7';
+    if (digits.length > 0) formatted += ' (' + digits.slice(0, 3);
+    if (digits.length >= 3) formatted += ')';
+    if (digits.length > 3) formatted += ' ' + digits.slice(3, 6);
+    if (digits.length > 6) formatted += '-' + digits.slice(6, 8);
+    if (digits.length > 8) formatted += '-' + digits.slice(8, 10);
+    return formatted;
+}
+
+function getPhoneDigitsCount(value) {
+    let digits = value.replace(/\D/g, '');
+    if (digits.startsWith('7') || digits.startsWith('8')) digits = digits.slice(1);
+    return digits.length;
+}
+
+phoneInput.addEventListener('focus', () => {
+    if (!phoneInput.value) phoneInput.value = '+7 ';
+});
+phoneInput.addEventListener('input', () => {
+    phoneInput.value = formatRuPhone(phoneInput.value);
+});
+phoneInput.addEventListener('keydown', (e) => {
+    if ((e.key === 'Backspace' || e.key === 'Delete' || e.key === 'ArrowLeft') && phoneInput.selectionStart <= 2 && phoneInput.selectionEnd <= 2) {
+        e.preventDefault();
+    }
 });
 
-// --- APPLE DESIGN: Инициализация пружинных панелей ---
-const specsDrawer = document.getElementById('specs-drawer');
-const drawerBackdrop = document.getElementById('drawer-backdrop');
-gsap.set(specsDrawer, { xPercent: 100 }); // Уводим за экран
+checkbox.addEventListener('change', (e) => {
+    submitBtn.disabled = !e.target.checked;
+    submitBtn.classList.toggle('opacity-30', !e.target.checked);
+    submitBtn.classList.toggle('cursor-not-allowed', !e.target.checked);
+    submitBtn.classList.toggle('hover:bg-gray-700', e.target.checked);
+});
 
-document.querySelectorAll('.open-specs-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        const item = catalogData.find(i => i.id == e.target.getAttribute('data-id'));
-        if(item) {
-            document.getElementById('drawer-brand').innerText = item.brandLabel;
-            document.getElementById('drawer-title').innerText = item.title;
-            document.getElementById('drawer-price').innerText = item.price;
-            
-            drawerBackdrop.classList.remove('pointer-events-none');
-            // Critically damped spring (power4.out, 0.4s) - непрерываемая и физичная
-            gsap.to(drawerBackdrop, { opacity: 1, duration: 0.4, ease: "none", overwrite: true });
-            gsap.to(specsDrawer, { xPercent: 0, duration: 0.4, ease: "power4.out", overwrite: true });
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('lead-name').value;
+    const phone = document.getElementById('lead-phone').value;
+
+    if (getPhoneDigitsCount(phone) !== 10) {
+        statusDiv.innerHTML = '<span class="text-red-600">Введите номер телефона полностью — 10 цифр после +7.</span>';
+        statusDiv.classList.remove('hidden');
+        setTimeout(() => statusDiv.classList.add('hidden'), 4000);
+        return;
+    }
+    
+    const BOT_TOKEN = 'ТВОЙ_ТОКЕН_БОТА'; 
+    const CHAT_ID = 'ТВОЙ_CHAT_ID';
+    const text = `🔥 Новая заявка с сайта ClimaFlow!\n\n👤 Имя: ${name}\n📞 Телефон: ${phone}`;
+
+    submitBtn.innerText = 'Отправка...';
+    submitBtn.disabled = true;
+
+    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: CHAT_ID, text: text })
+    })
+    .then(res => {
+        if(res.ok) {
+            statusDiv.innerHTML = '<span class="text-green-600">Заявка успешно отправлена!</span>';
+            form.reset();
+            submitBtn.classList.add('opacity-30', 'cursor-not-allowed');
+        } else {
+            statusDiv.innerHTML = '<span class="text-red-600">Ошибка отправки. Позвоните нам.</span>';
         }
+    })
+    .catch(err => {
+        statusDiv.innerHTML = '<span class="text-red-600">Ошибка сети.</span>';
+    })
+    .finally(() => {
+        statusDiv.classList.remove('hidden');
+        submitBtn.innerText = 'Отправить заявку';
+        setTimeout(() => statusDiv.classList.add('hidden'), 5000);
     });
 });
 
-const closeDrawerAction = () => {
-    drawerBackdrop.classList.add('pointer-events-none');
-    gsap.to(drawerBackdrop, { opacity: 0, duration: 0.4, ease: "none", overwrite: true });
-    gsap.to(specsDrawer, { xPercent: 100, duration: 0.4, ease: "power4.out", overwrite: true });
-};
-document.getElementById('close-drawer').addEventListener('click', closeDrawerAction);
-drawerBackdrop.addEventListener('click', closeDrawerAction);
-document.getElementById('drawer-cta').addEventListener('click', () => {
-    closeDrawerAction();
-    document.getElementById('form-section').scrollIntoView();
-});
-
-// Мобильное меню (Прерываемая пружина)
-const mobileMenu = document.getElementById('mobile-menu');
-gsap.set(mobileMenu, { autoAlpha: 0, scale: 1.05 });
-let isMenuOpen = false;
-window.toggleMenu = () => {
-    isMenuOpen = !isMenuOpen;
-    if (isMenuOpen) {
-        gsap.to(mobileMenu, { autoAlpha: 1, scale: 1, duration: 0.4, ease: "power4.out", overwrite: true });
-    } else {
-        gsap.to(mobileMenu, { autoAlpha: 0, scale: 1.05, duration: 0.3, ease: "power4.out", overwrite: true });
-    }
-};
-document.getElementById('mobile-menu-btn').addEventListener('click', window.toggleMenu);
-
-// Модалка политики (Materialize effect)
-const privacyModal = document.getElementById('privacy-modal');
-const privacyBg = privacyModal.querySelector('.privacy-bg');
-const privacyContent = privacyModal.querySelector('.privacy-content');
-
-gsap.set([privacyBg, privacyContent], { opacity: 0 });
-
-const togglePrivacy = (show) => {
-    if (show) {
-        privacyModal.classList.remove('pointer-events-none');
-        gsap.to(privacyBg, { opacity: 1, duration: 0.4, ease: "none", overwrite: true });
-        // Materialize: Scale and fade in together
-        gsap.fromTo(privacyContent, 
-            { scale: 0.95, opacity: 0 },
-            { scale: 1, opacity: 1, duration: 0.4, ease: "power4.out", overwrite: true }
-        );
-    } else {
-        privacyModal.classList.add('pointer-events-none');
-        gsap.to(privacyBg, { opacity: 0, duration: 0.3, ease: "none", overwrite: true });
-        gsap.to(privacyContent, { scale: 0.95, opacity: 0, duration: 0.3, ease: "power4.out", overwrite: true });
-    }
-};
-document.getElementById('open-privacy-link').addEventListener('click', (e) => { e.preventDefault(); togglePrivacy(true); });
-document.getElementById('open-privacy-footer').addEventListener('click', () => togglePrivacy(true));
-document.getElementById('close-privacy').addEventListener('click', () => togglePrivacy(false));
-document.getElementById('agree-privacy-btn').addEventListener('click', () => togglePrivacy(false));
-
-
-// --- GSAP Scroll Анимации ---
+// --- 4. АНИМАЦИИ GSAP И МОБИЛЬНОЕ МЕНЮ ---
 document.addEventListener('DOMContentLoaded', () => {
+    // Появление навбара
     gsap.set(".nav-reveal", { visibility: "visible" });
-    gsap.from(".nav-reveal", { y: -16, opacity: 0, duration: 0.7, stagger: 0.08, ease: "power3.out" });
+    gsap.from(".nav-reveal", { y: -16, opacity: 0, duration: 0.7, stagger: 0.08, ease: "power2.out" });
 
+    // Появление главного экрана
     gsap.set(".hero-reveal", { visibility: "visible" });
-    gsap.from(".hero-reveal", { y: 40, opacity: 0, duration: 1, stagger: 0.1, ease: "power4.out", delay: 0.1 });
-    
-    // Wave Shift для заголовка
+    gsap.from(".hero-reveal", { y: 40, opacity: 0, duration: 1, stagger: 0.1, ease: "power3.out", delay: 0.2 });
+
+    // Wave Color Shift для заголовка
     if (typeof SplitText !== "undefined") {
         const split = new SplitText("#hero-heading", { type: "chars" });
         gsap.from(split.chars, {
-            y: 30, color: "#146C8C", opacity: 0,
-            stagger: { each: 0.03, from: "start" }, duration: 0.6, ease: "power3.out", delay: 0.2
+            y: 40, 
+            color: "#146C8C",
+            opacity: 0,
+            stagger: { each: 0.04, from: "start" },
+            duration: 0.6, 
+            ease: "sine.out",
+            delay: 0.2
         });
     } else {
-        gsap.from("#hero-heading", { y: 40, opacity: 0, duration: 1, ease: "power4.out", delay: 0.2 });
+        gsap.from("#hero-heading", { y: 40, opacity: 0, duration: 1, ease: "power3.out", delay: 0.2 });
     }
 
     gsap.set(".hero-visual", { opacity: 0, x: 40 });
-    gsap.to(".hero-visual", { opacity: 1, x: 0, duration: 1.2, ease: "power4.out", delay: 0.4 });
+    gsap.to(".hero-visual", { opacity: 1, x: 0, duration: 1.2, ease: "power3.out", delay: 0.5 });
 
+    // Плавающие декоративные пятна
     gsap.to(".hero-orb-1", { y: "+=25", x: "+=15", duration: 7, repeat: -1, yoyo: true, ease: "sine.inOut" });
     gsap.to(".hero-orb-2", { y: "-=30", x: "-=10", duration: 9, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.5 });
-    
-    gsap.to("#ac-power-light", { scale: 1.15, opacity: 0.7, transformOrigin: "50% 50%", duration: 1.3, repeat: -1, yoyo: true, ease: "sine.inOut" });
-    gsap.to("#ac-airflow", { strokeDashoffset: -16, duration: 1.4, repeat: -1, ease: "none" });
 
-    // Fade Up Cards
-    gsap.utils.toArray(".service-node, #catalog-grid > div, #reviews-grid > div").forEach((card) => {
+    // Оживляем иллюстрацию кондиционера
+    gsap.to("#ac-power-light", { scale: 1.15, opacity: 0.7, transformOrigin: "50% 50%", duration: 1.3, repeat: -1, yoyo: true, ease: "sine.inOut" });
+    gsap.to("#ac-power-glow", { scale: 1.5, opacity: 0.25, transformOrigin: "50% 50%", duration: 1.3, repeat: -1, yoyo: true, ease: "sine.inOut" });
+    gsap.to("#ac-airflow", { strokeDashoffset: -16, duration: 1.4, repeat: -1, ease: "none" });
+    gsap.to(".ac-fan-bar", {
+        scaleY: 0.55,
+        transformOrigin: "50% 100%",
+        duration: 0.7,
+        ease: "sine.inOut",
+        stagger: { each: 0.09, repeat: -1, yoyo: true }
+    });
+    gsap.to(".hero-badge-float", { y: -8, duration: 2.4, repeat: -1, yoyo: true, ease: "sine.inOut" });
+    gsap.to(".hero-badge-float-2", { y: 8, duration: 2.8, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.3 });
+
+    gsap.set(".scroll-anim", { visibility: "visible" });
+    gsap.from(".scroll-anim", { scrollTrigger: { trigger: "#about", start: "top 85%" }, y: 40, opacity: 0, duration: 0.8, stagger: 0.1 });
+    
+    // Fade Up Cards при скролле для услуг
+    gsap.utils.toArray(".service-node").forEach((card) => {
         gsap.fromTo(card, 
             { opacity: 0, y: 50 }, 
-            { scrollTrigger: { trigger: card, start: "top 85%", once: true }, opacity: 1, y: 0, duration: 0.6, ease: "power4.out" }
+            {
+                scrollTrigger: { 
+                    trigger: card, 
+                    start: "top 85%", 
+                    once: true 
+                },
+                duration: 0.6,
+                opacity: 1,
+                y: 0,
+                ease: "power2.out"
+            }
         );
     });
 
+    // Появление заголовков
     gsap.set(".reveal-up", { visibility: "visible" });
     document.querySelectorAll('section, footer').forEach(sectionEl => {
         const items = sectionEl.querySelectorAll('.reveal-up');
         if (items.length) {
-            gsap.from(items, { scrollTrigger: { trigger: sectionEl, start: "top 85%" }, y: 30, opacity: 0, duration: 0.8, stagger: 0.1, ease: "power4.out" });
+            gsap.from(items, {
+                scrollTrigger: { trigger: sectionEl, start: "top 82%" },
+                y: 30,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.12,
+                ease: "power2.out"
+            });
         }
     });
 
+    // Появление карточек каталога
+    gsap.set("#catalog-grid > div", { opacity: 0, y: 30 });
+    ScrollTrigger.create({
+        trigger: "#catalog",
+        start: "top 75%",
+        once: true,
+        onEnter: () => gsap.to("#catalog-grid > div", { opacity: 1, y: 0, duration: 0.7, stagger: 0.06, ease: "power2.out" })
+    });
+
+    // Появление карточек отзывов
+    gsap.set("#reviews-grid > div", { opacity: 0, y: 30 });
+    ScrollTrigger.create({
+        trigger: "#reviews",
+        start: "top 75%",
+        once: true,
+        onEnter: () => gsap.to("#reviews-grid > div", { opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: "power2.out" })
+    });
+
+    // Карточка формы
     gsap.set("#lead-form-card", { opacity: 0, y: 40, scale: 0.97 });
-    gsap.to("#lead-form-card", { scrollTrigger: { trigger: "#form-section", start: "top 80%", once: true }, opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "power4.out" });
+    gsap.to("#lead-form-card", {
+        scrollTrigger: { trigger: "#form-section", start: "top 75%", once: true },
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.9,
+        ease: "power2.out"
+    });
 
-    // --- APPLE DESIGN: Magnetic buttons + Мгновенный отклик на нажатие ---
+    // Magnetic/morphing button on hover с эффектом свечения
     document.querySelectorAll('.cta-pill').forEach(btn => {
-        // Легкий визуальный ховер
-        btn.addEventListener('pointerenter', () => {
-            gsap.to(btn, { duration: 0.3, scale: 1.02, boxShadow: "0 4px 20px rgba(20, 108, 140, 0.2)", ease: "power3.out", overwrite: "auto" });
+        btn.addEventListener('mouseenter', () => {
+            gsap.to(btn, {
+                duration: 0.3, 
+                scale: 1.05, 
+                boxShadow: "0 0 20px rgba(20, 108, 140, 0.5)",
+                ease: "power2.out"
+            });
         });
-        btn.addEventListener('pointerleave', () => {
-            gsap.to(btn, { duration: 0.4, scale: 1, boxShadow: "none", ease: "power4.out", overwrite: "auto" });
-        });
-        // Мгновенный физический отклик на нажатие с перехватом курсора
-        btn.addEventListener('pointerdown', (e) => {
-            btn.setPointerCapture(e.pointerId);
-            gsap.to(btn, { duration: 0.1, scale: 0.96, ease: "none", overwrite: "auto" });
-        });
-        // Возврат пружиной
-        btn.addEventListener('pointerup', (e) => {
-            btn.releasePointerCapture(e.pointerId);
-            gsap.to(btn, { duration: 0.5, scale: 1.02, ease: "back.out(2)", overwrite: "auto" });
+        btn.addEventListener('mouseleave', () => {
+            gsap.to(btn, {
+                duration: 0.3, 
+                scale: 1, 
+                boxShadow: "none",
+                ease: "power2.out"
+            });
         });
     });
 
+    // Тень навбара при прокрутке
+    const navbarEl = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
-        document.getElementById('navbar').classList.toggle('shadow-sm', window.scrollY > 40);
-        document.getElementById('navbar').classList.toggle('bg-white/90', window.scrollY > 40);
+        navbarEl.classList.toggle('shadow-md', window.scrollY > 40);
     });
-});
 
-// Логика чекбокса и отправки формы
-const submitBtn = document.getElementById('submit-btn');
-document.getElementById('privacy-check').addEventListener('change', (e) => {
-    submitBtn.disabled = !e.target.checked;
-    submitBtn.classList.toggle('opacity-40', !e.target.checked);
-    submitBtn.classList.toggle('cursor-not-allowed', !e.target.checked);
+    // Мобильное меню
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    let isMenuOpen = false;
+    
+    function toggleMenu() {
+        isMenuOpen = !isMenuOpen;
+        mobileMenu.style.transform = isMenuOpen ? 'translateY(0)' : 'translateY(-100%)';
+    }
+    mobileBtn.addEventListener('click', toggleMenu);
+    document.querySelectorAll('.mobile-link').forEach(link => link.addEventListener('click', toggleMenu));
+
+    // Модалка политики
+    const privacyModal = document.getElementById('privacy-modal');
+    const togglePrivacy = (show) => {
+        privacyModal.classList.toggle('pointer-events-none', !show);
+        privacyModal.style.opacity = show ? '1' : '0';
+    };
+    document.getElementById('open-privacy-link').addEventListener('click', (e) => { e.preventDefault(); togglePrivacy(true); });
+    document.getElementById('open-privacy-footer').addEventListener('click', () => togglePrivacy(true));
+    document.getElementById('close-privacy').addEventListener('click', () => togglePrivacy(false));
+    document.getElementById('agree-privacy-btn').addEventListener('click', () => togglePrivacy(false));
 });
