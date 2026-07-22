@@ -287,8 +287,10 @@ document.addEventListener('DOMContentLoaded', () => {
         ease: "sine.inOut",
         stagger: { each: 0.09, repeat: -1, yoyo: true }
     });
-    gsap.to(".hero-badge-float", { y: -8, duration: 2.4, repeat: -1, yoyo: true, ease: "sine.inOut" });
-    gsap.to(".hero-badge-float-2", { y: 8, duration: 2.8, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.3 });
+    
+    // ИСПРАВЛЕНО: Добавлено force3D: true, увеличена длительность и амплитуда для плавности
+    gsap.to(".hero-badge-float", { y: -12, duration: 3.2, repeat: -1, yoyo: true, ease: "sine.inOut", force3D: true });
+    gsap.to(".hero-badge-float-2", { y: 12, duration: 3.6, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 0.5, force3D: true });
 
     gsap.set(".scroll-anim", { visibility: "visible" });
     gsap.from(".scroll-anim", { scrollTrigger: { trigger: "#about", start: "top 85%" }, y: 40, opacity: 0, duration: 0.8, stagger: 0.1 });

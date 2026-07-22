@@ -54,3 +54,9 @@ body {
     overflow: hidden;
     padding: 0.12em 0.4em 0.08em 0;
 }
+
+/* Аппаратное ускорение для плавающих плашек (решает проблему дерганой анимации) */
+.hero-badge-float, .hero-badge-float-2 {
+    will-change: transform;
+    transform: translateZ(0); 
+}
