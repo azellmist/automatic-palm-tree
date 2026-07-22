@@ -12,14 +12,14 @@ body {
 ::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #9CA3AF; }
 
-/* Эффект матового стекла для меню и модалок */
+/* Эффект матового стекла */
 .glassmorphism {
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
 }
 
-/* Исправленный чекбокс ФЗ-152 */
+/* Кастомный чекбокс ФЗ-152 */
 .custom-checkbox {
     appearance: none;
     width: 1.25rem; height: 1.25rem; min-width: 1.25rem; flex-shrink: 0;
@@ -33,9 +33,9 @@ body {
     border: solid #FFF; border-width: 0 2px 2px 0; transform: rotate(45deg);
 }
 
-/* ИСПРАВЛЕНО: Вместо visibility используем opacity для устранения ошибки некомбинированных анимаций */
+/* ИСПРАВЛЕНО: Убрали жесткий opacity: 0 из CSS. 
+Теперь скрытие обрабатывает GSAP. Если скрипт упадет, сайт будет виден. */
 .hero-reveal, .scroll-anim, .reveal-up, .nav-reveal, .service-node { 
-    opacity: 0; 
     will-change: opacity, transform;
 }
 

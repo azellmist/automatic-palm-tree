@@ -1,4 +1,4 @@
-// ДОБАВЛЕНО: Динамический импорт Vercel Analytics (позволяет убрать скрипты из HTML и усилить CSP)
+// Динамический импорт Vercel Analytics
 import('https://esm.sh/@vercel/analytics').then(({ inject }) => inject()).catch(e => console.warn('Analytics blocked:', e));
 import('https://esm.sh/@vercel/speed-insights').then(({ injectSpeedInsights }) => injectSpeedInsights()).catch(e => console.warn('Insights blocked:', e));
 
@@ -243,14 +243,15 @@ form.addEventListener('submit', function(e) {
 
 // --- 4. АНИМАЦИИ GSAP И МОБИЛЬНОЕ МЕНЮ ---
 window.addEventListener('load', () => {
+
+    // ИСПРАВЛЕНО: Теперь элементы скрываются исключительно скриптом. Если скрипт крашится — всё будет видно.
+    gsap.set(".hero-reveal, .scroll-anim, .reveal-up, .nav-reveal, .service-node", { opacity: 0 });
     
-    // ИСПРАВЛЕНО: requestAnimationFrame убирает Layout Thrashing при инициализации ScrollTrigger
     requestAnimationFrame(() => {
         if (document.fonts) {
             document.fonts.ready.then(() => ScrollTrigger.refresh());
         }
 
-        // ИСПРАВЛЕНО: Заменили gsap.from на gsap.fromTo для корректной работы с opacity: 0 из CSS
         gsap.fromTo(".nav-reveal", 
             { y: -16, opacity: 0 }, 
             { y: 0, opacity: 1, duration: 0.7, stagger: 0.08, ease: "power2.out" }
