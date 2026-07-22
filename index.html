@@ -15,234 +15,121 @@
     <!-- Шрифт Manrope -->
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <style>
-        body {
-            font-family: 'Manrope', sans-serif;
-            background-color: #FAFAFA;
-            color: #111827;
-            overflow-x: hidden;
-        }
-        
-        /* Элегантный скроллбар */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #FAFAFA; }
-        ::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #9CA3AF; }
-
-        /* Эффект матового стекла для меню и модалок */
-        .glassmorphism {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-        }
-
-        /* Исправленный чекбокс ФЗ-152 */
-        .custom-checkbox {
-            appearance: none;
-            width: 1.25rem; height: 1.25rem; min-width: 1.25rem; flex-shrink: 0;
-            border: 1px solid #D1D5DB; border-radius: 4px;
-            display: inline-block; position: relative; cursor: pointer;
-            transition: all 0.3s ease; background: #FFF;
-        }
-        .custom-checkbox:checked { background-color: #111827; border-color: #111827; }
-        .custom-checkbox:checked::after {
-            content: ''; position: absolute; left: 6px; top: 2px; width: 5px; height: 10px;
-            border: solid #FFF; border-width: 0 2px 2px 0; transform: rotate(45deg);
-        }
-
-        /* Скрываем элементы до инициализации GSAP (чтобы не было моргания) */
-        .hero-reveal, .scroll-anim { visibility: hidden; }
-
-        /* Декоративные элементы hero */
-        .hero-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            pointer-events: none;
-        }
-        .hero-unit-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-        }
-
-        /* Маска для GSAP-анимации с запасом под кириллические диакритики (й, ё) */
-        .hero-heading-mask {
-            overflow: hidden;
-            padding: 0.12em 0.4em 0.08em 0;
-        }
-    </style>
+    <!-- Подключаем стили -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="antialiased selection:bg-black selection:text-white">
 
     <!-- Навигационная панель -->
-    <nav class="fixed w-full z-50 transition-all duration-500 py-4 glassmorphism border-b border-gray-200" id="navbar">
+    <nav class="fixed w-full z-50 transition-colors duration-500 py-4 glassmorphism border-b border-gray-200" id="navbar">
         <div class="max-w-7xl mx-auto px-6 md:px-8 flex justify-between items-center">
-            <!-- Логотип -->
-            <div class="flex items-center gap-3 cursor-pointer group">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="1.5" class="transition-transform duration-700 group-hover:rotate-180">
+            <div class="flex items-center gap-3 cursor-pointer group nav-reveal">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="1.5" class="transition-all duration-700 group-hover:rotate-180 group-hover:[stroke:#146C8C]">
                     <path d="M4 12C4 12 7.5 4 12 4C16.5 4 20 12 20 12C20 12 16.5 20 12 20C7.5 20 4 12 4 12Z"/>
                     <path d="M12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15"/>
                 </svg>
                 <span class="text-xl tracking-[0.25em] font-light uppercase text-gray-900">Clima<strong class="font-bold">Flow</strong></span>
             </div>
 
-            <!-- Десктопное Меню -->
-            <div class="hidden md:flex gap-12 text-xs font-semibold tracking-[0.2em] uppercase text-gray-500">
-                <a href="#about" class="hover:text-black transition-colors">О нас</a>
-                <a href="#services" class="hover:text-black transition-colors">Услуги</a>
-                <a href="#catalog" class="hover:text-black transition-colors">Каталог</a>
-                <a href="#reviews" class="hover:text-black transition-colors">Отзывы</a>
+            <div class="hidden md:flex gap-12 text-xs font-semibold tracking-[0.2em] uppercase text-gray-500 nav-reveal">
+                <a href="#about" class="hover:text-[#146C8C] transition-colors">О нас</a>
+                <a href="#services" class="hover:text-[#146C8C] transition-colors">Услуги</a>
+                <a href="#catalog" class="hover:text-[#146C8C] transition-colors">Каталог</a>
+                <a href="#reviews" class="hover:text-[#146C8C] transition-colors">Отзывы</a>
             </div>
 
-            <!-- Контакты Десктоп -->
-            <div class="hidden md:flex items-center gap-5">
-                <a href="tel:+79595094645" class="text-sm font-bold tracking-wider text-gray-900">+7 (959) 509-46-45</a>
-
-                <!-- Кнопки-редиректы в соц. сети — замените # на реальные ссылки ваших аккаунтов -->
+            <div class="hidden md:flex items-center gap-5 nav-reveal">
+                <a href="tel:+79595094645" class="text-sm font-bold text-gray-900 header-phone">+7 (959) 509-46-45</a>
                 <div class="flex items-center gap-2 pl-5 border-l border-gray-200">
-                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Telegram" class="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-colors duration-300">
+                    <a href="https://t.me/+79104096344" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:bg-[#146C8C] hover:text-white hover:border-[#146C8C] transition-colors duration-300">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M21.5 2.5L2.3 10.1c-.9.35-.9 1.65.05 1.95l4.7 1.5 1.8 5.75c.3.9 1.45 1.05 1.95.25l2.55-4.05 4.75 3.5c.8.6 1.95.15 2.1-.85l3-14.5c.15-.9-.75-1.55-1.65-1.15zM8.4 13.35l9.15-6.9c.35-.25.7.15.4.45l-7.6 7.3-.3 3.6-1.65-4.45z"/></svg>
                     </a>
-                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="MAX" class="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-colors duration-300 text-[9px] font-extrabold tracking-tight">
-                        MAX
-                    </a>
-                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте" class="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-colors duration-300 text-[11px] font-extrabold tracking-tight">
-                        VK
-                    </a>
                 </div>
-
-                <a href="#form-section" class="bg-gray-900 text-white text-xs font-semibold tracking-widest uppercase px-6 py-3 rounded-full hover:bg-gray-700 transition-colors duration-300">
+                <button onclick="document.getElementById('form-section').scrollIntoView()" class="cta-pill bg-gray-900 text-white text-xs font-semibold tracking-widest uppercase px-6 py-3 rounded-full">
                     Связаться
-                </a>
+                </button>
             </div>
-
-            <!-- Бургер меню для мобильных -->
-            <button id="mobile-menu-btn" class="md:hidden text-gray-900 focus:outline-none">
+            
+            <button id="mobile-menu-btn" class="md:hidden text-gray-900 focus:outline-none nav-reveal">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/></svg>
             </button>
         </div>
     </nav>
 
-    <!-- Мобильное выпадающее меню -->
-    <div id="mobile-menu" class="fixed inset-0 bg-white z-40 transform translate-y-[-100%] transition-transform duration-500 flex flex-col justify-center items-center gap-8 shadow-2xl">
-        <a href="#about" class="mobile-link text-2xl font-bold uppercase tracking-widest text-gray-800">О нас</a>
-        <a href="#services" class="mobile-link text-2xl font-bold uppercase tracking-widest text-gray-800">Услуги</a>
-        <a href="#catalog" class="mobile-link text-2xl font-bold uppercase tracking-widest text-gray-800">Каталог</a>
-        <a href="#reviews" class="mobile-link text-2xl font-bold uppercase tracking-widest text-gray-800">Отзывы</a>
-        <a href="tel:+79595094645" class="text-xl font-bold mt-4">+7 (959) 509-46-45</a>
-
-        <!-- Кнопки-редиректы в соц. сети — замените # на реальные ссылки ваших аккаунтов -->
-        <div class="flex items-center gap-4">
-            <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Telegram" class="w-11 h-11 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-colors duration-300">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21.5 2.5L2.3 10.1c-.9.35-.9 1.65.05 1.95l4.7 1.5 1.8 5.75c.3.9 1.45 1.05 1.95.25l2.55-4.05 4.75 3.5c.8.6 1.95.15 2.1-.85l3-14.5c.15-.9-.75-1.55-1.65-1.15zM8.4 13.35l9.15-6.9c.35-.25.7.15.4.45l-7.6 7.3-.3 3.6-1.65-4.45z"/></svg>
-            </a>
-            <a href="#" target="_blank" rel="noopener noreferrer" aria-label="MAX" class="w-11 h-11 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-colors duration-300 text-[10px] font-extrabold tracking-tight">
-                MAX
-            </a>
-            <a href="#" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте" class="w-11 h-11 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-colors duration-300 text-xs font-extrabold tracking-tight">
-                VK
-            </a>
-        </div>
-
-        <a href="#form-section" class="mobile-link bg-gray-900 text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest text-sm mt-4">Оставить заявку</a>
+    <!-- Мобильное выпадающее меню (без CSS-классов позиционирования, управляется GSAP) -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white/95 backdrop-blur-xl z-40 flex flex-col justify-center items-center gap-8 shadow-2xl invisible">
+        <a href="#about" class="mobile-link text-3xl font-bold uppercase tracking-widest text-gray-800">О нас</a>
+        <a href="#services" class="mobile-link text-3xl font-bold uppercase tracking-widest text-gray-800">Услуги</a>
+        <a href="#catalog" class="mobile-link text-3xl font-bold uppercase tracking-widest text-gray-800">Каталог</a>
+        <a href="#reviews" class="mobile-link text-3xl font-bold uppercase tracking-widest text-gray-800">Отзывы</a>
+        <a href="tel:+79595094645" class="text-2xl font-bold mt-4 text-gray-900 header-phone">+7 (959) 509-46-45</a>
+        <button onclick="document.getElementById('form-section').scrollIntoView(); toggleMenu();" class="mobile-link cta-pill bg-gray-900 text-white px-8 py-4 rounded-full font-bold uppercase tracking-widest text-sm mt-4">Оставить заявку</button>
     </div>
 
     <!-- Главный экран -->
     <header class="min-h-screen flex items-center px-6 md:px-12 lg:px-24 relative overflow-x-hidden bg-white pt-24 pb-16">
-        <!-- Фоновые орбы -->
-        <div class="hero-orb w-72 h-72 bg-gray-200/60 top-20 right-0 lg:right-1/4"></div>
-        <div class="hero-orb w-96 h-96 bg-gray-100 top-1/2 -right-20"></div>
+        <div class="hero-orb hero-orb-1 w-72 h-72 bg-[#146C8C]/10 top-20 right-0 lg:right-1/4"></div>
+        <div class="hero-orb hero-orb-2 w-96 h-96 bg-[#146C8C]/[0.06] top-1/2 -right-20"></div>
 
         <div class="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-10 lg:gap-14 items-center z-10">
-            <!-- Текстовый блок -->
             <div class="md:col-span-6 lg:col-span-5 xl:col-span-5 min-w-0">
                 <div class="overflow-hidden mb-4">
-                    <span class="hero-reveal text-xs md:text-sm tracking-[0.4em] text-gray-500 uppercase block">Профессиональный инжиниринг микроклимата</span>
+                    <span class="hero-reveal text-xs tracking-[0.4em] text-gray-500 uppercase block">Профессиональный инжиниринг микроклимата</span>
                 </div>
                 <div class="hero-heading-mask mb-8">
-                    <h1 class="hero-reveal text-5xl md:text-5xl lg:text-6xl xl:text-7xl font-light text-gray-900 tracking-tight leading-[1.12]">
+                    <h1 id="hero-heading" class="text-5xl md:text-5xl lg:text-6xl xl:text-7xl font-light text-gray-900 leading-[1.05]">
                         Создаем<br>комфортный<br><span class="font-extrabold">климат в доме.</span>
                     </h1>
                 </div>
                 <div class="overflow-hidden mb-10">
-                    <p class="hero-reveal text-base md:text-lg text-gray-600 font-light max-w-xl leading-relaxed">
+                    <p class="hero-reveal text-base md:text-lg text-gray-600 font-light max-w-xl">
                         Подберем идеальное климатическое решение, выполним безупречный аккуратный монтаж и возьмем на себя регулярное сервисное обслуживание.
                     </p>
                 </div>
                 <div class="hero-reveal flex flex-col sm:flex-row gap-4 mb-10 lg:mb-0">
-                    <a href="#catalog" class="text-center bg-gray-900 text-white px-8 py-4 rounded-full text-xs font-bold tracking-widest uppercase hover:bg-gray-700 transition-colors">
+                    <button onclick="document.getElementById('catalog').scrollIntoView()" class="cta-pill text-center bg-gray-900 text-white px-8 py-4 rounded-full text-xs font-bold tracking-widest uppercase">
                         Исследовать каталог
-                    </a>
-                    <a href="#form-section" class="text-center border border-gray-300 text-gray-900 px-8 py-4 rounded-full text-xs font-bold tracking-widest uppercase hover:border-gray-900 transition-colors">
+                    </button>
+                    <button onclick="document.getElementById('form-section').scrollIntoView()" class="cta-pill text-center border border-gray-300 text-gray-900 px-8 py-4 rounded-full text-xs font-bold tracking-widest uppercase bg-white/50 backdrop-blur-md">
                         Рассчитать стоимость
-                    </a>
-                </div>
-                <!-- Мини-метрики под CTA (мобайл) -->
-                <div class="hero-reveal flex gap-8 lg:hidden pt-2 border-t border-gray-100">
-                    <div><span class="text-2xl font-extrabold text-gray-900">15+</span><span class="block text-[10px] text-gray-500 uppercase tracking-wider mt-1">лет опыта</span></div>
-                    <div><span class="text-2xl font-extrabold text-gray-900">24ч</span><span class="block text-[10px] text-gray-500 uppercase tracking-wider mt-1">выезд мастера</span></div>
-                    <div><span class="text-2xl font-extrabold text-gray-900">3 года</span><span class="block text-[10px] text-gray-500 uppercase tracking-wider mt-1">гарантия</span></div>
+                    </button>
                 </div>
             </div>
 
-            <!-- Визуальный блок -->
+            <!-- Иллюстрация -->
             <div class="md:col-span-6 lg:col-span-7 xl:col-span-7 relative hero-visual min-w-0">
                 <div class="relative mx-auto max-w-lg lg:max-w-none md:pl-2 lg:pl-4 pt-16 pb-16 md:pt-20 md:pb-20">
-                    <!-- Плавающие бейджи — вынесены за пределы карточки -->
-                    <div class="hidden md:block absolute top-0 left-0 lg:-left-2 hero-unit-card rounded-2xl border border-gray-200 px-5 py-4 shadow-lg z-10">
+                    <div class="hidden md:block absolute top-0 left-0 lg:-left-2 hero-unit-card hero-badge-float rounded-2xl border border-gray-200 px-5 py-4 shadow-lg z-10">
                         <div class="text-[10px] text-gray-500 uppercase tracking-wider font-semibold">Монтаж</div>
-                        <div class="text-sm font-bold text-gray-900 mt-0.5">за 1 рабочий день</div>
+                        <div class="text-sm font-bold text-gray-900 mt-0.5 tracking-tight">за 1 рабочий день</div>
                     </div>
-                    <div class="hidden md:block absolute bottom-0 right-0 lg:-right-2 hero-unit-card rounded-2xl border border-gray-200 px-5 py-4 shadow-lg z-10">
+                    <div class="hidden md:block absolute bottom-0 right-0 lg:-right-2 hero-unit-card hero-badge-float-2 rounded-2xl border border-gray-200 px-5 py-4 shadow-lg z-10">
                         <div class="text-[10px] text-gray-500 uppercase tracking-wider font-semibold">Гарантия</div>
-                        <div class="text-sm font-bold text-gray-900 mt-0.5">до 3 лет на работы</div>
+                        <div class="text-sm font-bold text-gray-900 mt-0.5 tracking-tight">до 3 лет на работы</div>
                     </div>
-
-                    <!-- Основная карточка с иллюстрацией -->
                     <div class="hero-unit-card rounded-[2rem] border border-gray-200 p-8 md:p-10 shadow-sm relative overflow-hidden">
                         <div class="absolute top-0 right-0 w-32 h-32 bg-gray-50 rounded-bl-[4rem] border-l border-b border-gray-100"></div>
                         <span class="text-[10px] tracking-[0.3em] text-gray-400 uppercase font-bold block mb-6">Split-System Premium</span>
-
-                        <!-- SVG иллюстрация кондиционера -->
                         <div class="flex items-center justify-center py-6 md:py-10">
                             <svg viewBox="0 0 320 200" class="w-full max-w-sm" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <!-- Внутренний блок -->
                                 <rect x="40" y="30" width="240" height="70" rx="8" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1"/>
                                 <rect x="50" y="40" width="180" height="8" rx="2" fill="#E5E7EB"/>
                                 <rect x="50" y="55" width="140" height="4" rx="1" fill="#E5E7EB"/>
                                 <rect x="50" y="65" width="160" height="4" rx="1" fill="#E5E7EB"/>
-                                <circle cx="260" cy="65" r="18" fill="#111827" opacity="0.08"/>
-                                <circle cx="260" cy="65" r="8" fill="#111827"/>
-                                <!-- Поток воздуха -->
-                                <path d="M60 105 Q100 130 140 105 Q180 80 220 105 Q260 130 300 105" stroke="#D1D5DB" stroke-width="1.5" stroke-dasharray="4 4" fill="none" opacity="0.6"/>
-                                <!-- Внешний блок -->
+                                <circle id="ac-power-glow" cx="260" cy="65" r="18" fill="#146C8C" opacity="0.12"/>
+                                <circle id="ac-power-light" cx="260" cy="65" r="8" fill="#146C8C"/>
+                                <path id="ac-airflow" d="M60 105 Q100 130 140 105 Q180 80 220 105 Q260 130 300 105" stroke="#146C8C" stroke-width="1.5" stroke-dasharray="4 4" fill="none" opacity="0.5"/>
                                 <rect x="80" y="120" width="160" height="60" rx="6" fill="#F9FAFB" stroke="#D1D5DB" stroke-width="1"/>
                                 <rect x="90" y="130" width="140" height="35" rx="3" fill="#E5E7EB"/>
-                                <rect x="100" y="138" width="8" height="20" rx="1" fill="#D1D5DB"/>
-                                <rect x="115" y="138" width="8" height="20" rx="1" fill="#D1D5DB"/>
-                                <rect x="130" y="138" width="8" height="20" rx="1" fill="#D1D5DB"/>
-                                <rect x="145" y="138" width="8" height="20" rx="1" fill="#D1D5DB"/>
-                                <rect x="160" y="138" width="8" height="20" rx="1" fill="#D1D5DB"/>
-                                <rect x="175" y="138" width="8" height="20" rx="1" fill="#D1D5DB"/>
-                                <rect x="190" y="138" width="8" height="20" rx="1" fill="#D1D5DB"/>
-                                <rect x="205" y="138" width="8" height="20" rx="1" fill="#D1D5DB"/>
+                                <rect class="ac-fan-bar" x="100" y="138" width="8" height="20" rx="1" fill="#D1D5DB"/>
+                                <rect class="ac-fan-bar" x="115" y="138" width="8" height="20" rx="1" fill="#D1D5DB"/>
+                                <rect class="ac-fan-bar" x="130" y="138" width="8" height="20" rx="1" fill="#D1D5DB"/>
+                                <rect class="ac-fan-bar" x="145" y="138" width="8" height="20" rx="1" fill="#D1D5DB"/>
+                                <rect class="ac-fan-bar" x="160" y="138" width="8" height="20" rx="1" fill="#D1D5DB"/>
+                                <rect class="ac-fan-bar" x="175" y="138" width="8" height="20" rx="1" fill="#D1D5DB"/>
+                                <rect class="ac-fan-bar" x="190" y="138" width="8" height="20" rx="1" fill="#D1D5DB"/>
+                                <rect class="ac-fan-bar" x="205" y="138" width="8" height="20" rx="1" fill="#D1D5DB"/>
                             </svg>
-                        </div>
-
-                        <div class="grid grid-cols-3 gap-3 pt-4 border-t border-gray-100">
-                            <div class="text-center">
-                                <div class="text-lg md:text-xl font-extrabold text-gray-900">A+++</div>
-                                <div class="text-[9px] text-gray-500 uppercase tracking-wider mt-1">Класс энергии</div>
-                            </div>
-                            <div class="text-center border-x border-gray-100">
-                                <div class="text-lg md:text-xl font-extrabold text-gray-900">−30°C</div>
-                                <div class="text-[9px] text-gray-500 uppercase tracking-wider mt-1">Обогрев</div>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-lg md:text-xl font-extrabold text-gray-900">19 дБ</div>
-                                <div class="text-[9px] text-gray-500 uppercase tracking-wider mt-1">Тишина</div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -250,169 +137,49 @@
         </div>
     </header>
 
-    <!-- Секция О нас -->
-    <section id="about" class="py-24 md:py-32 bg-gray-50 border-t border-gray-200">
-        <div class="max-w-7xl mx-auto px-6 md:px-8 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-            <div class="lg:col-span-5">
-                <span class="text-xs tracking-[0.3em] text-gray-500 uppercase block mb-4">// НАМ ДОВЕРЯЮТ</span>
-                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900 mb-6">Мы — признанные мастера своего дела.</h2>
-                <p class="text-gray-600 font-light leading-relaxed mb-8">
-                    Учитываем площадь, архитектурные особенности помещений и личные пожелания клиента, чтобы предложить действительно работающее и долговечное решение для квартир, загородных резиденций и коммерческих пространств.
-                </p>
-            </div>
-            <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="p-8 rounded-3xl bg-white border border-gray-100 shadow-sm flex flex-col justify-between h-40 md:h-48 scroll-anim">
-                    <div class="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight">15+</div>
-                    <div class="text-[10px] md:text-xs text-gray-500 tracking-wider uppercase font-semibold mt-2">Лет работы на рынке сплит-систем.</div>
-                </div>
-                <div class="p-8 rounded-3xl bg-white border border-gray-100 shadow-sm flex flex-col justify-between h-40 md:h-48 scroll-anim">
-                    <div class="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight">2000+</div>
-                    <div class="text-[10px] md:text-xs text-gray-500 tracking-wider uppercase font-semibold mt-2">Довольных постоянных клиентов.</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Секция Услуг -->
-    <section id="services" class="py-24 md:py-32 bg-white border-t border-gray-200">
+    <section id="services" class="py-24 md:py-32 bg-gray-50 border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-6 md:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
-                <div>
-                    <span class="text-xs tracking-[0.3em] text-gray-500 uppercase block mb-4">// РЕШЕНИЯ И ЦЕНЫ</span>
-                    <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900">Комплексный сервис полного цикла</h2>
-                </div>
-                <p class="text-gray-500 font-light max-w-xs text-sm">Гарантируем честную фиксированную стоимость, согласованную строго до начала работ.</p>
+            <div class="mb-16 reveal-up">
+                <span class="text-xs tracking-[0.3em] text-[#146C8C] font-semibold uppercase block mb-4">// РЕШЕНИЯ И ЦЕНЫ</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900">Комплексный сервис полного цикла</h2>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                <!-- Карта 1 -->
-                <div class="service-node p-8 rounded-3xl bg-gray-50 border border-gray-200 hover:border-gray-400 hover:shadow-lg transition-all duration-300 flex flex-col justify-between min-h-[18rem]">
+                <div class="service-node p-8 rounded-3xl bg-white border border-gray-200 shadow-sm flex flex-col justify-between min-h-[18rem]">
                     <div>
-                        <div class="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center mb-5">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-                        </div>
                         <h3 class="text-xl font-bold text-gray-900 mb-2">Продажа кондиционеров</h3>
-                        <p class="text-sm text-gray-600 font-light">Профессиональный подбор модели под кубатуру и требования интерьера. Работаем с ведущими брендами.</p>
+                        <p class="text-sm text-gray-600 font-light">Профессиональный подбор модели под кубатуру и требования интерьера.</p>
                     </div>
-                    <div class="text-2xl font-extrabold text-gray-900 tracking-tight mt-auto pt-6">от 16 000 ₽</div>
+                    <div class="text-2xl font-extrabold text-gray-900 mt-auto pt-6 tracking-tight">от 16 000 ₽</div>
                 </div>
-                <!-- Карта 2 -->
-                <div class="service-node p-8 rounded-3xl bg-gray-50 border border-gray-200 hover:border-gray-400 hover:shadow-lg transition-all duration-300 flex flex-col justify-between min-h-[18rem]">
+                <div class="service-node p-8 rounded-3xl bg-white border border-gray-200 shadow-sm flex flex-col justify-between min-h-[18rem]">
                     <div>
-                        <div class="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center mb-5">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
-                        </div>
                         <h3 class="text-xl font-bold text-gray-900 mb-2">Монтаж оборудования</h3>
                         <p class="text-sm text-gray-600 font-light">Аккуратная установка строго по технологии. Оставляем за собой идеальную чистоту.</p>
                     </div>
-                    <div class="text-2xl font-extrabold text-gray-900 tracking-tight mt-auto pt-6">от 10 000 ₽</div>
+                    <div class="text-2xl font-extrabold text-gray-900 mt-auto pt-6 tracking-tight">от 10 000 ₽</div>
                 </div>
-                <!-- Карта 3 -->
-                <div class="service-node p-8 rounded-3xl bg-gray-50 border border-gray-200 hover:border-gray-400 hover:shadow-lg transition-all duration-300 flex flex-col justify-between min-h-[18rem]">
+                <div class="service-node p-8 rounded-3xl bg-[#0F3541] border border-[#0F3541] flex flex-col justify-between min-h-[18rem] text-white shadow-md">
                     <div>
-                        <div class="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center mb-5">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="1.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">Чистка и обслуживание</h3>
-                        <p class="text-sm text-gray-600 font-light">Полная дезинфекция, промывка систем фильтрации и дозаправка фреоном.</p>
-                    </div>
-                    <div class="text-2xl font-extrabold text-gray-900 tracking-tight mt-auto pt-6">от 4 500 ₽</div>
-                </div>
-                <!-- Карта 4 -->
-                <div class="service-node p-8 rounded-3xl bg-gray-50 border border-gray-200 hover:border-gray-400 hover:shadow-lg transition-all duration-300 flex flex-col justify-between min-h-[18rem]">
-                    <div>
-                        <div class="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center mb-5">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">Диагностика</h3>
-                        <p class="text-sm text-gray-600 font-light">Выявление скрытых проблем электроники, компрессора и контура циркуляции.</p>
-                    </div>
-                    <div class="text-2xl font-extrabold text-gray-900 tracking-tight mt-auto pt-6">2 500 ₽</div>
-                </div>
-                <!-- Карта 5 -->
-                <div class="service-node p-8 rounded-3xl bg-gray-50 border border-gray-200 hover:border-gray-400 hover:shadow-lg transition-all duration-300 flex flex-col justify-between min-h-[18rem]">
-                    <div>
-                        <div class="w-10 h-10 rounded-xl bg-white border border-gray-200 flex items-center justify-center mb-5">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">Ремонт систем</h3>
-                        <p class="text-sm text-gray-600 font-light">Устранение поломок любой сложности с использованием оригинальных комплектующих.</p>
-                    </div>
-                    <div class="text-2xl font-extrabold text-gray-900 tracking-tight mt-auto pt-6">от 4 000 ₽</div>
-                </div>
-                <!-- Карта 6 -->
-                <div class="service-node p-8 rounded-3xl bg-gray-900 border border-gray-900 hover:shadow-xl transition-all duration-300 flex flex-col justify-between min-h-[18rem] text-white">
-                    <div>
-                        <div class="w-10 h-10 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center mb-5">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                        </div>
                         <h3 class="text-xl font-bold mb-2">Комплекс «под ключ»</h3>
-                        <p class="text-sm text-gray-300 font-light">Подбор + доставка + монтаж + пусконаладка. Одна фиксированная смета без скрытых доплат.</p>
+                        <p class="text-sm text-gray-300 font-light">Подбор + доставка + монтаж + пусконаладка. Одна смета без доплат.</p>
                     </div>
-                    <a href="#form-section" class="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase mt-auto pt-6 hover:opacity-80 transition-opacity">
+                    <button onclick="document.getElementById('form-section').scrollIntoView()" class="cta-pill mt-auto text-left inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase pt-6">
                         Получить расчёт
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Этапы работы -->
-            <div class="service-node mt-16 pt-12 border-t border-gray-100">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-6">
-                    <div>
-                        <span class="text-xs font-bold text-gray-300 tracking-widest">01</span>
-                        <h4 class="text-sm font-bold text-gray-900 mt-2 mb-1">Заявка и замер</h4>
-                        <p class="text-xs text-gray-500 font-light">Выезд инженера, расчёт мощности и смета в тот же день.</p>
-                    </div>
-                    <div>
-                        <span class="text-xs font-bold text-gray-300 tracking-widest">02</span>
-                        <h4 class="text-sm font-bold text-gray-900 mt-2 mb-1">Подбор модели</h4>
-                        <p class="text-xs text-gray-500 font-light">Согласуем бренд, тип системы и бюджет до покупки.</p>
-                    </div>
-                    <div>
-                        <span class="text-xs font-bold text-gray-300 tracking-widest">03</span>
-                        <h4 class="text-sm font-bold text-gray-900 mt-2 mb-1">Монтаж и пуск</h4>
-                        <p class="text-xs text-gray-500 font-light">Установка по стандартам, проверка всех режимов работы.</p>
-                    </div>
-                    <div>
-                        <span class="text-xs font-bold text-gray-300 tracking-widest">04</span>
-                        <h4 class="text-sm font-bold text-gray-900 mt-2 mb-1">Сервис и поддержка</h4>
-                        <p class="text-xs text-gray-500 font-light">Регулярное ТО, гарантийный и постгарантийный ремонт.</p>
-                    </div>
+                    </button>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Секция Каталога -->
-    <section id="catalog" class="py-24 md:py-32 bg-gray-50 border-t border-gray-200">
+    <section id="catalog" class="py-24 md:py-32 bg-white border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-6 md:px-8">
-            <div class="mb-12">
-                <span class="text-xs tracking-[0.3em] text-gray-500 uppercase block mb-4">// КАТАЛОГ СИСТЕМ</span>
-                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900 mb-8">Сплит-системы в наличии</h2>
-                
-                <div class="flex flex-wrap gap-x-6 gap-y-3 border-b border-gray-300 pb-4 mb-4">
-                    <span class="text-[10px] tracking-widest uppercase font-bold text-gray-400 self-center mr-2">Тип:</span>
-                    <button class="catalog-type-filter text-xs tracking-widest uppercase font-bold text-gray-900 border-b-2 border-gray-900 pb-2 px-2" data-filter="all">Все модели</button>
-                    <button class="catalog-type-filter text-xs tracking-widest uppercase font-medium text-gray-400 hover:text-gray-900 pb-2 px-2 transition-colors" data-filter="inverter">Inverter</button>
-                    <button class="catalog-type-filter text-xs tracking-widest uppercase font-medium text-gray-400 hover:text-gray-900 pb-2 px-2 transition-colors" data-filter="onoff">On / Off</button>
-                </div>
-                <div class="flex flex-wrap gap-x-4 gap-y-3 pb-2 overflow-x-auto">
-                    <span class="text-[10px] tracking-widest uppercase font-bold text-gray-400 self-center mr-2">Бренд:</span>
-                    <button class="catalog-brand-filter text-xs tracking-widest uppercase font-bold text-gray-900 border-b-2 border-gray-900 pb-2 px-2 whitespace-nowrap" data-brand="all">Все бренды</button>
-                    <button class="catalog-brand-filter text-xs tracking-widest uppercase font-medium text-gray-400 hover:text-gray-900 pb-2 px-2 transition-colors whitespace-nowrap" data-brand="daikin">Daikin</button>
-                    <button class="catalog-brand-filter text-xs tracking-widest uppercase font-medium text-gray-400 hover:text-gray-900 pb-2 px-2 transition-colors whitespace-nowrap" data-brand="mitsubishi">Mitsubishi</button>
-                    <button class="catalog-brand-filter text-xs tracking-widest uppercase font-medium text-gray-400 hover:text-gray-900 pb-2 px-2 transition-colors whitespace-nowrap" data-brand="haier">Haier</button>
-                    <button class="catalog-brand-filter text-xs tracking-widest uppercase font-medium text-gray-400 hover:text-gray-900 pb-2 px-2 transition-colors whitespace-nowrap" data-brand="gree">Gree</button>
-                    <button class="catalog-brand-filter text-xs tracking-widest uppercase font-medium text-gray-400 hover:text-gray-900 pb-2 px-2 transition-colors whitespace-nowrap" data-brand="kentatsu">Kentatsu</button>
-                    <button class="catalog-brand-filter text-xs tracking-widest uppercase font-medium text-gray-400 hover:text-gray-900 pb-2 px-2 transition-colors whitespace-nowrap" data-brand="aeronik">Aeronik</button>
-                    <button class="catalog-brand-filter text-xs tracking-widest uppercase font-medium text-gray-400 hover:text-gray-900 pb-2 px-2 transition-colors whitespace-nowrap" data-brand="midea">Midea</button>
-                    <button class="catalog-brand-filter text-xs tracking-widest uppercase font-medium text-gray-400 hover:text-gray-900 pb-2 px-2 transition-colors whitespace-nowrap" data-brand="hisense">Hisense</button>
-                    <button class="catalog-brand-filter text-xs tracking-widest uppercase font-medium text-gray-400 hover:text-gray-900 pb-2 px-2 transition-colors whitespace-nowrap" data-brand="ballu">Ballu</button>
-                </div>
+            <div class="mb-12 reveal-up">
+                <span class="text-xs tracking-[0.3em] text-[#146C8C] font-semibold uppercase block mb-4">// КАТАЛОГ СИСТЕМ</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-8">Сплит-системы в наличии</h2>
             </div>
-
-            <!-- Сетка каталога -->
             <div id="catalog-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Карточки рендерятся через JS -->
             </div>
@@ -420,423 +187,100 @@
     </section>
 
     <!-- Секция Отзывов -->
-    <section id="reviews" class="py-24 md:py-32 bg-white border-t border-gray-200">
+    <section id="reviews" class="py-24 md:py-32 bg-gray-50 border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-6 md:px-8">
-            <div class="mb-16">
-                <span class="text-xs tracking-[0.3em] text-gray-500 uppercase block mb-4">// ОТЗЫВЫ КЛИЕНТОВ</span>
-                <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900">Нам доверяют. И говорят об этом.</h2>
+            <div class="mb-16 reveal-up">
+                <span class="text-xs tracking-[0.3em] text-[#146C8C] font-semibold uppercase block mb-4">// ОТЗЫВЫ КЛИЕНТОВ</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900">Нам доверяют. И говорят об этом.</h2>
             </div>
-
-            <!-- Сетка отзывов (рендерится через JS из массива reviewsData в коде ниже) -->
-            <div id="reviews-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            </div>
+            <div id="reviews-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </div>
     </section>
 
     <!-- Форма Обратной связи -->
     <section id="form-section" class="py-24 md:py-32 bg-white border-t border-gray-200">
         <div class="max-w-6xl mx-auto px-6 md:px-8 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-            <div class="lg:col-span-6">
-                <span class="text-xs tracking-[0.3em] text-gray-500 uppercase block mb-4">// ОБРАТНАЯ СВЯЗЬ</span>
-                <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 mb-6 leading-tight">Позвольте инженерам создать совершенство.</h2>
+            <div class="lg:col-span-6 reveal-up">
+                <span class="text-xs tracking-[0.3em] text-[#146C8C] font-semibold uppercase block mb-4">// ОБРАТНАЯ СВЯЗЬ</span>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">Позвольте инженерам создать совершенство.</h2>
                 <p class="text-gray-600 font-light mb-8 max-w-md">Оставьте свои контактные данные. Наш специалист свяжется с вами, чтобы рассчитать смету и ответить на технические вопросы.</p>
             </div>
-
-            <!-- Блок формы -->
-            <div class="lg:col-span-6 bg-gray-50 border border-gray-200 p-8 md:p-10 rounded-3xl shadow-sm">
+            <div id="lead-form-card" class="lg:col-span-6 bg-gray-50 border border-gray-200 p-8 md:p-10 rounded-3xl shadow-sm">
                 <form id="premium-lead-form" class="space-y-6">
                     <div>
-                        <input type="text" id="lead-name" placeholder="Ваше имя" required class="w-full bg-white border border-gray-300 rounded-xl px-6 py-4 text-gray-900 text-sm placeholder-gray-400 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 transition-all">
+                        <input type="text" id="lead-name" placeholder="Ваше имя" required class="w-full bg-white border border-gray-300 rounded-xl px-6 py-4 text-gray-900 text-sm focus:outline-none focus:border-[#146C8C] transition-colors">
                     </div>
                     <div>
-                        <input type="tel" id="lead-phone" placeholder="+7 (___) ___-__-__" required inputmode="numeric" autocomplete="tel" class="w-full bg-white border border-gray-300 rounded-xl px-6 py-4 text-gray-900 text-sm placeholder-gray-400 focus:outline-none focus:border-gray-900 focus:ring-1 focus:ring-gray-900 transition-all">
+                        <input type="tel" id="lead-phone" placeholder="+7 (___) ___-__-__" required inputmode="numeric" class="w-full bg-white border border-gray-300 rounded-xl px-6 py-4 text-gray-900 text-sm focus:outline-none focus:border-[#146C8C] transition-colors">
                     </div>
-                    
-                    <!-- Чек-бокс (ФЗ-152) с исправленным выравниванием -->
                     <label class="flex items-start gap-4 cursor-pointer group pt-2 select-none">
                         <input type="checkbox" id="privacy-check" class="custom-checkbox mt-0.5">
-                        <span class="text-xs text-gray-500 leading-snug group-hover:text-gray-700 transition-colors">
-                            Я даю свое безусловное согласие на обработку персональных данных в строгом соответствии с <button type="button" id="open-privacy-link" class="underline text-gray-800 hover:text-black">Политикой конфиденциальности</button>.
+                        <span class="text-xs text-gray-500 leading-snug">
+                            Я даю согласие на обработку персональных данных в строгом соответствии с <button type="button" id="open-privacy-link" class="underline text-gray-800">Политикой конфиденциальности</button>.
                         </span>
                     </label>
-
                     <div class="pt-4">
-                        <button type="submit" id="submit-btn" disabled class="w-full bg-gray-900 text-white font-bold text-xs tracking-widest uppercase py-5 rounded-xl opacity-30 cursor-not-allowed transition-all duration-300">
+                        <button type="submit" id="submit-btn" disabled class="cta-pill w-full bg-gray-900 text-white font-bold text-xs tracking-widest uppercase py-5 rounded-xl opacity-40 cursor-not-allowed">
                             Отправить заявку
                         </button>
                     </div>
-                    <!-- Блок для вывода статуса отправки -->
                     <div id="form-status" class="text-sm font-semibold text-center hidden"></div>
                 </form>
             </div>
         </div>
     </section>
 
-    <!-- Подвал -->
     <footer class="bg-gray-100 py-12 border-t border-gray-200">
-        <div class="max-w-7xl mx-auto px-6 md:px-8 flex flex-col md:flex-row justify-between items-center gap-8">
+        <div class="max-w-7xl mx-auto px-6 md:px-8 flex flex-col md:flex-row justify-between items-center gap-8 reveal-up">
             <div class="text-center md:text-left">
                 <span class="text-xl tracking-[0.25em] font-light uppercase mb-2 block text-gray-900">Clima<strong class="font-bold">Flow</strong></span>
                 <p class="text-xs text-gray-500">© 2026. Все права защищены.</p>
             </div>
-            
-            <!-- Кнопки-редиректы в соц. сети — замените # на реальные ссылки ваших аккаунтов -->
-            <div class="flex items-center gap-3">
-                <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Telegram" class="w-11 h-11 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-colors duration-300">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21.5 2.5L2.3 10.1c-.9.35-.9 1.65.05 1.95l4.7 1.5 1.8 5.75c.3.9 1.45 1.05 1.95.25l2.55-4.05 4.75 3.5c.8.6 1.95.15 2.1-.85l3-14.5c.15-.9-.75-1.55-1.65-1.15zM8.4 13.35l9.15-6.9c.35-.25.7.15.4.45l-7.6 7.3-.3 3.6-1.65-4.45z"/></svg>
-                </a>
-                <a href="#" target="_blank" rel="noopener noreferrer" aria-label="MAX" class="w-11 h-11 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-colors duration-300 text-[10px] font-extrabold tracking-tight">
-                    MAX
-                </a>
-                <a href="#" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте" class="w-11 h-11 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-colors duration-300 text-xs font-extrabold tracking-tight">
-                    VK
-                </a>
-            </div>
-
-            <div class="text-center md:text-right text-xs text-gray-500 leading-relaxed">
-                <button id="open-privacy-footer" class="underline hover:text-gray-900 transition-colors">Политика обработки персональных данных</button>
+            <div class="text-center md:text-right text-xs text-gray-500">
+                <button id="open-privacy-footer" class="underline hover:text-[#146C8C]">Политика конфиденциальности</button>
             </div>
         </div>
     </footer>
 
-    <!-- Модалки (Политика и Спецификации) -->
-    <div id="privacy-modal" class="fixed inset-0 bg-gray-900/40 backdrop-blur-sm z-[70] flex justify-center items-center opacity-0 pointer-events-none transition-opacity duration-300 p-4 md:p-6">
-        <div class="bg-white w-full max-w-3xl rounded-3xl max-h-[85vh] flex flex-col shadow-2xl">
+    <!-- Модалка Политики (Управляется GSAP) -->
+    <div id="privacy-modal" class="fixed inset-0 z-[70] flex justify-center items-center p-4 md:p-6 pointer-events-none">
+        <!-- Scrim -->
+        <div class="absolute inset-0 bg-gray-900/60 backdrop-blur-sm privacy-bg"></div>
+        <!-- Modal Window -->
+        <div class="bg-white w-full max-w-3xl rounded-3xl max-h-[85vh] flex flex-col shadow-2xl relative z-10 privacy-content">
             <div class="p-6 md:p-8 border-b border-gray-100 flex justify-between items-center">
-                <h3 class="text-lg md:text-xl font-bold text-gray-900">Политика конфиденциальности</h3>
-                <button id="close-privacy" class="text-gray-400 hover:text-gray-900"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg></button>
+                <h3 class="text-xl font-bold text-gray-900">Политика конфиденциальности</h3>
+                <button id="close-privacy" class="text-gray-400 hover:text-gray-900"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
             </div>
-            <div class="p-6 md:p-8 overflow-y-auto space-y-4 text-sm text-gray-600 font-light">
-                <p class="text-gray-900 font-bold">1. Общие положения</p>
-                <p>Настоящая политика обработки персональных данных составлена в соответствии с требованиями Федерального закона от 27.07.2006. №152-ФЗ «О персональных данных».</p>
-                <p class="text-gray-900 font-bold">2. Сбор данных</p>
-                <p>Мы собираем: Имя и Номер телефона, исключительно по добровольному согласию через формы сайта.</p>
+            <div class="p-6 md:p-8 overflow-y-auto text-sm text-gray-600 font-light">
+                <p>Здесь располагается текст политики обработки данных...</p>
             </div>
             <div class="p-6 border-t border-gray-100 flex justify-end">
-                <button id="agree-privacy-btn" class="bg-gray-900 text-white px-6 py-3 rounded-xl text-xs font-bold uppercase">Понятно</button>
+                <button id="agree-privacy-btn" class="cta-pill bg-gray-900 text-white px-8 py-3 rounded-xl text-xs font-bold uppercase">Понятно</button>
             </div>
         </div>
     </div>
 
     <!-- Боковая панель деталей кондиционера -->
-    <div id="specs-drawer" class="fixed top-0 right-0 h-full w-full sm:w-[400px] bg-white border-l border-gray-200 z-[60] transform translate-x-full p-8 md:p-10 flex flex-col shadow-2xl transition-transform duration-500 ease-in-out overflow-y-auto">
+    <div id="drawer-backdrop" class="fixed inset-0 bg-gray-900/40 backdrop-blur-sm z-[55] pointer-events-none opacity-0"></div>
+    <div id="specs-drawer" class="fixed top-0 right-0 h-full w-full sm:w-[400px] bg-white border-l border-gray-200 z-[60] p-8 md:p-10 flex flex-col shadow-2xl overflow-y-auto">
         <div class="flex justify-between items-center mb-8">
             <span id="drawer-brand" class="text-xs tracking-[0.3em] text-gray-500 uppercase font-bold">BRAND</span>
-            <button id="close-drawer" class="text-gray-400 hover:text-gray-900"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg></button>
+            <button id="close-drawer" class="cta-pill text-gray-400 p-2"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
         </div>
         <h3 id="drawer-title" class="text-2xl font-extrabold text-gray-900 mb-2">Модель</h3>
-        <span id="drawer-type" class="inline-block px-3 py-1 bg-gray-100 rounded-full text-[10px] uppercase font-bold text-gray-600 mb-6 self-start">Тип</span>
-        
+        <span id="drawer-type" class="inline-block px-3 py-1 bg-[#146C8C]/10 text-[#146C8C] rounded-full text-[10px] uppercase font-bold mb-6 self-start">Тип</span>
         <div class="space-y-3 text-sm font-light text-gray-600 flex-grow" id="drawer-specs-content"></div>
-        
         <div class="pt-6 border-t border-gray-200 mt-6">
             <div class="flex justify-between items-baseline mb-4">
                 <span class="text-xs text-gray-500 font-bold uppercase">Цена:</span>
                 <span id="drawer-price" class="text-2xl font-extrabold text-gray-900">0 ₽</span>
             </div>
-            <a href="#form-section" id="drawer-cta" class="w-full text-center block bg-gray-900 text-white font-bold text-xs tracking-widest uppercase py-4 rounded-xl">Заказать</a>
+            <button id="drawer-cta" class="cta-pill w-full text-center bg-gray-900 text-white font-bold text-xs tracking-widest uppercase py-4 rounded-xl">Заказать</button>
         </div>
     </div>
 
-    <script>
-        gsap.registerPlugin(ScrollTrigger);
-        gsap.set(".service-node", { opacity: 0, y: 50 });
-
-        // --- 1. КАТАЛОГ ДАННЫХ ---
-        // ВНИМАНИЕ: Замените placeholder на реальные пути к вашим фото (например: "img/daikin-09.png")
-        const catalogData = [
-            { id: 1, title: "AERONIK On/Off ASI-09 HS5", brand: "aeronik", brandLabel: "AERONIK", type: "onoff", price: "29 600 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Завод изготовитель": "GREE inc.", "Рекомендуемая площадь": "До 25 кв.м.", "Мощность": "2550 Вт", "Класс энергии": "A" } },
-            { id: 2, title: "AERONIK Inverter ASI-12 INV", brand: "aeronik", brandLabel: "AERONIK", type: "inverter", price: "38 900 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Компрессор": "Инверторный", "Класс энергии": "A++" } },
-            { id: 3, title: "GREEN Eco Inverter 09", brand: "gree", brandLabel: "GREEN", type: "inverter", price: "34 000 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Компрессор": "Инверторный", "Уровень шума": "22 дБ" } },
-            { id: 4, title: "CHERBROOKE Japan Inverter 12", brand: "gree", brandLabel: "CHERBROOKE", type: "inverter", price: "44 900 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Класс": "A+++", "Обогрев": "до −15°C" } },
-            { id: 5, title: "Kentatsu YUKI Inverter 09", brand: "kentatsu", brandLabel: "KENTATSU", type: "inverter", price: "41 200 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Серия": "YUKI Premium", "Рекомендуемая площадь": "До 25 кв.м.", "Wi-Fi": "Опционально" } },
-            { id: 6, title: "Kentatsu Tagawa 2.0 Inverter 18", brand: "kentatsu", brandLabel: "KENTATSU", type: "inverter", price: "67 500 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 50 кв.м.", "Класс энергии": "A+++", "Фильтр": "Cold Plasma" } },
-            { id: 7, title: "Daikin Sensira FTXF-D 09", brand: "daikin", brandLabel: "DAIKIN", type: "inverter", price: "52 800 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Класс энергии": "A++", "Уровень шума": "19 дБ" } },
-            { id: 8, title: "Daikin Sensira FTXF-D 12", brand: "daikin", brandLabel: "DAIKIN", type: "inverter", price: "58 400 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Класс энергии": "A++", "Обогрев": "до −20°C" } },
-            { id: 9, title: "Daikin On/Off FTXB-C 09", brand: "daikin", brandLabel: "DAIKIN", type: "onoff", price: "46 200 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Тип компрессора": "On/Off", "Класс энергии": "A" } },
-            { id: 10, title: "Mitsubishi Electric MSZ-HR 09", brand: "mitsubishi", brandLabel: "MITSUBISHI", type: "inverter", price: "61 900 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Серия": "HR Inverter", "Рекомендуемая площадь": "До 25 кв.м.", "Класс энергии": "A++" } },
-            { id: 11, title: "Mitsubishi Electric MSZ-HR 12", brand: "mitsubishi", brandLabel: "MITSUBISHI", type: "inverter", price: "68 500 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Обогрев": "до −15°C", "Уровень шума": "21 дБ" } },
-            { id: 12, title: "Haier Flexis Plus 09", brand: "haier", brandLabel: "HAIER", type: "inverter", price: "39 800 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Wi-Fi": "Встроенный", "Класс энергии": "A++" } },
-            { id: 13, title: "Haier Jade Super Match 12", brand: "haier", brandLabel: "HAIER", type: "inverter", price: "47 600 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Самоочистка": "Есть", "Класс энергии": "A+++" } },
-            { id: 14, title: "Gree Pular Inverter 09", brand: "gree", brandLabel: "GREE", type: "inverter", price: "36 500 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Компрессор": "GREE G10", "Класс энергии": "A++" } },
-            { id: 15, title: "Gree Lyra On/Off 12", brand: "gree", brandLabel: "GREE", type: "onoff", price: "31 200 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Тип компрессора": "On/Off", "Класс энергии": "A" } },
-            { id: 16, title: "Midea Breezeless E 09", brand: "midea", brandLabel: "MIDEA", type: "inverter", price: "42 300 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Wi-Fi": "Встроенный", "Класс энергии": "A+++" } },
-            { id: 17, title: "Midea Paramount 12 Inverter", brand: "midea", brandLabel: "MIDEA", type: "inverter", price: "49 900 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Обогрев": "до −25°C", "Уровень шума": "20 дБ" } },
-            { id: 18, title: "Hisense Crystal Super DC 09", brand: "hisense", brandLabel: "HISENSE", type: "inverter", price: "37 400 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Wi-Fi": "Опционально", "Класс энергии": "A++" } },
-            { id: 19, title: "Hisense Easy Smart 12", brand: "hisense", brandLabel: "HISENSE", type: "inverter", price: "43 800 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Самоочистка": "Есть", "Класс энергии": "A++" } },
-            { id: 20, title: "Ballu Lagoon DC Inverter 09", brand: "ballu", brandLabel: "BALLU", type: "inverter", price: "33 600 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Класс энергии": "A++", "Уровень шума": "23 дБ" } },
-            { id: 21, title: "Ballu iGreen Pro On/Off 07", brand: "ballu", brandLabel: "BALLU", type: "onoff", price: "27 900 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 20 кв.м.", "Тип компрессора": "On/Off", "Класс энергии": "A" } },
-            { id: 22, title: "Kentatsu Bronte On/Off 09", brand: "kentatsu", brandLabel: "KENTATSU", type: "onoff", price: "32 400 ₽", image: "https://via.placeholder.com/300x150/FAFAFA/A0A0A0?text=PHOTO", specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Тип компрессора": "On/Off", "Класс энергии": "A+" } }
-        ];
-
-        let activeTypeFilter = 'all';
-        let activeBrandFilter = 'all';
-
-        function getFilteredCatalog() {
-            return catalogData.filter(item => {
-                const typeMatch = activeTypeFilter === 'all' || item.type === activeTypeFilter;
-                const brandMatch = activeBrandFilter === 'all' || item.brand === activeBrandFilter;
-                return typeMatch && brandMatch;
-            });
-        }
-
-        function setActiveFilterButton(buttons, activeBtn) {
-            buttons.forEach(btn => {
-                btn.classList.remove('text-gray-900', 'font-bold', 'border-b-2', 'border-gray-900');
-                btn.classList.add('text-gray-400', 'font-medium');
-            });
-            activeBtn.classList.remove('text-gray-400', 'font-medium');
-            activeBtn.classList.add('text-gray-900', 'font-bold', 'border-b-2', 'border-gray-900');
-        }
-
-        // --- 2. РЕНДЕРИНГ КАТАЛОГА С ФОТОГРАФИЯМИ ---
-        const catalogGrid = document.getElementById('catalog-grid');
-        function renderCatalog(items) {
-            catalogGrid.innerHTML = '';
-
-            if (!items.length) {
-                catalogGrid.innerHTML = '<div class="col-span-full py-16 text-center text-gray-500 font-light">По выбранным фильтрам моделей не найдено. Попробуйте изменить бренд или тип системы.</div>';
-                return;
-            }
-
-            items.forEach(item => {
-                const card = document.createElement('div');
-                card.className = `catalog-card p-6 rounded-3xl bg-white border border-gray-200 hover:shadow-xl hover:border-gray-300 transition-all duration-300 flex flex-col h-[400px] group`;
-                
-                card.innerHTML = `
-                    <div class="mb-4">
-                        <span class="text-[10px] tracking-widest text-gray-400 font-bold uppercase block mb-1">${item.brandLabel}</span>
-                        <h4 class="text-lg font-bold text-gray-900 leading-tight">${item.title}</h4>
-                        <span class="inline-block mt-2 px-2.5 py-1 bg-gray-100 rounded-full text-[9px] font-bold text-gray-600 uppercase tracking-wider">${item.type === 'inverter' ? 'Inverter' : 'On / Off'}</span>
-                    </div>
-                    
-                    <div class="flex-grow flex items-center justify-center relative overflow-hidden mb-4 bg-gray-50 rounded-2xl">
-                        <img src="${item.image}" alt="${item.title}" class="object-contain w-full h-32 transform group-hover:scale-105 transition-transform duration-500">
-                    </div>
-                    
-                    <div class="mt-auto">
-                        <div class="text-xl font-extrabold text-gray-900 tracking-tight mb-4">${item.price}</div>
-                        <button class="w-full text-center border border-gray-300 text-gray-900 text-xs font-bold py-3 rounded-xl hover:bg-gray-900 hover:text-white transition-all duration-300 open-specs-btn" data-id="${item.id}">
-                            Подробнее
-                        </button>
-                    </div>
-                `;
-                catalogGrid.appendChild(card);
-            });
-            initSpecsTriggers();
-        }
-        renderCatalog(catalogData);
-
-        // Фильтрация по типу и бренду
-        document.querySelectorAll('.catalog-type-filter').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                activeTypeFilter = e.currentTarget.getAttribute('data-filter');
-                setActiveFilterButton(document.querySelectorAll('.catalog-type-filter'), e.currentTarget);
-                renderCatalog(getFilteredCatalog());
-            });
-        });
-
-        document.querySelectorAll('.catalog-brand-filter').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                activeBrandFilter = e.currentTarget.getAttribute('data-brand');
-                setActiveFilterButton(document.querySelectorAll('.catalog-brand-filter'), e.currentTarget);
-                renderCatalog(getFilteredCatalog());
-            });
-        });
-
-        // Боковая панель деталей
-        const specsDrawer = document.getElementById('specs-drawer');
-        function initSpecsTriggers() {
-            document.querySelectorAll('.open-specs-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const item = catalogData.find(i => i.id == e.target.getAttribute('data-id'));
-                    if(item) {
-                        document.getElementById('drawer-brand').innerText = item.brandLabel;
-                        document.getElementById('drawer-title').innerText = item.title;
-                        document.getElementById('drawer-type').innerText = item.type === 'inverter' ? 'Inverter' : 'On / Off';
-                        document.getElementById('drawer-price').innerText = item.price;
-                        
-                        const specsContent = document.getElementById('drawer-specs-content');
-                        specsContent.innerHTML = '';
-                        for (const [k, v] of Object.entries(item.specs)) {
-                            specsContent.innerHTML += `<div class="flex justify-between border-b border-gray-100 pb-2"><span class="text-gray-500 text-xs">${k}</span><span class="text-gray-900 font-bold text-xs text-right">${v}</span></div>`;
-                        }
-                        specsDrawer.classList.remove('translate-x-full');
-                    }
-                });
-            });
-        }
-        document.getElementById('close-drawer').addEventListener('click', () => specsDrawer.classList.add('translate-x-full'));
-        document.getElementById('drawer-cta').addEventListener('click', () => specsDrawer.classList.add('translate-x-full'));
-
-        // --- 3. ЛОГИКА ОТПРАВКИ ФОРМЫ (TELEGRAM API) ---
-        // --- ЛОГИКА ОТЗЫВОВ ---
-        // Отзывы редактируются вручную прямо здесь: добавляй/удаляй/меняй объекты
-        // в массиве ниже. Поле photo можно оставить null (фото не будет показано)
-        // или указать ссылку на изображение, например "img/review1.jpg".
-        const reviewsData = [
-            { name: "Игорь В.", text: "Ставили Daikin в двухкомнатную квартиру — приехали точно ко времени, отработали аккуратно, после себя не оставили ни пылинки. Заказали ещё и на дачу.", photo: null, date: "Май 2026" },
-            { name: "Марина С.", text: "Обратились по чистке и дозаправке фреоном. Мастер объяснил, что происходит с системой, показал фото до/после фильтров. Работает как новый.", photo: null, date: "Июнь 2026" },
-            { name: "Дмитрий К.", text: "Комплекс «под ключ»: подбор, доставка, монтаж — всё за один день и без доплат сверх сметы. Рекомендую всем, кто не хочет разбираться в этом сам.", photo: null, date: "Июль 2026" }
-        ];
-
-        function renderReviews(data) {
-            const grid = document.getElementById('reviews-grid');
-            grid.innerHTML = '';
-            data.forEach(r => {
-                const card = document.createElement('div');
-                card.className = 'p-8 rounded-3xl bg-gray-50 border border-gray-100 shadow-sm flex flex-col';
-                card.innerHTML = `
-                    ${r.photo ? `<img src="${r.photo}" alt="Фото отзыва от ${r.name}" class="w-full h-40 object-cover rounded-2xl mb-5">` : ''}
-                    <p class="text-sm text-gray-600 font-light leading-relaxed flex-grow">${r.text}</p>
-                    <div class="flex justify-between items-center mt-6 pt-4 border-t border-gray-100">
-                        <span class="text-sm font-bold text-gray-900">${r.name}</span>
-                        <span class="text-[10px] text-gray-400 uppercase tracking-wider">${r.date}</span>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-        renderReviews(reviewsData);
-
-        const form = document.getElementById('premium-lead-form');
-        const checkbox = document.getElementById('privacy-check');
-        const submitBtn = document.getElementById('submit-btn');
-        const statusDiv = document.getElementById('form-status');
-
-        // --- МАСКА ТЕЛЕФОНА ДЛЯ РФ: всегда +7 и ровно 10 цифр после него ---
-        const phoneInput = document.getElementById('lead-phone');
-
-        function formatRuPhone(value) {
-            let digits = value.replace(/\D/g, '');
-            if (digits.startsWith('7') || digits.startsWith('8')) digits = digits.slice(1);
-            digits = digits.slice(0, 10); // не больше 10 цифр помимо +7
-            let formatted = '+7';
-            if (digits.length > 0) formatted += ' (' + digits.slice(0, 3);
-            if (digits.length >= 3) formatted += ')';
-            if (digits.length > 3) formatted += ' ' + digits.slice(3, 6);
-            if (digits.length > 6) formatted += '-' + digits.slice(6, 8);
-            if (digits.length > 8) formatted += '-' + digits.slice(8, 10);
-            return formatted;
-        }
-
-        function getPhoneDigitsCount(value) {
-            let digits = value.replace(/\D/g, '');
-            if (digits.startsWith('7') || digits.startsWith('8')) digits = digits.slice(1);
-            return digits.length;
-        }
-
-        phoneInput.addEventListener('focus', () => {
-            if (!phoneInput.value) phoneInput.value = '+7 ';
-        });
-        phoneInput.addEventListener('input', () => {
-            phoneInput.value = formatRuPhone(phoneInput.value);
-        });
-        phoneInput.addEventListener('keydown', (e) => {
-            // Не даём стереть или редактировать "+7" в начале номера
-            if ((e.key === 'Backspace' || e.key === 'Delete' || e.key === 'ArrowLeft') && phoneInput.selectionStart <= 2 && phoneInput.selectionEnd <= 2) {
-                e.preventDefault();
-            }
-        });
-
-        checkbox.addEventListener('change', (e) => {
-            submitBtn.disabled = !e.target.checked;
-            submitBtn.classList.toggle('opacity-30', !e.target.checked);
-            submitBtn.classList.toggle('cursor-not-allowed', !e.target.checked);
-            submitBtn.classList.toggle('hover:bg-gray-700', e.target.checked);
-        });
-
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('lead-name').value;
-            const phone = document.getElementById('lead-phone').value;
-
-            // Проверяем, что введены все 10 цифр номера (помимо +7)
-            if (getPhoneDigitsCount(phone) !== 10) {
-                statusDiv.innerHTML = '<span class="text-red-600">Введите номер телефона полностью — 10 цифр после +7.</span>';
-                statusDiv.classList.remove('hidden');
-                setTimeout(() => statusDiv.classList.add('hidden'), 4000);
-                return;
-            }
-            
-            // Замени на свои данные бота
-            const BOT_TOKEN = 'ТВОЙ_ТОКЕН_БОТА'; 
-            const CHAT_ID = 'ТВОЙ_CHAT_ID';
-            const text = `🔥 Новая заявка с сайта ClimaFlow!\n\n👤 Имя: ${name}\n📞 Телефон: ${phone}`;
-
-            // Меняем статус кнопки
-            submitBtn.innerText = 'Отправка...';
-            submitBtn.disabled = true;
-
-            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: CHAT_ID, text: text })
-            })
-            .then(res => {
-                if(res.ok) {
-                    statusDiv.innerHTML = '<span class="text-green-600">Заявка успешно отправлена!</span>';
-                    form.reset();
-                    submitBtn.classList.add('opacity-30', 'cursor-not-allowed');
-                } else {
-                    statusDiv.innerHTML = '<span class="text-red-600">Ошибка отправки. Позвоните нам.</span>';
-                }
-            })
-            .catch(err => {
-                statusDiv.innerHTML = '<span class="text-red-600">Ошибка сети.</span>';
-            })
-            .finally(() => {
-                statusDiv.classList.remove('hidden');
-                submitBtn.innerText = 'Отправить заявку';
-                setTimeout(() => statusDiv.classList.add('hidden'), 5000);
-            });
-        });
-
-        // --- 4. АНИМАЦИИ GSAP И МОБИЛЬНОЕ МЕНЮ ---
-        document.addEventListener('DOMContentLoaded', () => {
-            // Показываем элементы и запускаем анимацию главного экрана
-            gsap.set(".hero-reveal", { visibility: "visible" });
-            gsap.from(".hero-reveal", { y: 40, opacity: 0, duration: 1, stagger: 0.1, ease: "power3.out", delay: 0.2 });
-
-            gsap.set(".hero-visual", { opacity: 0, x: 40 });
-            gsap.to(".hero-visual", { opacity: 1, x: 0, duration: 1.2, ease: "power3.out", delay: 0.5 });
-            
-            gsap.set(".scroll-anim", { visibility: "visible" });
-            gsap.from(".scroll-anim", { scrollTrigger: { trigger: "#about", start: "top 85%" }, y: 40, opacity: 0, duration: 0.8, stagger: 0.1 });
-            
-            gsap.to(".service-node", {
-                scrollTrigger: { trigger: "#services", start: "top 80%", once: true },
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                stagger: 0.08,
-                ease: "power2.out"
-            });
-
-            // Мобильное меню
-            const mobileBtn = document.getElementById('mobile-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            let isMenuOpen = false;
-            
-            function toggleMenu() {
-                isMenuOpen = !isMenuOpen;
-                mobileMenu.style.transform = isMenuOpen ? 'translateY(0)' : 'translateY(-100%)';
-            }
-            mobileBtn.addEventListener('click', toggleMenu);
-            document.querySelectorAll('.mobile-link').forEach(link => link.addEventListener('click', toggleMenu));
-
-            // Модалка политики
-            const privacyModal = document.getElementById('privacy-modal');
-            const togglePrivacy = (show) => {
-                privacyModal.classList.toggle('pointer-events-none', !show);
-                privacyModal.style.opacity = show ? '1' : '0';
-            };
-            document.getElementById('open-privacy-link').addEventListener('click', (e) => { e.preventDefault(); togglePrivacy(true); });
-            document.getElementById('open-privacy-footer').addEventListener('click', () => togglePrivacy(true));
-            document.getElementById('close-privacy').addEventListener('click', () => togglePrivacy(false));
-            document.getElementById('agree-privacy-btn').addEventListener('click', () => togglePrivacy(false));
-        });
-    </script>
+    <!-- Подключаем JavaScript -->
+    <script src="main.js"></script>
 </body>
 </html>

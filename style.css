@@ -1,0 +1,89 @@
+/* Базовые стили и Оптика шрифта (Apple Design) */
+:root {
+    font: 100%/1.5 'Manrope', system-ui, sans-serif;
+}
+body {
+    background-color: #FAFAFA;
+    color: #111827;
+    overflow-x: hidden;
+}
+
+/* Оптическая калибровка типографики */
+h1, .text-5xl, .text-6xl, .text-7xl {
+    letter-spacing: -0.02em; /* Отрицательный трекинг для крупных заголовков */
+    font-optical-sizing: auto;
+}
+h2, h3, .text-4xl, .text-3xl {
+    letter-spacing: -0.01em;
+}
+p, .text-sm, .text-xs, .text-base {
+    letter-spacing: 0.01em; /* Позитивный трекинг для малого текста */
+}
+
+/* Элегантный скроллбар */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #FAFAFA; }
+::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #9CA3AF; }
+
+/* Эффект реального матового стекла с сатурацией и светлой гранью */
+.glassmorphism {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* Кастомный чекбокс */
+.custom-checkbox {
+    appearance: none;
+    width: 1.25rem; height: 1.25rem; min-width: 1.25rem; flex-shrink: 0;
+    border: 1px solid #D1D5DB; border-radius: 4px;
+    display: inline-block; position: relative; cursor: pointer;
+    background: #FFF;
+    transition: background-color 150ms ease;
+}
+.custom-checkbox:checked { background-color: #146C8C; border-color: #146C8C; }
+.custom-checkbox:checked::after {
+    content: ''; position: absolute; left: 6px; top: 2px; width: 5px; height: 10px;
+    border: solid #FFF; border-width: 0 2px 2px 0; transform: rotate(45deg);
+}
+
+/* Скрываем элементы до загрузки GSAP */
+.hero-reveal, .scroll-anim, .reveal-up, .nav-reveal { visibility: hidden; }
+
+.hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+}
+.hero-unit-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+.hero-heading-mask { overflow: hidden; padding: 0.12em 0.4em 0.08em 0; }
+
+/* ----------------------------------------------------
+   ДОСТУПНОСТЬ (Accessibility / Apple Design)
+   ---------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        /* Отключаем пружины и слайды, оставляем только плавные затухания */
+        transition: opacity 250ms ease !important;
+        transform: none !important;
+    }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+    /* Заменяем прозрачные слои на плотные для повышения контраста */
+    .glassmorphism, .hero-unit-card, #mobile-menu, .privacy-bg, #drawer-backdrop {
+        background: #FFFFFF !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+    .privacy-bg, #drawer-backdrop {
+        background: rgba(0,0,0,0.8) !important;
+    }
+}
