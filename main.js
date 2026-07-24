@@ -4,42 +4,113 @@ import('https://esm.sh/@vercel/speed-insights').then(({ injectSpeedInsights }) =
 
 gsap.registerPlugin(ScrollTrigger);
 
-// --- 1. КАТАЛОГ ДАННЫХ ---
+// --- 1. КАТАЛОГ ДАННЫХ ИЗ EXCEL ---
 const imgPlaceholder = "https://dummyimage.com/300x150/f9fafb/6b7280.png&text=PHOTO";
 
 const catalogData = [
-    { id: 1, title: "AERONIK On/Off ASI-09 HS5", brand: "aeronik", brandLabel: "AERONIK", type: "onoff", price: "29 600 ₽", image: imgPlaceholder, specs: { "Завод изготовитель": "GREE inc.", "Рекомендуемая площадь": "До 25 кв.м.", "Мощность": "2550 Вт", "Класс энергии": "A" } },
-    { id: 2, title: "AERONIK Inverter ASI-12 INV", brand: "aeronik", brandLabel: "AERONIK", type: "inverter", price: "38 900 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Компрессор": "Инверторный", "Класс энергии": "A++" } },
-    { id: 3, title: "GREEN Eco Inverter 09", brand: "gree", brandLabel: "GREEN", type: "inverter", price: "34 000 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Компрессор": "Инверторный", "Уровень шума": "22 дБ" } },
-    { id: 4, title: "CHERBROOKE Japan Inverter 12", brand: "gree", brandLabel: "CHERBROOKE", type: "inverter", price: "44 900 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Класс": "A+++", "Обогрев": "до −15°C" } },
-    { id: 5, title: "Kentatsu YUKI Inverter 09", brand: "kentatsu", brandLabel: "KENTATSU", type: "inverter", price: "41 200 ₽", image: imgPlaceholder, specs: { "Серия": "YUKI Premium", "Рекомендуемая площадь": "До 25 кв.м.", "Wi-Fi": "Опционально" } },
-    { id: 6, title: "Kentatsu Tagawa 2.0 Inverter 18", brand: "kentatsu", brandLabel: "KENTATSU", type: "inverter", price: "67 500 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 50 кв.м.", "Класс энергии": "A+++", "Фильтр": "Cold Plasma" } },
-    { id: 7, title: "Daikin Sensira FTXF-D 09", brand: "daikin", brandLabel: "DAIKIN", type: "inverter", price: "52 800 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Класс энергии": "A++", "Уровень шума": "19 дБ" } },
-    { id: 8, title: "Daikin Sensira FTXF-D 12", brand: "daikin", brandLabel: "DAIKIN", type: "inverter", price: "58 400 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Класс энергии": "A++", "Обогрев": "до −20°C" } },
-    { id: 9, title: "Daikin On/Off FTXB-C 09", brand: "daikin", brandLabel: "DAIKIN", type: "onoff", price: "46 200 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Тип компрессора": "On/Off", "Класс энергии": "A" } },
-    { id: 10, title: "Mitsubishi Electric MSZ-HR 09", brand: "mitsubishi", brandLabel: "MITSUBISHI", type: "inverter", price: "61 900 ₽", image: imgPlaceholder, specs: { "Серия": "HR Inverter", "Рекомендуемая площадь": "До 25 кв.м.", "Класс энергии": "A++" } },
-    { id: 11, title: "Mitsubishi Electric MSZ-HR 12", brand: "mitsubishi", brandLabel: "MITSUBISHI", type: "inverter", price: "68 500 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Обогрев": "до −15°C", "Уровень шума": "21 дБ" } },
-    { id: 12, title: "Haier Flexis Plus 09", brand: "haier", brandLabel: "HAIER", type: "inverter", price: "39 800 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Wi-Fi": "Встроенный", "Класс энергии": "A++" } },
-    { id: 13, title: "Haier Jade Super Match 12", brand: "haier", brandLabel: "HAIER", type: "inverter", price: "47 600 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Самоочистка": "Есть", "Класс энергии": "A+++" } },
-    { id: 14, title: "Gree Pular Inverter 09", brand: "gree", brandLabel: "GREE", type: "inverter", price: "36 500 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Компрессор": "GREE G10", "Класс энергии": "A++" } },
-    { id: 15, title: "Gree Lyra On/Off 12", brand: "gree", brandLabel: "GREE", type: "onoff", price: "31 200 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Тип компрессора": "On/Off", "Класс энергии": "A" } },
-    { id: 16, title: "Midea Breezeless E 09", brand: "midea", brandLabel: "MIDEA", type: "inverter", price: "42 300 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Wi-Fi": "Встроенный", "Класс энергии": "A+++" } },
-    { id: 17, title: "Midea Paramount 12 Inverter", brand: "midea", brandLabel: "MIDEA", type: "inverter", price: "49 900 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Обогрев": "до −25°C", "Уровень шума": "20 дБ" } },
-    { id: 18, title: "Hisense Crystal Super DC 09", brand: "hisense", brandLabel: "HISENSE", type: "inverter", price: "37 400 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Wi-Fi": "Опционально", "Класс энергии": "A++" } },
-    { id: 19, title: "Hisense Easy Smart 12", brand: "hisense", brandLabel: "HISENSE", type: "inverter", price: "43 800 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 35 кв.м.", "Самоочистка": "Есть", "Класс энергии": "A++" } },
-    { id: 20, title: "Ballu Lagoon DC Inverter 09", brand: "ballu", brandLabel: "BALLU", type: "inverter", price: "33 600 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Класс энергии": "A++", "Уровень шума": "23 дБ" } },
-    { id: 21, title: "Ballu iGreen Pro On/Off 07", brand: "ballu", brandLabel: "BALLU", type: "onoff", price: "27 900 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 20 кв.м.", "Тип компрессора": "On/Off", "Класс энергии": "A" } },
-    { id: 22, title: "Kentatsu Bronte On/Off 09", brand: "kentatsu", brandLabel: "KENTATSU", type: "onoff", price: "32 400 ₽", image: imgPlaceholder, specs: { "Рекомендуемая площадь": "До 25 кв.м.", "Тип компрессора": "On/Off", "Класс энергии": "A+" } }
+    { id: 1, title: "KiTANO KR-Toha-07", brand: "kitano", brandLabel: "KITANO", type: "onoff", priceCategory: "Бюджетный", price: "18 200 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.32 кВт", "Обогрев": "2.43 кВт" } },
+    { id: 2, title: "KiTANO KR-Toha-09", brand: "kitano", brandLabel: "KITANO", type: "onoff", priceCategory: "Бюджетный", price: "20 900 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.67 кВт", "Обогрев": "2.75 кВт" } },
+    { id: 3, title: "KiTANO KR-Toha-12", brand: "kitano", brandLabel: "KITANO", type: "onoff", priceCategory: "Бюджетный", price: "27 850 ₽", image: imgPlaceholder, specs: { "Охлаждение": "3.35 кВт", "Обогрев": "3.61 кВт" } },
+    { id: 4, title: "KiTANO KR-Toha-18", brand: "kitano", brandLabel: "KITANO", type: "onoff", priceCategory: "Средний", price: "46 950 ₽", image: imgPlaceholder, specs: { "Охлаждение": "5.16 кВт", "Обогрев": "5.28 кВт" } },
+    { id: 5, title: "KiTANO KR-Toha-24", brand: "kitano", brandLabel: "KITANO", type: "onoff", priceCategory: "Премиум", price: "58 900 ₽", image: imgPlaceholder, specs: { "Охлаждение": "6.56 кВт", "Обогрев": "6.87 кВт" } },
+    { id: 6, title: "Roland FU-07 HSS010/N6-IN", brand: "roland", brandLabel: "ROLAND", type: "onoff", priceCategory: "Бюджетный", price: "20 950 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.37 кВт", "Обогрев": "2.48 кВт" } },
+    { id: 7, title: "Roland FU-09 HSS010/N6-IN", brand: "roland", brandLabel: "ROLAND", type: "onoff", priceCategory: "Бюджетный", price: "22 500 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.65 кВт", "Обогрев": "2.7 кВт" } },
+    { id: 8, title: "Roland FU-12 HSS010/N6-IN", brand: "roland", brandLabel: "ROLAND", type: "onoff", priceCategory: "Бюджетный", price: "29 200 ₽", image: imgPlaceholder, specs: { "Охлаждение": "3.52 кВт", "Обогрев": "3.66 кВт" } },
+    { id: 9, title: "axioma ASB/ASX 07 F1", brand: "axioma", brandLabel: "AXIOMA", type: "onoff", priceCategory: "Бюджетный", price: "19 950 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.1 кВт", "Обогрев": "2.1 кВт" } },
+    { id: 10, title: "axioma ASB/ASX 09 F1", brand: "axioma", brandLabel: "AXIOMA", type: "onoff", priceCategory: "Бюджетный", price: "22 150 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.5 кВт", "Обогрев": "2.5 кВт" } },
+    { id: 11, title: "axioma ASB/ASX 12 F1", brand: "axioma", brandLabel: "AXIOMA", type: "onoff", priceCategory: "Бюджетный", price: "29 950 ₽", image: imgPlaceholder, specs: { "Охлаждение": "3.4 кВт", "Обогрев": "3.55 кВт" } },
+    { id: 12, title: "JAX YORK ACE 20 HE NEO", brand: "jax", brandLabel: "JAX", type: "onoff", priceCategory: "Средний", price: "47 700 ₽", image: imgPlaceholder, specs: { "Охлаждение": "5.28 кВт", "Обогрев": "5.57 кВт" } },
+    { id: 13, title: "°D Alpine ALP 07 AVQ1R", brand: "daichi", brandLabel: "DAICHI", type: "onoff", priceCategory: "Бюджетный", price: "20 950 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.34 кВт", "Обогрев": "2.34 кВт" } },
+    { id: 14, title: "°D Alpine ALP 09 AVQ1R", brand: "daichi", brandLabel: "DAICHI", type: "onoff", priceCategory: "Бюджетный", price: "22 500 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.64 кВт", "Обогрев": "2.78 кВт" } },
+    { id: 15, title: "°D Alpine ALP 12 AVQ1R", brand: "daichi", brandLabel: "DAICHI", type: "onoff", priceCategory: "Бюджетный", price: "29 200 ₽", image: imgPlaceholder, specs: { "Охлаждение": "3.52 кВт", "Обогрев": "3.66 кВт" } },
+    { id: 16, title: "°D Alpine ALP 18 AVQ1R", brand: "daichi", brandLabel: "DAICHI", type: "onoff", priceCategory: "Средний", price: "47 700 ₽", image: imgPlaceholder, specs: { "Охлаждение": "5.28 кВт", "Обогрев": "5.57 кВт" } },
+    { id: 17, title: "°D Alpine ALP 24 AVQ1R", brand: "daichi", brandLabel: "DAICHI", type: "onoff", priceCategory: "Премиум", price: "61 400 ₽", image: imgPlaceholder, specs: { "Охлаждение": "7.03 кВт", "Обогрев": "7.33 кВт" } },
+    { id: 18, title: "Persona MSAG4 09 HRN8", brand: "midea", brandLabel: "MIDEA", type: "onoff", priceCategory: "Средний", price: "38 800 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.64 кВт", "Обогрев": "2.78 кВт" } },
+    { id: 19, title: "Persona MSAG4 12 HRN8", brand: "midea", brandLabel: "MIDEA", type: "onoff", priceCategory: "Средний", price: "49 700 ₽", image: imgPlaceholder, specs: { "Охлаждение": "3.52 кВт", "Обогрев": "3.66 кВт" } },
+    { id: 20, title: "EK Futura EKSF 50 HN/EKOF", brand: "ek", brandLabel: "EK", type: "onoff", priceCategory: "Премиум", price: "57 200 ₽", image: imgPlaceholder, specs: { "Охлаждение": "4.8 кВт", "Обогрев": "5.16 кВт" } },
+    { id: 21, title: "Kanami410 KSGA 53 HFAN1/KSRA", brand: "kentatsu", brandLabel: "KENTATSU", type: "onoff", priceCategory: "Средний", price: "47 700 ₽", image: imgPlaceholder, specs: { "Охлаждение": "5.3 кВт", "Обогрев": "5.3 кВт" } },
+    { id: 22, title: "Kanami410 KSGA 70 HFAN1/KSRA", brand: "kentatsu", brandLabel: "KENTATSU", type: "onoff", priceCategory: "Премиум", price: "61 400 ₽", image: imgPlaceholder, specs: { "Охлаждение": "7 кВт", "Обогрев": "7.3 кВт" } },
+    { id: 23, title: "Kanami32 KSGA 35 HFRN1/KSRA", brand: "kentatsu", brandLabel: "KENTATSU", type: "onoff", priceCategory: "Бюджетный", price: "29 200 ₽", image: imgPlaceholder, specs: { "Охлаждение": "3.52 кВт", "Обогрев": "3.66 кВт" } },
+    { id: 24, title: "MARSA FORTUNA MRK-07 MGF", brand: "marsa", brandLabel: "MARSA", type: "onoff", priceCategory: "Бюджетный", price: "23 950 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.25 кВт", "Обогрев": "2.3 кВт" } },
+    { id: 25, title: "MARSA FORTUNA MRK-09 MGF", brand: "marsa", brandLabel: "MARSA", type: "onoff", priceCategory: "Бюджетный", price: "26 400 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.55 кВт", "Обогрев": "2.65 кВт" } },
+    { id: 26, title: "MARSA FORTUNA MRK-12 MGF", brand: "marsa", brandLabel: "MARSA", type: "onoff", priceCategory: "Средний", price: "36 400 ₽", image: imgPlaceholder, specs: { "Охлаждение": "3.25 кВт", "Обогрев": "3.4 кВт" } },
+    { id: 27, title: "MARSA FORTUNA MRK-18 MGF", brand: "marsa", brandLabel: "MARSA", type: "onoff", priceCategory: "Премиум", price: "62 400 ₽", image: imgPlaceholder, specs: { "Охлаждение": "4.8 кВт", "Обогрев": "5.16 кВт" } },
+    { id: 28, title: "MARSA FORTUNA MRK-24 MGF", brand: "marsa", brandLabel: "MARSA", type: "onoff", priceCategory: "Премиум", price: "71 750 ₽", image: imgPlaceholder, specs: { "Охлаждение": "6.16 кВт", "Обогрев": "6.7 кВт" } },
+    { id: 29, title: "MARSA FORTUNA MRK-36 MGF", brand: "marsa", brandLabel: "MARSA", type: "onoff", priceCategory: "Премиум", price: "112 000 ₽", image: imgPlaceholder, specs: { "Охлаждение": "9.5 кВт", "Обогрев": "9.8 кВт" } },
+    { id: 30, title: "BORA GWH 07 AAAXA/K3NNA2A", brand: "gree", brandLabel: "GREE", type: "onoff", priceCategory: "Средний", price: "33 200 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.25 кВт", "Обогрев": "2.35 кВт" } },
+    { id: 31, title: "BORA GWH 09 AAAXA/K3NNA2A", brand: "gree", brandLabel: "GREE", type: "onoff", priceCategory: "Средний", price: "36 300 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.55 кВт", "Обогрев": "2.65 кВт" } },
+    { id: 32, title: "BORA GWH 12 AABXB/K3NNA2A", brand: "gree", brandLabel: "GREE", type: "onoff", priceCategory: "Средний", price: "49 700 ₽", image: imgPlaceholder, specs: { "Охлаждение": "3.25 кВт", "Обогрев": "3.4 кВт" } },
+    { id: 33, title: "BORA GWH 18 AACXD/K3NNA2A", brand: "gree", brandLabel: "GREE", type: "onoff", priceCategory: "Премиум", price: "86 500 ₽", image: imgPlaceholder, specs: { "Охлаждение": "4.8 кВт", "Обогрев": "5 кВт" } },
+    { id: 34, title: "BORA GWH 24 AADXE/K3NNA2A", brand: "gree", brandLabel: "GREE", type: "onoff", priceCategory: "Премиум", price: "113 800 ₽", image: imgPlaceholder, specs: { "Охлаждение": "6.16 кВт", "Обогрев": "6.2 кВт" } },
+    { id: 35, title: "PULAR GWH 07 AGAXA/K3NNA1A", brand: "gree", brandLabel: "GREE", type: "onoff", priceCategory: "Средний", price: "34 400 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.35 кВт", "Обогрев": "2.45 кВт" } },
+    { id: 36, title: "PULAR GWH 09 AGAXA/K3NNA1A", brand: "gree", brandLabel: "GREE", type: "onoff", priceCategory: "Средний", price: "38 100 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.55 кВт", "Обогрев": "2.65 кВт" } },
+    { id: 37, title: "PULAR GWH 12 AGBXB/K3NNA1B", brand: "gree", brandLabel: "GREE", type: "onoff", priceCategory: "Премиум", price: "50 400 ₽", image: imgPlaceholder, specs: { "Охлаждение": "3.25 кВт", "Обогрев": "3.4 кВт" } },
+    { id: 38, title: "PULAR GWH 18 AGCXD/K3NNA1B", brand: "gree", brandLabel: "GREE", type: "onoff", priceCategory: "Премиум", price: "87 400 ₽", image: imgPlaceholder, specs: { "Охлаждение": "4.8 кВт", "Обогрев": "5.158 кВт" } },
+    { id: 39, title: "Roland FIU-09 HSS010/N5-IN Inv.", brand: "roland", brandLabel: "ROLAND", type: "inverter", priceCategory: "Бюджетный", price: "28 700 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.8 кВт", "Обогрев": "2.96 кВт" } },
+    { id: 40, title: "Roland FIU-12 HSS010/N5-IN Inv.", brand: "roland", brandLabel: "ROLAND", type: "inverter", priceCategory: "Средний", price: "34 400 ₽", image: imgPlaceholder, specs: { "Охлаждение": "3.55 кВт", "Обогрев": "3.66 кВт" } },
+    { id: 41, title: "KiTANO KRD-Walli-09 inverter", brand: "kitano", brandLabel: "KITANO", type: "inverter", priceCategory: "Средний", price: "36 900 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.64 кВт", "Обогрев": "2.78 кВт" } },
+    { id: 42, title: "KiTANO KRD-Walli-12 inverter", brand: "kitano", brandLabel: "KITANO", type: "inverter", priceCategory: "Средний", price: "38 400 ₽", image: imgPlaceholder, specs: { "Охлаждение": "3.52 кВт", "Обогрев": "3.66 кВт" } },
+    { id: 43, title: "°D Alpine ALP 25 AVQS1R Inv.", brand: "daichi", brandLabel: "DAICHI", type: "inverter", priceCategory: "Средний", price: "31 900 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.64 кВт", "Обогрев": "2.93 кВт" } },
+    { id: 44, title: "°D Alpine ALP 35 AVQS1R Inv.", brand: "daichi", brandLabel: "DAICHI", type: "inverter", priceCategory: "Средний", price: "36 500 ₽", image: imgPlaceholder, specs: { "Охлаждение": "3.52 кВт", "Обогрев": "3.66 кВт" } },
+    { id: 45, title: "°D Alpine ALP 50 AVQS1R Inv.", brand: "daichi", brandLabel: "DAICHI", type: "inverter", priceCategory: "Премиум", price: "59 950 ₽", image: imgPlaceholder, specs: { "Охлаждение": "5.28 кВт", "Обогрев": "5.57 кВт" } },
+    { id: 46, title: "°D Alpine ALP 70 AVQS1R Inv.", brand: "daichi", brandLabel: "DAICHI", type: "inverter", priceCategory: "Премиум", price: "78 500 ₽", image: imgPlaceholder, specs: { "Охлаждение": "7.03 кВт", "Обогрев": "7.33 кВт" } },
+    { id: 47, title: "Persona MSAG4W  09  N8C2S", brand: "midea", brandLabel: "MIDEA", type: "inverter", priceCategory: "Премиум", price: "56 500 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.64 кВт", "Обогрев": "2.93 кВт" } },
+    { id: 48, title: "YUKI KSGYK 26 HZRN1 inverter", brand: "kentatsu", brandLabel: "KENTATSU", type: "inverter", priceCategory: "Средний", price: "30 500 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.64 кВт", "Обогрев": "2.93 кВт" } },
+    { id: 49, title: "Jax Murray ACY-12HE inverter", brand: "jax", brandLabel: "JAX", type: "inverter", priceCategory: "Средний", price: "44 400 ₽", image: imgPlaceholder, specs: { "Охлаждение": "3.2 кВт", "Обогрев": "3.4 кВт" } },
+    { id: 50, title: "Jax Murray ACY-18HE inverter", brand: "jax", brandLabel: "JAX", type: "inverter", priceCategory: "Премиум", price: "62 000 ₽", image: imgPlaceholder, specs: { "Охлаждение": "4.6 кВт", "Обогрев": "5.2 кВт" } },
+    { id: 51, title: "°D O2 25 AVQS1R1/FVS1R1 inverter", brand: "daichi", brandLabel: "DAICHI", type: "inverter", priceCategory: "Средний", price: "43 750 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.65 кВт", "Обогрев": "2.85 кВт" } },
+    { id: 52, title: "ICE 25 AVQS1R/FVS1R inverter", brand: "daichi", brandLabel: "DAICHI", type: "inverter", priceCategory: "Средний", price: "42 900 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.65 кВт", "Обогрев": "2.85 кВт" } },
+    { id: 53, title: "LG  EVO MAX  DC 12 RH Inverter", brand: "lg", brandLabel: "LG", type: "inverter", priceCategory: "Премиум", price: "71 000 ₽", image: imgPlaceholder, specs: { "Охлаждение": "3.5 кВт", "Обогрев": "4 кВт" } },
+    { id: 54, title: "BORA Inv. 09 AAAXA/K6DNA2C", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Средний", price: "47 700 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.65 кВт", "Обогрев": "2.85 кВт" } },
+    { id: 55, title: "BORA Inv. 12 AABXB/K6DNA2C", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "53 900 ₽", image: imgPlaceholder, specs: { "Охлаждение": "3.5 кВт", "Обогрев": "3.5 кВт" } },
+    { id: 56, title: "BORA Inv. 18 AAD / K6DNA2E", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "92 900 ₽", image: imgPlaceholder, specs: { "Охлаждение": "4.6 кВт", "Обогрев": "5.2 кВт" } },
+    { id: 57, title: "BORA Inv. 24 AADXE/ K6DNA2A", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "118 200 ₽", image: imgPlaceholder, specs: { "Охлаждение": "6.155 кВт", "Обогрев": "6.2 кВт" } },
+    { id: 58, title: "PULAR Inv. 09 AGAXA/K6DNA4C", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Средний", price: "47 700 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.65 кВт", "Обогрев": "2.85 кВт" } },
+    { id: 59, title: "PULAR Inv. 12 AGBXB/K6DNA4C", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "54 900 ₽", image: imgPlaceholder, specs: { "Охлаждение": "3.5 кВт", "Обогрев": "3.5 кВт" } },
+    { id: 60, title: "PULAR Inv. 18 AGD/K6DNA4D", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "94 500 ₽", image: imgPlaceholder, specs: { "Охлаждение": "4.6 кВт", "Обогрев": "5.2 кВт" } },
+    { id: 61, title: "PULAR Inv. 24 AGDXE/K6DNA4C", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "124 500 ₽", image: imgPlaceholder, specs: { "Охлаждение": "6.15 кВт", "Обогрев": "6.2 кВт" } },
+    { id: 62, title: "PULAR Arctic Inv. 09 AGCXB/K6DNA4F", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "66 200 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.7 кВт", "Обогрев": "3 кВт" } },
+    { id: 63, title: "PULAR Arctic Inv. 12 AGC    /K6DNA4F", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "69 950 ₽", image: imgPlaceholder, specs: { "Охлаждение": "3.5 кВт", "Обогрев": "3.8 кВт" } },
+    { id: 64, title: "LYRA White 09 ACС/K6DNA1F inverter", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "64 300 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.7 кВт", "Обогрев": "3 кВт" } },
+    { id: 65, title: "LYRA White 12 ACС/K6DNA1F inverter", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "66 950 ₽", image: imgPlaceholder, specs: { "Охлаждение": "3.51 кВт", "Обогрев": "3.81 кВт" } },
+    { id: 66, title: "LYRA White 18 ACD/K6DNA1I inverter", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "103 900 ₽", image: imgPlaceholder, specs: { "Охлаждение": "5.2 кВт", "Обогрев": "5.6 кВт" } },
+    { id: 67, title: "LYRA White 24 ACE/K6DNA1I inverter", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "135 800 ₽", image: imgPlaceholder, specs: { "Охлаждение": "7.1 кВт", "Обогрев": "7.8 кВт" } },
+    { id: 68, title: "LYRA champagne 09 ACС/K6DNA1F inv.", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "66 200 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.7 кВт", "Обогрев": "3 кВт" } },
+    { id: 69, title: "LYRA champagne 12 ACС/K6DNA1F inv.", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "69 950 ₽", image: imgPlaceholder, specs: { "Охлаждение": "3.51 кВт", "Обогрев": "3.81 кВт" } },
+    { id: 70, title: "LYRA champagne 18 ACD/K6DNA1I inv.", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "107 600 ₽", image: imgPlaceholder, specs: { "Охлаждение": "5.2 кВт", "Обогрев": "5.6 кВт" } },
+    { id: 71, title: "LYRA Black 09 ACС/K6DNA1F inverter", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "66 200 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.7 кВт", "Обогрев": "3 кВт" } },
+    { id: 72, title: "LYRA Black 12 ACС/K6DNA1F inverter", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "69 950 ₽", image: imgPlaceholder, specs: { "Охлаждение": "3.51 кВт", "Обогрев": "3.81 кВт" } },
+    { id: 73, title: "LYRA Black 18 ACD/K6DNA1I inverter", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "107 600 ₽", image: imgPlaceholder, specs: { "Охлаждение": "5.2 кВт", "Обогрев": "5.6 кВт" } },
+    { id: 74, title: "Airy White 09 AVCXB-K6DNA1B inv.", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "73 950 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.7 кВт", "Обогрев": "3 кВт" } },
+    { id: 75, title: "Airy White 12 AVCXD-K6DNA1A inv.", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "79 200 ₽", image: imgPlaceholder, specs: { "Охлаждение": "3.5 кВт", "Обогрев": "3.81 кВт" } },
+    { id: 76, title: "Airy White 18 AVCXD-K6DNA1A inv.", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "115 400 ₽", image: imgPlaceholder, specs: { "Охлаждение": "5.3 кВт", "Обогрев": "5.6 кВт" } },
+    { id: 77, title: "Airy White 24 AVEXF-K6DNA1A inv.", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "142 000 ₽", image: imgPlaceholder, specs: { "Охлаждение": "7.1 кВт", "Обогрев": "7.8 кВт" } },
+    { id: 78, title: "Airychampagne09AVCXB-K6DNA1B inv.", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "77 400 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.7 кВт", "Обогрев": "3 кВт" } },
+    { id: 79, title: "Airychampagne12AVCXD-K6DNA1A inv.", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "82 600 ₽", image: imgPlaceholder, specs: { "Охлаждение": "3.5 кВт", "Обогрев": "3.81 кВт" } },
+    { id: 80, title: "Airychampagne18AVCXD-K6DNA1B inv.", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "118 000 ₽", image: imgPlaceholder, specs: { "Охлаждение": "5.3 кВт", "Обогрев": "5.6 кВт" } },
+    { id: 81, title: "Airy Black 09 AVCXB-K6DNA1B inv.", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "77 400 ₽", image: imgPlaceholder, specs: { "Охлаждение": "2.7 кВт", "Обогрев": "3 кВт" } },
+    { id: 82, title: "Airy Black 12 AVCXD-K6DNA1A inv.", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "82 600 ₽", image: imgPlaceholder, specs: { "Охлаждение": "3.5 кВт", "Обогрев": "3.81 кВт" } },
+    { id: 83, title: "Airy Black 18 AVDXE-K6DNA1A inv.", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "118 000 ₽", image: imgPlaceholder, specs: { "Охлаждение": "5.3 кВт", "Обогрев": "5.6 кВт" } },
+    { id: 84, title: "Kentatsu (36) напольно-потолочный KSHF105HFAN3/KSUR105HFAN3L", brand: "kentatsu", brandLabel: "KENTATSU", type: "onoff", priceCategory: "Премиум", price: "146 900 ₽", image: imgPlaceholder, specs: { "Охлаждение": "10.55 кВт", "Обогрев": "10.6 кВт" } },
+    { id: 85, title: "Kentatsu (48) напольно-потолочный KSHF140HFAN3/KSUT140HFAN3L", brand: "kentatsu", brandLabel: "KENTATSU", type: "onoff", priceCategory: "Премиум", price: "167 900 ₽", image: imgPlaceholder, specs: { "Охлаждение": "14.07 кВт", "Обогрев": "16.12 кВт" } },
+    { id: 86, title: "Kentatsu (60) напольно-потолочный KSHF176HFAN3/KSUT176HFAN3L", brand: "kentatsu", brandLabel: "KENTATSU", type: "onoff", priceCategory: "Премиум", price: "188 900 ₽", image: imgPlaceholder, specs: { "Охлаждение": "16.12 кВт", "Обогрев": "17.58 кВт" } },
+    { id: 87, title: "Kentatsu (48) кассета KSVT140HFAN3R/KSUT140HFAN3L/KPU95-DR", brand: "kentatsu", brandLabel: "KENTATSU", type: "onoff", priceCategory: "Премиум", price: "167 900 ₽", image: imgPlaceholder, specs: { "Охлаждение": "14.07 кВт", "Обогрев": "15.24 кВт" } },
+    { id: 88, title: "Kentatsu (60) кассета KSVT176HFAN3R/KSUT176HFAN3L/KPU95-DR", brand: "kentatsu", brandLabel: "KENTATSU", type: "onoff", priceCategory: "Премиум", price: "195 900 ₽", image: imgPlaceholder, specs: { "Охлаждение": "16.12 кВт", "Обогрев": "17.88 кВт" } },
+    { id: 89, title: "GREE (36) U-Match Inverter RU - GUD100ZD1/B-S(220)", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "168 800 ₽", image: imgPlaceholder, specs: { "Охлаждение": "10 кВт", "Обогрев": "11 кВт" } },
+    { id: 90, title: "GREE (48) U-Match Inverter RU - GUD140ZD1/B-S(380)", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "269 000 ₽", image: imgPlaceholder, specs: { "Охлаждение": "14 кВт", "Обогрев": "16 кВт" } },
+    { id: 91, title: "GREE (60) U-Match Inverter RU - GUD160ZD1/B-S(380)", brand: "gree", brandLabel: "GREE", type: "inverter", priceCategory: "Премиум", price: "284 000 ₽", image: imgPlaceholder, specs: { "Охлаждение": "16 кВт", "Обогрев": "18 кВт" } }
 ];
 
 let activeTypeFilter = 'all';
 let activeBrandFilter = 'all';
+let activePriceFilter = 'all';
 
 function getFilteredCatalog() {
     return catalogData.filter(item => {
         const typeMatch = activeTypeFilter === 'all' || item.type === activeTypeFilter;
         const brandMatch = activeBrandFilter === 'all' || item.brand === activeBrandFilter;
-        return typeMatch && brandMatch;
+        const priceMatch = activePriceFilter === 'all' || item.priceCategory === activePriceFilter;
+        return typeMatch && brandMatch && priceMatch;
     });
 }
 
@@ -89,6 +160,14 @@ function renderCatalog(items) {
 }
 renderCatalog(catalogData);
 
+document.querySelectorAll('.catalog-price-filter').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        activePriceFilter = e.currentTarget.getAttribute('data-price');
+        setActiveFilterButton(document.querySelectorAll('.catalog-price-filter'), e.currentTarget);
+        renderCatalog(getFilteredCatalog());
+    });
+});
+
 document.querySelectorAll('.catalog-type-filter').forEach(btn => {
     btn.addEventListener('click', (e) => {
         activeTypeFilter = e.currentTarget.getAttribute('data-filter');
@@ -129,30 +208,55 @@ function initSpecsTriggers() {
 document.getElementById('close-drawer').addEventListener('click', () => specsDrawer.classList.add('translate-x-full'));
 document.getElementById('drawer-cta').addEventListener('click', () => specsDrawer.classList.add('translate-x-full'));
 
+// --- 3. ЛОГИКА ОТЗЫВОВ И ФОРМЫ ---
+// 10 разнообразных отзывов. 
+// mediaType может быть: null (без фото), 'image' (фото), 'video' (видео).
+// Когда появятся реальные фото, просто замени null на 'image', а в mediaUrl вставь путь, например 'review1.jpg'
 const reviewsData = [
-    { name: "Игорь В.", text: "Ставили Daikin в двухкомнатную квартиру — приехали точно ко времени, отработали аккуратно, после себя не оставили ни пылинки. Заказали ещё и на дачу.", photo: null, date: "Май 2026" },
-    { name: "Марина С.", text: "Обратились по чистке и дозаправке фреоном. Мастер объяснил, что происходит с системой, показал фото до/после фильтров. Работает как новый.", photo: null, date: "Июнь 2026" },
-    { name: "Дмитрий К.", text: "Комплекс «под ключ»: подбор, доставка, монтаж — всё за один день и без доплат сверх сметы. Рекомендую всем, кто не хочет разбираться в этом сам.", photo: null, date: "Июль 2026" }
+    { name: "Игорь В.", text: "Ставили Daikin в двухкомнатную квартиру — приехали точно ко времени, отработали аккуратно, после себя не оставили ни пылинки. Заказали ещё и на дачу.", mediaType: null, mediaUrl: "", date: "Май 2026" },
+    { name: "Марина С.", text: "Обратились по чистке и дозаправке фреоном. Мастер объяснил, что происходит с системой, показал фото до/после фильтров. Работает как новый.", mediaType: null, mediaUrl: "", date: "Июнь 2026" },
+    { name: "Дмитрий К.", text: "Комплекс «под ключ»: подбор, доставка, монтаж — всё за один день и без доплат сверх сметы. Рекомендую всем, кто не хочет разбираться в этом сам.", mediaType: null, mediaUrl: "", date: "Июль 2026" },
+    { name: "Елена А.", text: "Долго сомневалась между инвертором и обычным. Ребята посоветовали отличный вариант от Gree по бюджету, работает бесшумно, спать совершенно не мешает.", mediaType: null, mediaUrl: "", date: "Апрель 2026" },
+    { name: "Антон П.", text: "Монтаж на стадии ремонта прошел идеально. Штробы ровные, трассы уложили аккуратно. После чистовой отделки приехали и повесили блоки за час.", mediaType: null, mediaUrl: "", date: "Март 2026" },
+    { name: "Светлана Ю.", text: "Сломался старый кондиционер в самую жару. Позвонила вечером, утром уже приехал мастер. Диагностика заняла 20 минут, запчасти были с собой. Спасли!", mediaType: null, mediaUrl: "", date: "Июль 2026" },
+    { name: "Виктор М.", text: "Отличный сервис. Не просто продали коробку, а подобрали систему под нестандартную планировку студии. Продувает все зоны равномерно.", mediaType: null, mediaUrl: "", date: "Февраль 2026" },
+    { name: "Ольга Н.", text: "Очень вежливые мастера. Работали в бахилах, мусор сразу убирали в пылесос. Установка мульти-сплита заняла полдня, качество на высоте.", mediaType: null, mediaUrl: "", date: "Январь 2026" },
+    { name: "Сергей Д.", text: "Брал Daichi для офиса. Приятно удивила честная гарантия — через месяц был мелкий сбой в пульте, приехали и заменили по гарантии без лишних вопросов.", mediaType: null, mediaUrl: "", date: "Июнь 2026" },
+    { name: "Анна В.", text: "Искала надежную фирму для родителей. Сделали скидку, всё подробно объяснили пожилым людям как пользоваться пультом. Родители довольны.", mediaType: null, mediaUrl: "", date: "Май 2026" }
 ];
 
-function renderReviews(data) {
-    const grid = document.getElementById('reviews-grid');
-    grid.innerHTML = '';
-    data.forEach(r => {
+function renderReviews() {
+    const track = document.getElementById('reviews-track');
+    track.innerHTML = '';
+    
+    reviewsData.forEach(r => {
         const card = document.createElement('div');
-        card.className = 'p-8 rounded-3xl bg-gray-50 border border-gray-100 shadow-sm flex flex-col';
+        // Карточка занимает 100% на мобилках, 50% на планшетах, 33.3% на ПК (с учетом отступов)
+        card.className = 'review-card flex-shrink-0 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] p-8 rounded-3xl bg-gray-50 border border-gray-100 shadow-sm flex flex-col cursor-grab active:cursor-grabbing';
+        
+        let mediaHtml = '';
+        if (r.mediaType === 'image') {
+            mediaHtml = `<div class="w-full h-48 rounded-2xl mb-5 bg-gray-200 overflow-hidden relative group"><img src="${r.mediaUrl}" alt="Фото отзыва" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"></div>`;
+        } else if (r.mediaType === 'video') {
+            mediaHtml = `<div class="w-full h-48 rounded-2xl mb-5 bg-gray-200 overflow-hidden relative"><video src="${r.mediaUrl}" controls class="w-full h-full object-cover"></video></div>`;
+        }
+        // Если mediaType null, блок с фото просто не выводится
+
         card.innerHTML = `
-            ${r.photo ? `<img src="${r.photo}" alt="Фото отзыва от ${r.name}" class="w-full h-40 object-cover rounded-2xl mb-5">` : ''}
-            <p class="text-sm text-gray-700 font-light leading-relaxed flex-grow">${r.text}</p>
+            ${mediaHtml}
+            <div class="flex mb-4 text-[#146C8C]">
+                ${'<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>'.repeat(5)}
+            </div>
+            <p class="text-sm text-gray-700 font-light leading-relaxed flex-grow italic">«${r.text}»</p>
             <div class="flex justify-between items-center mt-6 pt-4 border-t border-gray-100">
                 <span class="text-sm font-bold text-gray-900">${r.name}</span>
                 <span class="text-[10px] text-gray-500 uppercase tracking-wider">${r.date}</span>
             </div>
         `;
-        grid.appendChild(card);
+        track.appendChild(card);
     });
 }
-renderReviews(reviewsData);
+renderReviews();
 
 const form = document.getElementById('premium-lead-form');
 const checkbox = document.getElementById('privacy-check');
@@ -179,16 +283,10 @@ function getPhoneDigitsCount(value) {
     return digits.length;
 }
 
-phoneInput.addEventListener('focus', () => {
-    if (!phoneInput.value) phoneInput.value = '+7 ';
-});
-phoneInput.addEventListener('input', () => {
-    phoneInput.value = formatRuPhone(phoneInput.value);
-});
+phoneInput.addEventListener('focus', () => { if (!phoneInput.value) phoneInput.value = '+7 '; });
+phoneInput.addEventListener('input', () => { phoneInput.value = formatRuPhone(phoneInput.value); });
 phoneInput.addEventListener('keydown', (e) => {
-    if ((e.key === 'Backspace' || e.key === 'Delete' || e.key === 'ArrowLeft') && phoneInput.selectionStart <= 2 && phoneInput.selectionEnd <= 2) {
-        e.preventDefault();
-    }
+    if ((e.key === 'Backspace' || e.key === 'Delete' || e.key === 'ArrowLeft') && phoneInput.selectionStart <= 2 && phoneInput.selectionEnd <= 2) e.preventDefault();
 });
 
 checkbox.addEventListener('change', (e) => {
@@ -244,7 +342,6 @@ form.addEventListener('submit', function(e) {
 // --- 4. АНИМАЦИИ GSAP И МОБИЛЬНОЕ МЕНЮ ---
 window.addEventListener('load', () => {
 
-    // ИСПРАВЛЕНО: Теперь элементы скрываются исключительно скриптом. Если скрипт крашится — всё будет видно.
     gsap.set(".hero-reveal, .scroll-anim, .reveal-up, .nav-reveal, .service-node", { opacity: 0 });
     
     requestAnimationFrame(() => {
@@ -314,17 +411,64 @@ window.addEventListener('load', () => {
             onEnter: () => gsap.to("#catalog-grid > div", { opacity: 1, y: 0, duration: 0.7, stagger: 0.06, ease: "power2.out" })
         });
 
-        ScrollTrigger.create({
-            trigger: "#reviews",
-            start: "top 75%",
-            once: true,
-            onEnter: () => gsap.to("#reviews-grid > div", { opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: "power2.out" })
-        });
-
         gsap.fromTo("#lead-form-card", 
             { opacity: 0, y: 40, scale: 0.97 }, 
             { scrollTrigger: { trigger: "#form-section", start: "top 75%", once: true }, opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power2.out" }
         );
+
+        // --- ЛОГИКА КАРУСЕЛИ ОТЗЫВОВ ---
+        const reviewTrack = document.getElementById('reviews-track');
+        const reviewCards = gsap.utils.toArray('.review-card');
+        const btnPrev = document.getElementById('review-prev');
+        const btnNext = document.getElementById('review-next');
+        let currentReviewIndex = 0;
+        let autoPlayTimer;
+
+        ScrollTrigger.create({
+            trigger: "#reviews",
+            start: "top 75%",
+            once: true,
+            onEnter: () => {
+                gsap.fromTo(reviewTrack, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" });
+                startReviewAutoplay();
+            }
+        });
+
+        function updateCarousel() {
+            if (!reviewCards.length) return;
+            const gap = 24; // отступ gap-6 в Tailwind
+            const cardWidth = reviewCards[0].offsetWidth;
+            const itemWidth = cardWidth + gap;
+            
+            // Вычисляем видимые элементы, чтобы не прокрутить в пустоту
+            const trackWidth = reviewTrack.parentElement.offsetWidth;
+            const visibleItems = Math.floor((trackWidth + gap) / itemWidth);
+            const maxIndex = Math.max(0, reviewCards.length - visibleItems);
+
+            if (currentReviewIndex > maxIndex) currentReviewIndex = 0;
+            if (currentReviewIndex < 0) currentReviewIndex = maxIndex;
+
+            gsap.to(reviewTrack, { x: -(currentReviewIndex * itemWidth), duration: 0.6, ease: "power3.out", overwrite: "auto" });
+        }
+
+        function startReviewAutoplay() {
+            autoPlayTimer = setInterval(() => {
+                currentReviewIndex++;
+                updateCarousel();
+            }, 4000);
+        }
+
+        function resetReviewAutoplay() {
+            clearInterval(autoPlayTimer);
+            startReviewAutoplay();
+        }
+
+        btnNext.addEventListener('click', () => { currentReviewIndex++; updateCarousel(); resetReviewAutoplay(); });
+        btnPrev.addEventListener('click', () => { currentReviewIndex--; updateCarousel(); resetReviewAutoplay(); });
+
+        reviewTrack.addEventListener('mouseenter', () => clearInterval(autoPlayTimer));
+        reviewTrack.addEventListener('mouseleave', startReviewAutoplay);
+        window.addEventListener('resize', updateCarousel);
     });
 
     document.querySelectorAll('.cta-pill').forEach(btn => {

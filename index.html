@@ -6,6 +6,9 @@
     <meta name="description" content="Создаем комфортный климат в доме. Профессиональный подбор, монтаж за 1 день и обслуживание сплит-систем с гарантией до 3 лет.">
     <title>CLIMAFLOW — Премиальные климатические системы</title>
     
+    <!-- Вкладка браузера (favicon) -->
+    <link rel="icon" type="image/png" href="logo.png">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
@@ -21,20 +24,17 @@
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <link rel="stylesheet" href="style.css">
-
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23111827' stroke-width='1.5'><path d='M4 12C4 12 7.5 4 12 4C16.5 4 20 12 20 12C20 12 16.5 20 12 20C7.5 20 4 12 4 12Z'/><path d='M12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15'/></svg>">
 </head>
-<body class="antialiased selection:bg-black selection:text-white">
+<body id="top" class="antialiased selection:bg-black selection:text-white">
 
     <nav class="fixed w-full z-50 transition-all duration-500 py-4 glassmorphism border-b border-gray-200" id="navbar">
         <div class="max-w-7xl mx-auto px-6 md:px-8 flex justify-between items-center">
-            <div class="flex items-center gap-3 cursor-pointer group nav-reveal">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="1.5" class="nav-logo-svg transition-all duration-700 group-hover:rotate-180 group-hover:[stroke:#146C8C]">
-                    <path d="M4 12C4 12 7.5 4 12 4C16.5 4 20 12 20 12C20 12 16.5 20 12 20C7.5 20 4 12 4 12Z"/>
-                    <path d="M12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15"/>
-                </svg>
+            
+            <!-- ИСПРАВЛЕНО: Логотип теперь тег <a>, при клике перекидывает на #top -->
+            <a href="#top" aria-label="Вернуться наверх" class="flex items-center gap-3 cursor-pointer group nav-reveal">
+                <img src="logo.png" alt="Логотип" class="w-8 h-8 object-contain nav-logo-img transition-all duration-700 group-hover:rotate-180">
                 <span class="text-xl tracking-[0.25em] font-light uppercase text-gray-900">Clima<strong class="font-bold">Flow</strong></span>
-            </div>
+            </a>
 
             <div class="hidden md:flex gap-12 text-xs font-semibold tracking-[0.2em] uppercase text-gray-600 nav-reveal">
                 <a href="#about" class="hover:text-[#146C8C] transition-colors">О нас</a>
@@ -54,7 +54,7 @@
                     <a href="https://max.ru/u/f9LHodD0cOLmNnbRwFmr7B6hrJov16IhgcwGnKKjNMWkWzcj9dLwMy0V2EE" target="_blank" rel="noopener noreferrer" aria-label="MAX" class="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-[#146C8C] hover:text-white hover:border-[#146C8C] transition-colors duration-300 text-[9px] font-extrabold tracking-tight">
                         MAX
                     </a>
-                    <a href="https://vk.ru/split_v_luganske" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте" class="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-[#146C8C] hover:text-white hover:border-[#146C8C] transition-colors duration-300 text-[11px] font-extrabold tracking-tight">
+                    <a href="https://vk.ru/split_v_luganske" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте" class="w-11 h-11 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-[#146C8C] hover:text-white hover:border-[#146C8C] transition-colors duration-300 text-[11px] font-extrabold tracking-tight">
                         VK
                     </a>
                 </div>
@@ -319,23 +319,34 @@
                     <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900 mb-8 reveal-up">Сплит-системы в наличии</h2>
                     
                     <div class="flex flex-wrap gap-x-6 gap-y-3 border-b border-gray-300 pb-4 mb-4">
+                        <span class="text-[10px] tracking-widest uppercase font-bold text-gray-500 self-center mr-2">Сегмент:</span>
+                        <button class="catalog-price-filter text-xs tracking-widest uppercase font-bold text-[#146C8C] border-b-2 border-[#146C8C] pb-2 px-2 whitespace-nowrap" data-price="all">Все цены</button>
+                        <button class="catalog-price-filter text-xs tracking-widest uppercase font-medium text-gray-600 hover:text-[#146C8C] pb-2 px-2 transition-colors whitespace-nowrap" data-price="Бюджетный">Бюджетные</button>
+                        <button class="catalog-price-filter text-xs tracking-widest uppercase font-medium text-gray-600 hover:text-[#146C8C] pb-2 px-2 transition-colors whitespace-nowrap" data-price="Средний">Средний класс</button>
+                        <button class="catalog-price-filter text-xs tracking-widest uppercase font-medium text-gray-600 hover:text-[#146C8C] pb-2 px-2 transition-colors whitespace-nowrap" data-price="Премиум">Премиум</button>
+                    </div>
+
+                    <div class="flex flex-wrap gap-x-6 gap-y-3 border-b border-gray-300 pb-4 mb-4">
                         <span class="text-[10px] tracking-widest uppercase font-bold text-gray-500 self-center mr-2">Тип:</span>
                         <button class="catalog-type-filter text-xs tracking-widest uppercase font-bold text-[#146C8C] border-b-2 border-[#146C8C] pb-2 px-2" data-filter="all">Все модели</button>
                         <button class="catalog-type-filter text-xs tracking-widest uppercase font-medium text-gray-600 hover:text-[#146C8C] pb-2 px-2 transition-colors" data-filter="inverter">Inverter</button>
                         <button class="catalog-type-filter text-xs tracking-widest uppercase font-medium text-gray-600 hover:text-[#146C8C] pb-2 px-2 transition-colors" data-filter="onoff">On / Off</button>
                     </div>
+
                     <div class="flex flex-wrap gap-x-4 gap-y-3 pb-2 overflow-x-auto">
                         <span class="text-[10px] tracking-widest uppercase font-bold text-gray-500 self-center mr-2">Бренд:</span>
                         <button class="catalog-brand-filter text-xs tracking-widest uppercase font-bold text-[#146C8C] border-b-2 border-[#146C8C] pb-2 px-2 whitespace-nowrap" data-brand="all">Все бренды</button>
-                        <button class="catalog-brand-filter text-xs tracking-widest uppercase font-medium text-gray-600 hover:text-[#146C8C] pb-2 px-2 transition-colors whitespace-nowrap" data-brand="daikin">Daikin</button>
-                        <button class="catalog-brand-filter text-xs tracking-widest uppercase font-medium text-gray-600 hover:text-[#146C8C] pb-2 px-2 transition-colors whitespace-nowrap" data-brand="mitsubishi">Mitsubishi</button>
-                        <button class="catalog-brand-filter text-xs tracking-widest uppercase font-medium text-gray-600 hover:text-[#146C8C] pb-2 px-2 transition-colors whitespace-nowrap" data-brand="haier">Haier</button>
+                        <button class="catalog-brand-filter text-xs tracking-widest uppercase font-medium text-gray-600 hover:text-[#146C8C] pb-2 px-2 transition-colors whitespace-nowrap" data-brand="axioma">Axioma</button>
+                        <button class="catalog-brand-filter text-xs tracking-widest uppercase font-medium text-gray-600 hover:text-[#146C8C] pb-2 px-2 transition-colors whitespace-nowrap" data-brand="daichi">Daichi</button>
+                        <button class="catalog-brand-filter text-xs tracking-widest uppercase font-medium text-gray-600 hover:text-[#146C8C] pb-2 px-2 transition-colors whitespace-nowrap" data-brand="ek">EK</button>
                         <button class="catalog-brand-filter text-xs tracking-widest uppercase font-medium text-gray-600 hover:text-[#146C8C] pb-2 px-2 transition-colors whitespace-nowrap" data-brand="gree">Gree</button>
+                        <button class="catalog-brand-filter text-xs tracking-widest uppercase font-medium text-gray-600 hover:text-[#146C8C] pb-2 px-2 transition-colors whitespace-nowrap" data-brand="jax">Jax</button>
                         <button class="catalog-brand-filter text-xs tracking-widest uppercase font-medium text-gray-600 hover:text-[#146C8C] pb-2 px-2 transition-colors whitespace-nowrap" data-brand="kentatsu">Kentatsu</button>
-                        <button class="catalog-brand-filter text-xs tracking-widest uppercase font-medium text-gray-600 hover:text-[#146C8C] pb-2 px-2 transition-colors whitespace-nowrap" data-brand="aeronik">Aeronik</button>
+                        <button class="catalog-brand-filter text-xs tracking-widest uppercase font-medium text-gray-600 hover:text-[#146C8C] pb-2 px-2 transition-colors whitespace-nowrap" data-brand="kitano">Kitano</button>
+                        <button class="catalog-brand-filter text-xs tracking-widest uppercase font-medium text-gray-600 hover:text-[#146C8C] pb-2 px-2 transition-colors whitespace-nowrap" data-brand="lg">LG</button>
+                        <button class="catalog-brand-filter text-xs tracking-widest uppercase font-medium text-gray-600 hover:text-[#146C8C] pb-2 px-2 transition-colors whitespace-nowrap" data-brand="marsa">Marsa</button>
                         <button class="catalog-brand-filter text-xs tracking-widest uppercase font-medium text-gray-600 hover:text-[#146C8C] pb-2 px-2 transition-colors whitespace-nowrap" data-brand="midea">Midea</button>
-                        <button class="catalog-brand-filter text-xs tracking-widest uppercase font-medium text-gray-600 hover:text-[#146C8C] pb-2 px-2 transition-colors whitespace-nowrap" data-brand="hisense">Hisense</button>
-                        <button class="catalog-brand-filter text-xs tracking-widest uppercase font-medium text-gray-600 hover:text-[#146C8C] pb-2 px-2 transition-colors whitespace-nowrap" data-brand="ballu">Ballu</button>
+                        <button class="catalog-brand-filter text-xs tracking-widest uppercase font-medium text-gray-600 hover:text-[#146C8C] pb-2 px-2 transition-colors whitespace-nowrap" data-brand="roland">Roland</button>
                     </div>
                 </div>
 
@@ -344,19 +355,37 @@
             </div>
         </section>
 
-        <section id="reviews" class="py-24 md:py-32 bg-white border-t border-gray-200">
+        <!-- ИСПРАВЛЕНО: Секция отзывов переделана в карусель -->
+        <section id="reviews" class="py-24 md:py-32 bg-white border-t border-gray-200 overflow-hidden">
             <div class="max-w-7xl mx-auto px-6 md:px-8">
-                <div class="mb-16">
-                    <span class="text-xs tracking-[0.3em] text-[#146C8C] font-semibold uppercase block mb-4 reveal-up">// ОТЗЫВЫ КЛИЕНТОВ</span>
-                    <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900 reveal-up">Нам доверяют. И говорят об этом.</h2>
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
+                    <div>
+                        <span class="text-xs tracking-[0.3em] text-[#146C8C] font-semibold uppercase block mb-4 reveal-up">// ОТЗЫВЫ КЛИЕНТОВ</span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900 reveal-up">Нам доверяют. И говорят об этом.</h2>
+                    </div>
+                    <!-- Навигация карусели -->
+                    <div class="flex gap-3 reveal-up">
+                        <button id="review-prev" class="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-colors duration-300">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+                        </button>
+                        <button id="review-next" class="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-colors duration-300">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                        </button>
+                    </div>
                 </div>
 
-                <div id="reviews-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Контейнер карусели -->
+                <div class="relative w-full">
+                    <div class="overflow-visible w-full hide-scrollbar">
+                        <div id="reviews-track" class="flex gap-6">
+                            <!-- Отзывы генерируются через JS -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="form-section" class="py-24 md:py-32 bg-white border-t border-gray-200">
+        <section id="form-section" class="py-24 md:py-32 bg-gray-50 border-t border-gray-200">
             <div class="max-w-6xl mx-auto px-6 md:px-8 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
                 <div class="lg:col-span-6">
                     <span class="text-xs tracking-[0.3em] text-[#146C8C] font-semibold uppercase block mb-4 reveal-up">// ОБРАТНАЯ СВЯЗЬ</span>
@@ -364,13 +393,13 @@
                     <p class="text-gray-700 font-light mb-8 max-w-md reveal-up">Оставьте свои контактные данные. Наш специалист свяжется с вами, чтобы рассчитать смету и ответить на технические вопросы.</p>
                 </div>
 
-                <div id="lead-form-card" class="lg:col-span-6 bg-gray-50 border border-gray-200 p-8 md:p-10 rounded-3xl shadow-sm">
+                <div id="lead-form-card" class="lg:col-span-6 bg-white border border-gray-200 p-8 md:p-10 rounded-3xl shadow-sm">
                     <form id="premium-lead-form" class="space-y-6">
                         <div>
-                            <input type="text" id="lead-name" placeholder="Ваше имя" required class="w-full bg-white border border-gray-300 rounded-xl px-6 py-4 text-gray-900 text-sm placeholder-gray-500 focus:outline-none focus:border-[#146C8C] focus:ring-1 focus:ring-[#146C8C] transition-all">
+                            <input type="text" id="lead-name" placeholder="Ваше имя" required class="w-full bg-gray-50 border border-gray-200 rounded-xl px-6 py-4 text-gray-900 text-sm placeholder-gray-500 focus:outline-none focus:border-[#146C8C] focus:ring-1 focus:ring-[#146C8C] transition-all">
                         </div>
                         <div>
-                            <input type="tel" id="lead-phone" placeholder="+7 (___) ___-__-__" required inputmode="numeric" autocomplete="tel" class="w-full bg-white border border-gray-300 rounded-xl px-6 py-4 text-gray-900 text-sm placeholder-gray-500 focus:outline-none focus:border-[#146C8C] focus:ring-1 focus:ring-[#146C8C] transition-all">
+                            <input type="tel" id="lead-phone" placeholder="+7 (___) ___-__-__" required inputmode="numeric" autocomplete="tel" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-6 py-4 text-gray-900 text-sm placeholder-gray-500 focus:outline-none focus:border-[#146C8C] focus:ring-1 focus:ring-[#146C8C] transition-all">
                         </div>
                         
                         <label class="flex items-start gap-4 cursor-pointer group pt-2 select-none">
@@ -393,7 +422,7 @@
 
     </main>
 
-    <footer class="bg-gray-100 py-12 border-t border-gray-200">
+    <footer class="bg-white py-12 border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-6 md:px-8 flex flex-col md:flex-row justify-between items-center gap-8">
             <div class="text-center md:text-left">
                 <span class="text-xl tracking-[0.25em] font-light uppercase mb-2 block text-gray-900">Clima<strong class="font-bold">Flow</strong></span>
@@ -401,14 +430,14 @@
             </div>
             
             <div class="flex items-center gap-3">
-                <a href="https://t.me/+79104096344" target="_blank" rel="noopener noreferrer" aria-label="Telegram" class="w-11 h-11 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-[#146C8C] hover:text-white hover:border-[#146C8C] transition-colors duration-300">
+                <a href="https://t.me/+79104096344" target="_blank" rel="noopener noreferrer" aria-label="Telegram" class="w-11 h-11 rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-[#146C8C] hover:text-white hover:border-[#146C8C] transition-colors duration-300">
                     <span class="sr-only">Telegram</span>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21.5 2.5L2.3 10.1c-.9.35-.9 1.65.05 1.95l4.7 1.5 1.8 5.75c.3.9 1.45 1.05 1.95.25l2.55-4.05 4.75 3.5c.8.6 1.95.15 2.1-.85l3-14.5c.15-.9-.75-1.55-1.65-1.15zM8.4 13.35l9.15-6.9c.35-.25.7.15.4.45l-7.6 7.3-.3 3.6-1.65-4.45z"/></svg>
                 </a>
-                <a href="https://max.ru/u/f9LHodD0cOLmNnbRwFmr7B6hrJov16IhgcwGnKKjNMWkWzcj9dLwMy0V2EE" target="_blank" rel="noopener noreferrer" aria-label="MAX" class="w-11 h-11 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-[#146C8C] hover:text-white hover:border-[#146C8C] transition-colors duration-300 text-[10px] font-extrabold tracking-tight">
+                <a href="https://max.ru/u/f9LHodD0cOLmNnbRwFmr7B6hrJov16IhgcwGnKKjNMWkWzcj9dLwMy0V2EE" target="_blank" rel="noopener noreferrer" aria-label="MAX" class="w-11 h-11 rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-[#146C8C] hover:text-white hover:border-[#146C8C] transition-colors duration-300 text-[10px] font-extrabold tracking-tight">
                     MAX
                 </a>
-                <a href="https://vk.ru/split_v_luganske" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте" class="w-11 h-11 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-[#146C8C] hover:text-white hover:border-[#146C8C] transition-colors duration-300 text-xs font-extrabold tracking-tight">
+                <a href="https://vk.ru/split_v_luganske" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте" class="w-11 h-11 rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center text-gray-700 hover:bg-[#146C8C] hover:text-white hover:border-[#146C8C] transition-colors duration-300 text-xs font-extrabold tracking-tight">
                     VK
                 </a>
             </div>
@@ -419,23 +448,59 @@
         </div>
     </footer>
 
+    <!-- ИСПРАВЛЕНО: Юридически грамотная и полная Политика по ФЗ-152 -->
     <div id="privacy-modal" class="fixed inset-0 bg-gray-900/40 backdrop-blur-sm z-[70] flex justify-center items-center opacity-0 pointer-events-none transition-opacity duration-300 p-4 md:p-6">
-        <div class="bg-white w-full max-w-3xl rounded-3xl max-h-[85vh] flex flex-col shadow-2xl">
+        <div class="bg-white w-full max-w-4xl rounded-3xl max-h-[90vh] flex flex-col shadow-2xl">
             <div class="p-6 md:p-8 border-b border-gray-100 flex justify-between items-center">
-                <h3 class="text-lg md:text-xl font-bold text-gray-900">Политика конфиденциальности</h3>
+                <h3 class="text-lg md:text-xl font-bold text-gray-900">Политика в отношении обработки персональных данных</h3>
                 <button id="close-privacy" aria-label="Закрыть окно политики" class="text-gray-400 hover:text-gray-900">
                     <span class="sr-only">Закрыть</span>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round"/></svg>
                 </button>
             </div>
-            <div class="p-6 md:p-8 overflow-y-auto space-y-4 text-sm text-gray-700 font-light">
-                <p class="text-gray-900 font-bold">1. Общие положения</p>
-                <p>Настоящая политика обработки персональных данных составлена в соответствии с требованиями Федерального закона от 27.07.2006. №152-ФЗ «О персональных данных».</p>
-                <p class="text-gray-900 font-bold">2. Сбор данных</p>
-                <p>Мы собираем: Имя и Номер телефона, исключительно по добровольному согласию через формы сайта.</p>
+            <div class="p-6 md:p-8 overflow-y-auto space-y-5 text-sm text-gray-700 font-light leading-relaxed">
+                <div>
+                    <h4 class="text-gray-900 font-bold mb-2">1. Общие положения</h4>
+                    <p>1.1. Настоящая Политика в отношении обработки персональных данных (далее — Политика) разработана в соответствии с требованиями пункта 2 части 1 статьи 18.1 Федерального закона от 27.07.2006 № 152-ФЗ «О персональных данных» и определяет порядок обработки персональных данных и меры по обеспечению их безопасности на сайте ClimaFlow (далее — Оператор).</p>
+                    <p>1.2. Использование сервисов сайта означает безоговорочное согласие Пользователя с настоящей Политикой и условиями обработки его персональной информации. В случае несогласия с этими условиями Пользователь должен воздержаться от использования сайта.</p>
+                </div>
+                <div>
+                    <h4 class="text-gray-900 font-bold mb-2">2. Цели сбора персональной информации пользователя</h4>
+                    <p>2.1. Персональную информацию Пользователя Оператор может использовать в следующих целях:</p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1">
+                        <li>Установление с Пользователем обратной связи, включая направление уведомлений, запросов, касающихся оказания услуг, расчета стоимости (сметы) и обработки заявок.</li>
+                        <li>Предоставление Пользователю эффективной клиентской и технической поддержки при возникновении проблем, связанных с использованием сайта или климатического оборудования.</li>
+                        <li>Подтверждение достоверности и полноты персональных данных, предоставленных Пользователем.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-gray-900 font-bold mb-2">3. Объем и категории обрабатываемых персональных данных</h4>
+                    <p>3.1. К персональным данным, обрабатываемым в соответствии с настоящей Политикой, относятся:</p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1">
+                        <li>Фамилия, Имя, Отчество (по желанию);</li>
+                        <li>Контактный телефон;</li>
+                        <li>Иные данные, которые Пользователь добровольно оставляет в полях форм обратной связи.</li>
+                    </ul>
+                    <p class="mt-2">3.2. Оператор не проверяет достоверность персональной информации, предоставляемой Пользователем, и не имеет возможности оценивать его дееспособность.</p>
+                </div>
+                <div>
+                    <h4 class="text-gray-900 font-bold mb-2">4. Порядок и условия обработки персональных данных</h4>
+                    <p>4.1. Обработка персональных данных Пользователя осуществляется без ограничения срока, любым законным способом, в том числе в информационных системах персональных данных с использованием средств автоматизации или без использования таких средств.</p>
+                    <p>4.2. В отношении персональной информации Пользователя сохраняется ее полная конфиденциальность. Данные не передаются третьим лицам за исключением случаев, прямо предусмотренных действующим законодательством РФ.</p>
+                    <p>4.3. При утрате или разглашении персональных данных Оператор информирует Пользователя об утрате или разглашении персональных данных. Оператор принимает необходимые организационные и технические меры для защиты персональной информации от неправомерного доступа, уничтожения, изменения, блокирования, копирования, распространения.</p>
+                </div>
+                <div>
+                    <h4 class="text-gray-900 font-bold mb-2">5. Актуализация, исправление, удаление и уничтожение персональных данных</h4>
+                    <p>5.1. Пользователь может в любой момент отозвать свое согласие на обработку персональных данных, направив Оператору соответствующее уведомление через доступные каналы связи (телефон, мессенджеры).</p>
+                    <p>5.2. В случае отзыва согласия Оператор прекращает обработку персональных данных и уничтожает их в срок, не превышающий 30 дней с даты поступления указанного отзыва.</p>
+                </div>
+                <div>
+                    <h4 class="text-gray-900 font-bold mb-2">6. Реквизиты и контакты</h4>
+                    <p>Для реализации своих прав или получения дополнительных разъяснений по вопросам обработки ПД Пользователь может связаться с Оператором по телефону: <strong>+7 (959) 509-46-45</strong>.</p>
+                </div>
             </div>
-            <div class="p-6 border-t border-gray-100 flex justify-end">
-                <button id="agree-privacy-btn" class="bg-gray-900 text-white px-6 py-3 rounded-xl text-xs font-bold uppercase">Понятно</button>
+            <div class="p-6 border-t border-gray-100 flex justify-end bg-gray-50 rounded-b-3xl">
+                <button id="agree-privacy-btn" class="bg-gray-900 text-white px-8 py-4 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-[#146C8C] transition-colors">Я согласен(на)</button>
             </div>
         </div>
     </div>
